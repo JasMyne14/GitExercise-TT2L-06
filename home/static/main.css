@@ -1,41 +1,60 @@
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: beige;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: beige;
 }
 
 h1 {
-    color: black;
-    border-style: ridge;
-    margin: 5px;
+  align-content: center;
+  padding: 20px 300px;
+  background-color: orange;
+  color: black;
+  border-style: ridge;
+  margin: 5px;
+}
+
+.post {
+  align-content: center;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: white;
+  padding: 20px 400px;
+  color: black;
+  margin: 5px;
+}
+
+img {
+  padding-left: 650px;
+  width: 200px;
+  height: min-content;
 }
 
 .topnav {
-    overflow: hidden;
-    background-color: #333;
-  }
+  overflow: hidden;
+  background-color: #333;
+}
   
-  .topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 164px;
-    text-decoration: none;
-    font-size: 17px;
-  }
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 164px;
+  text-decoration: none;
+  font-size: 17px;
+}
   
-  .topnav a:hover {
-    background-color: #ffeed6;
-    color: black;
-  }
+.topnav a:hover {
+  background-color: #ffeed6;
+  color: black;
+}
   
-  .topnav a.active {
-    background-color: #ffc65d;
-    color: white;
-  }
+.topnav a.active {
+  background-color: #ffc65d;
+  color: white;
+}
 
   /*sidebar*/
-  .sidenav {
+.sidenav {
   height: 100%;
   width: 0;
   position: fixed;
@@ -58,7 +77,7 @@ h1 {
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #fafdcb
 }
 
 .sidenav .closebtn {

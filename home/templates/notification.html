@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Home Page</title>
+    <title>Notifications</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
     <script src='main.js'></script>
@@ -37,18 +37,10 @@
     </script>
     <br />
 
-    <h1>Home feed; latest update of cats around the world!</h1>
+    <h1>Notification-liked post</h1>
     <ul>
-        <li>Add post</li>
-        <img src="{{url_for('static',filename='picture/neko.jpg')}}" alt="cat pic">
+        <li>eg: spinach liked your post. 23s ago</li>
+        <li>eg: spinach commented on your post. 30s ago</li>
     </ul>
-
-    {% for post in posts %}
-        <div class="post">
-            <h2>{{ post.title }}</h2>
-            <p><strong>Author:</strong> {{ post.author }}</p>
-            <p>{{ post.content }}</p>
-        </div>
-{% endfor %}
 </body>
 </html>
