@@ -7,7 +7,7 @@ def home():
     posts = [
         {'user': 'John', 'title': 'First Post', 'content': 'Hello, this is my first post!'},
         {'user': 'Jane', 'title': 'Second Post', 'content': 'Another post here!'},
-        {'user': 'Jas', 'title': 'Third Post', 'content': 'Meow is meowing!'}
+        {'user3': 'Jas', 'title': 'Third Post', 'content': 'Meow is meowing!'}
     ]
     return render_template('home.html', name='Home', posts=posts)
 
