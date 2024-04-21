@@ -1,0 +1,12 @@
+?php
+
+#started the function session_start
+session_start();
+
+<h3> New Registration Account</h3>
+
+<!---Form for New Registration Account-->
+<form action='signup-new-user.php' method='POST'>
+
+    NAME 
+</form>
