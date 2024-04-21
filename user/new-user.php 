@@ -8,5 +8,8 @@ session_start();
 <!---Form for New Registration Account-->
 <form action='signup-new-user.php' method='POST'>
 
-    NAME 
+    NAME        <input type='text'     name='Full Name'     required><br>
+    PASSWORD    <input type='password'     name='Password'     required><br>
+                <input type='submit' value='Register'>
+
 </form>
