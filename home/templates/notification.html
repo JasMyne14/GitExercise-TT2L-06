@@ -22,6 +22,32 @@
         <a href="#">Log out</a>
       </div>
 
+      <script type="text/javascript">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('connect', function() {
+            console.log('Connected');
+        });
+
+        socket.on('notification', function(data) {
+            alert(data.message); // Show a notification to the user
+        });
+
+        function followUser(followed) {
+            var follower = '{{ current_user.username }}'; // Replace with current user's username
+            socket.emit('follow', {'follower': follower, 'followed': followed});
+        }
+
+        function likePost(postOwner) {
+            var liker = '{{ current_user.username }}'; // Replace with current user's username
+            socket.emit('like', {'liker': liker, 'post_owner': postOwner});
+        }
+
+        function commentPost(postOwner) {
+            var commenter = '{{ current_user.username }}'; // Replace with current user's username
+            socket.emit('comment', {'commenter': commenter, 'post_owner': postOwner});
+        }
+    </script>
 </head>
 <body>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
@@ -42,5 +68,21 @@
         <li>eg: spinach liked your post. 23s ago</li>
         <li>eg: spinach commented on your post. 30s ago</li>
     </ul>
+
+    <ul>
+        {% for notification in notifications %}
+            <li>{{ notification }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Users</h2>
+    <ul>
+        {% for username, user in users.items() %}
+            <li>{{ user['username'] }}
+                <button onclick="followUser('{{ username }}')">Follow</button>
+            </li>
+        {% endfor %}
+    </ul>
+    
 </body>
 </html>
