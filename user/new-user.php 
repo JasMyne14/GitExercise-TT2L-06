@@ -1,4 +1,4 @@
-?php
+<?php
 
 #started the function session_start
 session_start();
@@ -13,3 +13,4 @@ session_start();
                 <input type='submit' value='Register'>
 
 </form>
+?>
