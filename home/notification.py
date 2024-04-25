@@ -5,7 +5,7 @@ notification = Blueprint('notification',__name__)
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = 'notifications'
 socketio = SocketIO(app)
 
 # Sample data (replace with database integration)
