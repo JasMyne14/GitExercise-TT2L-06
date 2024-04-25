@@ -6,8 +6,11 @@ def create_app():
 
     from .notification import notification
     from .views import views
-    
-    app.register_blueprint(notification, url_prefix='/notification')
+    from .about_us import about_us
+
     app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(about_us, url_prefix='/about_us')
+    app.register_blueprint(notification, url_prefix='/notification')
+
 
     return app

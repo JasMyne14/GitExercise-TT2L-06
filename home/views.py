@@ -22,4 +22,4 @@ def notification():
 
 @views.route('/about_us')
 def about_us():
-    render_template('about_us.html')
+    return render_template('about_us.html')
