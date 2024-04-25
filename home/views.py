@@ -19,3 +19,7 @@ def notification():
         'user2': {'username': 'user2', 'notifications': []}
     }    
     return render_template('notification.html', notification='Notification', users=users)
+
+@views.route('/about_us')
+def about_us():
+    render_template('about_us.html')

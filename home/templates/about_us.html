@@ -1,1 +1,73 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Notifications</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+    <script src='main.js'></script>
+
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="#post">Post</a>
+        <a href="#adopt">Adopt meow</a>
+        <a href="/about_us">About Us</a>
+      </div>
+
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">User</a>
+        <a href="/notification">Notification</a>
+        <a href="#">Log out</a>
+      </div>
+
+      <script type="text/javascript">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('connect', function() {
+            console.log('Connected');
+        });
+
+        socket.on('notification', function(data) {
+            alert(data.message); // Show a notification to the user
+        });
+
+        function followUser(followed) {
+            var follower = '{{ current_user.username }}'; // Replace with current user's username
+            socket.emit('follow', {'follower': follower, 'followed': followed});
+        }
+
+        function likePost(postOwner) {
+            var liker = '{{ current_user.username }}'; // Replace with current user's username
+            socket.emit('like', {'liker': liker, 'post_owner': postOwner});
+        }
+
+        function commentPost(postOwner) {
+            var commenter = '{{ current_user.username }}'; // Replace with current user's username
+            socket.emit('comment', {'commenter': commenter, 'post_owner': postOwner});
+        }
+    </script>
+</head>
+<body>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+    <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+    <br />
+
+    <h1>Everything about us!</h1>
+    <ul>
+        <li>Jasmyne Yap : Founder of Nekoyangi</li>
+        <li>Aleez Dayana : Top Manager of Nekoyangi </li>
+    </ul>
+    
+</body>
+</html>
