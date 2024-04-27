@@ -11,6 +11,6 @@ def create_app():
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
-    app.register_blueprint(donation, url_prefix='/about')
+    app.register_blueprint(donation, url_prefix='/donation')
 
     return app
