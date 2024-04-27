@@ -95,10 +95,10 @@ img {
 
 /*Donation page*/
 
-.donate {
-  padding: 15px 25px;
-  text-align: center;
+.donate a:link {
+  color: rgb(112, 92, 55);
+  background-color: transparent;
   text-decoration: none;
-  display: inline-block;
-  background-color: #f6a475;
+  border: #111;
+  padding: 20px 5px;
 }
