@@ -20,7 +20,6 @@ def notification():
     }    
     return render_template('notification.html', notification='Notification', users=users)
 
-@views.route('/about')
-def about_us():
-    print('About us page')
-    return render_template('about_us.html', about='about')
+@views.route('/donation')
+def donation():
+    return render_template('donation.html', donation='donation')
