@@ -95,13 +95,17 @@ img {
 
 /*Donation page*/
 
+.donate {
+  margin-left: 30px;
+}
+
 .donate a:link {
   background-color: rgb(239, 217, 191);
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   font-size: medium;
   text-align: center;
-  padding: 20px 5px;
+  padding: 20px 10px;
   border: 2px solid black;
   display: inline-block;
   margin: 5px;
@@ -113,8 +117,8 @@ img {
   border: 2px solid black;
 }
 
-.donate img {
+/*.donate img {
   float:left;
-  width: 60px;;
-  height: 60px;;
+  width: 60px;
+  height: 60px;
 }
