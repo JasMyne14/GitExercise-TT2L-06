@@ -96,9 +96,19 @@ img {
 /*Donation page*/
 
 .donate a:link {
-  color: rgb(112, 92, 55);
-  background-color: transparent;
+  background-color: rgb(239, 217, 191);
   text-decoration: none;
-  border: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  text-align: center;
   padding: 20px 5px;
+  border: 2px solid black;
+  display: inline-block;
+  margin: 5px;
+}
+
+.donate a:hover, a:active {
+  background-color: rgb(248, 213, 107);
+  color: black;
+  border: 2px solid black;
 }
