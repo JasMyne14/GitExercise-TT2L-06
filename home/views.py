@@ -30,4 +30,4 @@ def post():
 
 @views.route('/adopt')
 def adopt():
-    return 'Adoption page'
+    return '<h2>Adoption page</h2>'
