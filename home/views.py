@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory
 
 
 views = Blueprint('views',__name__)
@@ -23,3 +23,11 @@ def notification():
 @views.route('/donation')
 def donation():
     return render_template('donation.html', donation='donation')
+
+@views.route('/post')
+def post():
+    return '<h1>Post page - make post</h1>'
+
+@views.route('/adopt')
+def adopt():
+    return 'Adoption page'
