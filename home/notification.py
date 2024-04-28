@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit
 notification = Blueprint('notification',__name__)
 
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'notifications'
 socketio = SocketIO(app)
 
