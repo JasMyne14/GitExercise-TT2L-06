@@ -14,7 +14,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def home():
-    if 'username' in sessions:
+    if 'username' in session:
         return render_template('homepage.html', username=session['username'])
     else:
         return render_template('homepage.html')
@@ -22,4 +22,21 @@ def home():
 @app.route('/')
 def login():
     if request.method == 'POST':
-        username = request.form
+        username = request.form['username']
+        pwd = request.form['password']
+        cur = mysql.connection.cursor()
+        cur.execute(f"select username, password from tbl_users where username = '{username}'"')
+        user = cur.fetchnone()
+        cur.close()
+        if user and pwd == user[1]:
+            session['username'] = user[1]
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    return render_template('login.html')
+
+            
+        
+
+if __name__ == "__main__":
+    app.run(debug=True)
