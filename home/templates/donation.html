@@ -45,23 +45,30 @@
         <li>Aniqah: Assistant Manager of Nekoyangi</li>
     </ul>
     <div class="donate">
-        <h3>list of donation website/link from trusted organisations</h3>
+        <h3>list of donation websites/links from trusted organisations</h3>
     </div>
 
     <div class="image">
-        <a href ="https://www.paws.org.my/donate" target="_blank">Paws Animal Welfare Society</a>
-        <img src="{{ url_for('static', filename='picture/love.png') }}" alt="org. logo">
+        <a href ="https://www.paws.org.my/donate" target="_blank">
+        <img src="{{ url_for('static', filename='picture/paws.png') }}" alt="org. logo"></a>
     </div>
 
     <div class="image">
-        <a href="https://mnawf.org.my/donate/" target="_blank">Malaysian National Animal Welfare Foundation (MNAWF)</a>
-        <img src="{{ url_for('static', filename='picture/love.png') }}" alt="org2. logo">
+        <a href="https://mnawf.org.my/donate/" target="_blank">
+        <img src="{{ url_for('static', filename='picture/MNAWF.png') }}" alt="org2. logo"></a>
     </div>
 
     <div class="image">
-        <a href="https://catbeachpenang.com/donate/" target="_blank">Cat beach</a>
-        <img src="{{ url_for('static', filename='picture/love.png') }}" alt="org3. logo">
+        <a href="https://catbeachpenang.com/donate/" target="_blank">
+        <img src="{{ url_for('static', filename='picture/cat_beach.png') }}" alt="org3. logo"></a>
     </div>
     
+    <div class="link">
+        <ul>
+            {% for link in links %}
+            <li><a href="{{ link.url }}" target="_blank">{{ link.text }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

@@ -22,7 +22,11 @@ def notification():
 
 @views.route('/donation')
 def donation():
-    return render_template('donation.html', donation='donation')
+    links= [{'url':"https://www.paws.org.my/donate", "text":"donate1"},
+            {'url':"https://mnawf.org.my/donate/", "text":"donate2"},
+            {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
+    ]
+    return render_template('donation.html', donation='donation', links=links)
 
 @views.route('/post')
 def post():
