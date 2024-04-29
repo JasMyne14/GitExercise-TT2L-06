@@ -4,13 +4,13 @@ from flask import Blueprint, render_template, request, send_from_directory
 views = Blueprint('views',__name__)
 
 @views.route('/')
-def home():
+def main():
     posts = [
         {'user': 'Aleez', 'title': 'First Post', 'content': 'Hello, this is my first post!'},
         {'user': 'Koyangi', 'title': 'Second Post', 'content': 'Another post here!'},
         {'user3': 'Jas', 'title': 'Third Post', 'content': 'Meow is meowing!'}
     ]
-    return render_template('home.html', name='Home', posts=posts)
+    return render_template('main.html', name='main', posts=posts)
 
 @views.route('/notification')
 def notification():

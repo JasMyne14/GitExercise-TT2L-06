@@ -10,7 +10,7 @@
    <script src='main.js'></script>
 
     <div class="topnav">
-        <a class="active" href="/">Home</a>
+        <a class="active" href="/">Main page</a>
         <a href="/post">Post</a>
         <a href="/adopt">Adopt meow</a>
         <a href="/donation">About</a>
@@ -38,7 +38,7 @@
     </script>
     <br />
 
-    <div class="home">
+    <div class="main">
         <h1>Home feed; latest update of cats around the world!</h1>
         <ul>
             <li>Add post</li>
@@ -52,6 +52,6 @@
             <p><strong>Author:</strong> {{ post.author }}</p>
             <p>{{ post.content }}</p>
         </div>
-{% endfor %}
+    {% endfor %}
 </body>
 </html>
