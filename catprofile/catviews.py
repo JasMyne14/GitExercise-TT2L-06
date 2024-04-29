@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint
+from flask import Blueprint
 from catprofile import create_app
 
 app = create_app()
