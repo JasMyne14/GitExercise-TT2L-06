@@ -17,7 +17,7 @@ body {
 .container {
     max-width: 700px;
     width: 100%;
-    background: #ffd993;
+    background: #ffdb99;
     padding: 25px 30px;
     border-radius: 10px;
 }
@@ -26,15 +26,25 @@ body {
     text-align: center;
 }
 
-.input-box form .details input {
-    width: 350px;
-    height: 250px;
+input {
+    width: 150px;
+    height: 50px;
+    text-align: center;
+}
+
+input .details .description {
+    width: 200px;
+    height: 75px;
+}
+input placeholder {
+    text-align: center;
 }
 .container .title::before {
     content: '';
     position: absolute;
     height: 3px;
     width: 30px;
+    text-align: center;
 }
 
 .container form .user-details {
