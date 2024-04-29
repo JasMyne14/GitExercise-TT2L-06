@@ -1,7 +1,6 @@
 from flask import Blueprint
-from catprofile import create_app
 
-app = create_app()
+catviews = Blueprint('catviews', __name__)
 
 if __name__ == '__main__':
     app.run(debug=True)
