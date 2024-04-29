@@ -48,6 +48,9 @@ body {
     font-weight: bold;
 }
 
+.input-box .details {
+    margin: 50px;
+}
 
 form .submit-button input {
     background: #f6a475;
