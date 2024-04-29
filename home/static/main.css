@@ -23,7 +23,7 @@ h1 {
   margin: 5px;
 }
 
-img {
+.home img {
   padding-left: 650px;
   width: 200px;
   height: min-content;
@@ -91,4 +91,46 @@ img {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+/*Donation page*/
+
+.donate {
+  margin-left: 30px;
+}
+
+.donate a:link {
+  background-color: rgb(239, 217, 191);
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  text-align: center;
+  padding: 20px 10px;
+  border: 2px solid black;
+  display: inline-block;
+  margin: 5px;
+}
+
+.donate a:hover, a:active {
+  color: black;
+}
+
+.image {
+  text-align: center;
+}
+
+.image img:hover {
+  border: 5px solid rgb(247, 72, 72);
+}
+
+.image img {
+  width: 360px;
+  height: 260px;
+  float: left;
+  margin: 10px;
+  border: 2px solid black;
+}
+
+.link {
+  overflow: hidden;
 }
