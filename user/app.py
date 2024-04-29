@@ -46,7 +46,7 @@ def logout():
 def register():
     mesage = ''
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
-        full_name = request.form['name']
+        username = request.form['username']
         password = request.form['password']
         email = request.form['email']
         cursor = mysql.connection.cursor(MySQL.dbcursors.DictCursor)
@@ -56,5 +56,14 @@ def register():
             mesage = 'Account Already exists !'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             mesage = 'Invalid email address !'
-        elif not full_name or not password or not email:
-            
+        elif not username or not password or not email:
+            mesage = 'Please fill out the form !'
+        else:
+            cursor.execute('INSERT INTO tbl_users')
+            mysql.connection.commit()
+            mesage ='You have succesfully registered ! '
+    elif request.method == 'POST':
+        mesage = 'Please fill out the form !'
+    return render_template(register.html, mesage = mesage)
+
+if __name__ == "_main_" :
