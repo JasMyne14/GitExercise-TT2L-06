@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_mysqldb import MySQL
+from flask_sqlalchemy import SQLAlchemy
+#from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 
@@ -30,7 +31,7 @@ def login ():
             session['full_name'] = user['full_name']
             session['email'] = user['email']
             mesage = 'Logged in succesfully !'
-            return render_template('login.html', mesage = mesage)
+            return render_template('login.html')
         else:
             mesage = ''
 
@@ -59,11 +60,12 @@ def register():
         elif not username or not password or not email:
             mesage = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO tbl_users')
+            cursor.execute('INSERT INTO tbl_users VALUES (NULL, % s, & s,% s)', (username, email, password, ))
             mysql.connection.commit()
             mesage ='You have succesfully registered ! '
     elif request.method == 'POST':
         mesage = 'Please fill out the form !'
-    return render_template(register.html, mesage = mesage)
+    return render_template('register.html')
 
-if __name__ == "_main_" :
+if __name__ == "__main__" :
+    app.run(debug=True)
