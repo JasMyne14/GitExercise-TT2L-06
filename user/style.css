@@ -10,14 +10,14 @@ body {
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background-image: url('backgroundcat.jpeg');
+    background-image: url('backgroundcat3.jpeg');
     background-size: center;
 }
 
 .container {
     max-width: 700px;
     width: 100%;
-    background: #ffc65d;
+    background: #ffd88e;
     padding: 25px 30px;
     border-radius: 10px;
 }
@@ -26,6 +26,10 @@ body {
     text-align: center;
 }
 
+.input-box form .details input {
+    width: 350px;
+    height: 250px;
+}
 .container .title::before {
     content: '';
     position: absolute;
@@ -48,12 +52,9 @@ body {
     font-weight: bold;
 }
 
-.input-box .details {
-    margin: 50px;
-}
 
-form .submit-button input {
-    background: #f6a475;
+.submit-button input{
+    background-color: #f6a475;
     border-style: none;
     border-radius: 6px;
     font-size: 15px;
@@ -61,5 +62,19 @@ form .submit-button input {
     font-weight: bold;
     color: white;
     padding: 20px;
-    margin-left: 550px;
+    max-width: 700px;
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.submit-button .container {
+    position: fixed;
+    left: 75%;
+    transform: translateX(-50%); 
+    z-index: 999;
+    margin-bottom: 150px;
+}
+
+.submit-button:hover input{
+    background-color: #ff6347;
 }
