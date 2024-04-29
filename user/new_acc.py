@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_mysqldb import MySQL
 
 app = Flask('__name__')
 app.secret_key = 'new-account'
@@ -10,7 +9,6 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_HOST'] = 'flask_users'
 
-mysql = MySQL(app)
 
 @app.route('/')
 def home():
@@ -25,7 +23,7 @@ def login():
         username = request.form['username']
         pwd = request.form['password']
         cur = mysql.connection.cursor()
-        cur.execute(f"select username, password from tbl_users where username = '{username}'"')
+        cur.execute(f"select username, password from tbl_users where username = '{username}'")
         user = cur.fetchnone()
         cur.close()
         if user and pwd == user[1]:
@@ -39,4 +37,4 @@ def login():
         
 
 if __name__ == "__main__":
-    new-acc.run(debug=True)
+    new_acc.run(debug=True)
