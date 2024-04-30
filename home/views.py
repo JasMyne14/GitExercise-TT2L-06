@@ -1,15 +1,12 @@
-from flask import Blueprint, render_template, request, send_from_directory
+from flask import Blueprint, render_template, request, redirect,url_for, send_from_directory
+from flask_sqlalchemy import SQLAlchemy
 
 
 views = Blueprint('views',__name__)
 
 @views.route('/')
 def main():
-    posts = [
-        {'user': 'Aleez', 'title': 'First Post', 'content': 'Hello, this is my first post!'},
-        {'user': 'Koyangi', 'title': 'Second Post', 'content': 'Another post here!'},
-        {'user3': 'Jas', 'title': 'Third Post', 'content': 'Meow is meowing!'}
-    ]
+    posts = Post.query.all()
     return render_template('main.html', name='main', posts=posts)
 
 @views.route('/notification')
@@ -28,14 +25,25 @@ def donation():
     ]
     return render_template('donation.html', donation='donation', links=links)
 
-@views.route('/post')
-def post():
-    return '<h1>Post page - make post</h1>'
+db=SQLAlchemy(app)
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+
+@views.route('/post/new',methods=['GET','POST'])
+def create_post():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        new_post = Post(title=title, content=content)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('main'))
+    
+    return render_template('post.html')
+
 
 @views.route('/adopt')
 def adopt():
     return '<h2>Adoption page</h2>'
-
-@views.route('/form')
-def form():
-    return render_template('form.html', form='form')

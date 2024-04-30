@@ -7,13 +7,13 @@ def create_app():
     from .donation import donation
     from .notification import notification
     from .views import views
-    from .form import form
+    from .post import post
 
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
     app.register_blueprint(donation, url_prefix='/donation')
-    app.register_blueprint(form, url_prefix='/form')
+    app.register_blueprint(post, url_prefix='/post')
 
 
     return app
