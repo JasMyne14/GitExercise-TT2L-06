@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint
+from flask import Flask, Blueprint
 
 catprofile = Blueprint('catprofile',__name__)
 
