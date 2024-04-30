@@ -6,5 +6,5 @@ catviews = Blueprint('catviews', __name__)
 def catprofile():
     return "<h1>Test</h1>"
 
-#if __name__ == '__main__':
-#    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

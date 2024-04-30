@@ -4,4 +4,4 @@ catprofile = Blueprint('catprofile',__name__)
 
 @catprofile.route('/catprofile')
 def catprofile():
-    return 'cat profile'
+    return '<h1>cat profile</h1>'
