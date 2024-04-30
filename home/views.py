@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect,url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-
+from home import create_app
+from .post import Post
 
 views = Blueprint('views',__name__)
 
@@ -24,25 +25,6 @@ def donation():
             {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
     ]
     return render_template('donation.html', donation='donation', links=links)
-
-db=SQLAlchemy(app)
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-
-@views.route('/post/new',methods=['GET','POST'])
-def create_post():
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-        new_post = Post(title=title, content=content)
-        db.session.add(new_post)
-        db.session.commit()
-        return redirect(url_for('main'))
-    
-    return render_template('post.html')
-
 
 @views.route('/adopt')
 def adopt():
