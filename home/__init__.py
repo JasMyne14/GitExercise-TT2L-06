@@ -21,14 +21,4 @@ def create_app():
     app.register_blueprint(donation, url_prefix='/donation')
     app.register_blueprint(post, url_prefix='/post')
 
-    import .models import *
-
-
-    create_database(app)
-
     return app
-
-def create_database(app):
-    if not path.exists('website/'+ DB_NAME):
-        db.create_all(app=app)
-        print('Created Database:')
