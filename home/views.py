@@ -35,3 +35,7 @@ def post():
 @views.route('/adopt')
 def adopt():
     return '<h2>Adoption page</h2>'
+
+@views.route('/form')
+def form():
+    return render_template('form.html', form='form')
