@@ -1,7 +1,7 @@
 from flask import Flask,Blueprint
 
-catregister = Blueprint('catregister',__name__)
+registercat = Blueprint('catregister',__name__)
 
-@catregister.route('/catregister')
-def catregister():
-    return 'register your cat here!'
+@registercat.route('/catregister')
+def registercat():
+    return '<h1>register your cat here!</h1>'

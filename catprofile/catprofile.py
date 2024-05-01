@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint
 
-catprofile = Blueprint('catprofile',__name__)
+profile_page = Blueprint('catprofile',__name__)
 
-@catprofile.route('/catprofile')
-def catprofile():
-    return '<h1>cat profile</h1>'
+@profile_page.route('/catprofile')
+def profile_page():
+    return '<h1>Cat Profile</h1>'
