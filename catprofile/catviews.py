@@ -1,10 +1,12 @@
 from flask import Blueprint
 
-viewscat = Blueprint('catviews', __name__)
+viewscat = Blueprint('viewscat', __name__)
 
 @viewscat.route('/')
-def viewscat():
+def catviews():
     return "<h1>Test</h1>"
 
-if __name__ == '__main__':
-  app.run(debug=True)
+#@viewscat.route('/catprofile')
+#def profile_page():
+#    return "<h1>Cat Profile</h1>"
+
