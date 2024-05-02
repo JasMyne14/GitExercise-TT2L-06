@@ -12,8 +12,8 @@ def catviews():
 
 @viewscat.route('/registercat')
 def registercat():
-    return '<h1>Register your cat here!</h1>'
+    return render_template('catregister.html')
 
 @viewscat.route('/profile_page')
 def profile_page():
-    return '<h1>Cat Profile</h1>'
+    return render_template('catprofile.html')
