@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect,url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .post import Post
+from .models import db,Post
 
 views = Blueprint('views',__name__)
 
