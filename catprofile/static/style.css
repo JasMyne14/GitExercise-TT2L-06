@@ -16,15 +16,22 @@ body {
     float: left;
     color: #f6e5cb;
     text-align: center;
-    padding: 14px 162px;
+    padding: 14px 0;;
     text-decoration: none;
     font-size: 17px;
+    width: 25%;
 }
   
 .topnav a:hover, a.active {
     background-color: #dba76d;
     color: #62442f;
     font-size: 17px;
+}
+
+.topnav::after {
+    content: "";
+    display: table;
+    clear: both;
 }
   
 /*sidebar*/
@@ -40,6 +47,10 @@ body {
     border-radius: 10px; 
 }
 
+.menu-button:hover {
+    background-color:#c29045
+}
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -53,26 +64,26 @@ body {
     padding-top: 60px;
   }
   
-  .sidenav a {
+.sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #ddc7ab;
     display: block;
     transition: 0.3s;
-  }
+}
   
-  .sidenav a:hover {
+.sidenav a:hover {
     color: #fafdcb
-  }
+}
   
-  .sidenav .closebtn {
+.sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-  }
+}
 
 /*CatRegisterPage*/
 .catformpage {
@@ -89,7 +100,7 @@ body {
     color: #553b29; 
 }
 
-.container {
+.container_catform {
     background-color: #f6e5cb;
     border-radius: 20px; 
     border: 2px solid #dab185;
