@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect,url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .models import db,Post
+from .post import posts
 
 views = Blueprint('views',__name__)
 
@@ -28,7 +28,7 @@ def donation():
 
 @views.route('/post')
 def post():
-    return 'Post page'
+    return render_template('post.html',posts=posts)
 
 @views.route('/adopt')
 def adopt():
