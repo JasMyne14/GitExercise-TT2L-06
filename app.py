@@ -20,9 +20,10 @@ class Users(db.Model):
     name = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), nullable=False)
 
-    #Create A String
+#Create a function to rreturn a string when we add
     def __repr__(self):
-        return 'Name %r>' % self.name
+        return '<Name %r>' % self.id
+    
 @app.route('/')
 def index():
     return render_template("register.html")
@@ -30,8 +31,8 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login(): 
     if request.method == 'POST':
-        pass
-    return render_template('login.html')
+        pass 
+        return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
