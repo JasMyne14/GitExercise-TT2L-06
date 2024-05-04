@@ -7,7 +7,6 @@ views = Blueprint('views',__name__)
 
 @views.route('/')
 def main():
-    posts = Post.query.all()
     return render_template('main.html', name='main', posts=posts)
 
 @views.route('/notification')
@@ -25,6 +24,11 @@ def donation():
             {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
     ]
     return render_template('donation.html', donation='donation', links=links)
+
+
+@views.route('/post')
+def post():
+    return 'Post page'
 
 @views.route('/adopt')
 def adopt():
