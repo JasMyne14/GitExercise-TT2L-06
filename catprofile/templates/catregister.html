@@ -3,14 +3,47 @@
     <head>
         <title>Cat Registration</title>
         <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='style.css')}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src='main.js'></script>    
     </head>
         
-    <body>
-        <form>
+    <body class="catformpage">
+
+        <div class="topnav">
+            <a class="active" href="/">Main</a>
+            <a href="/post">Post</a>
+            <a href="/adopt">Adopt Meow</a>
+            <a href="/donation">About</a>
+          </div>
+    
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/user">User</a>
+            <a href="/notification">Notification</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/profile_page">Cat Profile</a>
+            <a href="#">Log out</a>
+          </div>
+
+        <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
+
+        <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        </script>
+        <br />
+        
             <div class="container">
                 <h1>Register Your Cat Here!</h1>
                 <p>Please fill up this form to register an account for your cat.</p>
                 <hr>
+
+                <form class="catform">  
                 <h3><u>Cat's Details</u></h3>
                 <section class ="cat_name">
                 <label for ="cat_name"><b>Cat's Name:</b></label>
@@ -71,6 +104,12 @@
                     <input type="radio" name="neutered" id="notneutered" value="notneutered" required>Not Neutred
                 </section>
 
+                <section class="cat_vaccinated">
+                    <label for="vaccine"><b>Vaccine Status:</b></label>
+                    <input type="radio" name="vaccine" id="yesvaccinated" value="yesvaccinated" required>Vaccinated
+                    <input type="radio" name="vaccine" id="notvaccinated" value="notvaccinated" required>Not Vaccinated
+                </section>
+
                 <section class="cat_special_needs">
                     <label for="special_needs"><b>Special Needs:</b></label>
                     <input type="text" placeholder="Enter special needs" name="special_needs" id="special_needs" required maxlength="50">
@@ -105,7 +144,8 @@
                     <input type="submit" value="Register Cat">
                 </section>
 
+                </form>
             </div>    
-        </form> 
+         
     </body>
 </html>
