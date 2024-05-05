@@ -14,10 +14,13 @@ def create_app():
     from .notification import notification
     from .views import views
     from .post import post
+    from .createpost import createpost
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
     app.register_blueprint(donation, url_prefix='/donation')
     app.register_blueprint(post, url_prefix='/post')
+    app.register_blueprint(createpost, url_prefix='/createpost')
+
 
     return app

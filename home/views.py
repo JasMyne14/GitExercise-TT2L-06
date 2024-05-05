@@ -21,6 +21,10 @@ def notification():
 def post():
     return render_template('post.html',posts=posts)
 
+@views.route('/createpost')
+def createpost():
+    return render_template('createpost.html')
+
 @views.route('/adopt')
 def adopt():
     return '<h2>Adoption page</h2>'
