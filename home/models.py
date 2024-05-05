@@ -2,9 +2,8 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
-
-
-db = SQLAlchemy()
+from flask import current_app
+from home import db 
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)

@@ -1,27 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Notifications</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
-
-    <div class="topnav">
-        <a class="active" href="/">Main</a>
-        <a href="/post">Post</a>
-        <a href="/adopt">Adopt meow</a>
-        <a href="/donation">About</a>
-      </div>
-
-      <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">User</a>
-        <a href="/notification">Notification</a>
-        <a href="#">Log out</a>
-      </div>
-
+{% extends "nav.html" %}
+{% block content %}
       <script type="text/javascript">
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -48,8 +26,7 @@
             socket.emit('comment', {'commenter': commenter, 'post_owner': postOwner});
         }
     </script>
-</head>
-<body>
+
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
 
     <script>
@@ -84,5 +61,4 @@
         {% endfor %}
     </ul>
     
-</body>
-</html>
+{% endblock content %}

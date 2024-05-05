@@ -14,6 +14,7 @@ users = {
     'user2': {'username': 'user2', 'notifications': []}
 }
 
+
 @socketio.on('follow')
 def handle_follow(data):
     follower = data['follower']
