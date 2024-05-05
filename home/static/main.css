@@ -6,9 +6,9 @@ body {
 
 h1 {
   align-content: center;
-  padding: 20px 300px;
+  padding: 100px 200px 0px 10px;
   color: black;
-  margin: 5px;
+  margin: 20px;
 }
 
 .post, .post-content {
@@ -22,13 +22,15 @@ h1 {
 }
 
 .post_add {
-  border: 6px solid black;
+  border: 3px solid black;
+  border-color: #ddc7ab;
   text-align: center;
-  padding: 30px;
+  padding: 50px;
+  width: 150px;
 }
 
 .newpost a {
-  padding: 8px 8px 8px 87%;
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #47301a;

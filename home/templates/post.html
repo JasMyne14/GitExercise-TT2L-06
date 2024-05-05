@@ -27,7 +27,6 @@
 
 </head>
 <body>
-    <h1>My Post</h1>
     <span class='menu-button' style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
 
     <script>
@@ -42,17 +41,20 @@
     <br />
 
     <title>Add Post</title>
-
-    <div class="newpost">
-        <a href="/createpost">Add new post</a>
+    <div class="mypost-content">
+        <h1>My Post</h1>
+        <div class="newpost">
+            <a href="/createpost">Add new post</a>
+        </div>
+    
+        <div class="post-content">
+            {% for post in posts %}
+                <h2>{{ post.title }}</h2>
+                <p>By {{ post.author }} on {{post.date}}</p>
+                <p>{{ post.content }}</p>
+            {% endfor %}
+        </div> 
+    
     </div>
-
-    <div class="post-content">
-        {% for post in posts %}
-            <h2>{{ post.title }}</h2>
-            <p>By {{ post.author }} on {{post.date}}</p>
-            <p>{{ post.content }}</p>
-        {% endfor %}
-    </div> 
 </body>
 </html>
