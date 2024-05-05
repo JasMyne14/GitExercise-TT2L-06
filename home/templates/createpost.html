@@ -20,12 +20,15 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/user">User</a>
         <a href="/notification">Notification</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/profile_page">Cat Profile</a>
         <a href="#">Log out</a>
     </div>
 
 </head>
 <body>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+    <h1>Post</h1>
+    <span class='menu-button' style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
 
     <script>
     function openNav() {
@@ -39,7 +42,6 @@
     <br />
 
     <div class="post_add">
-        <h2>Add Post</h2>
         <form id="add-post-form">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title">
@@ -47,7 +49,7 @@
             <label for="content">Content:</label>
             <textarea id="content" name="content"></textarea>
             <br><br />
-            <button type="submit">Submit</button>
+            <button type="submit">Post</button>
         </form>
     </div>
 </body>

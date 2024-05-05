@@ -6,11 +6,9 @@ body {
 
 h1 {
   align-content: center;
-  padding: 20px 300px;
-  background-color: #ffc65d;
+  padding: 100px 200px 0px 10px;
   color: black;
-  border-style: ridge;
-  margin: 5px;
+  margin: 20px;
 }
 
 .post, .post-content {
@@ -24,13 +22,15 @@ h1 {
 }
 
 .post_add {
-  border: 1px black;
+  border: 3px solid black;
+  border-color: #ddc7ab;
   text-align: center;
-  padding: 30px;
+  padding: 50px;
+  width: 150px;
 }
 
 .newpost a {
-  padding: 8px 8px 8px 87%;
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #47301a;
@@ -43,36 +43,61 @@ h1 {
   height: min-content;
 }
 
+/* Nav Bar */
 .topnav {
   overflow: hidden;
-  background-color: #62442f;
+  background-color: #705b33;
+  position: fixed; 
+  width: 100%; 
+  top: 0; 
+  z-index: 1;
 }
   
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #f6e5cb;
   text-align: center;
-  padding: 14px 162px;
+  padding: 14px 0;;
   text-decoration: none;
   font-size: 17px;
+  width: 25%;
 }
   
-.topnav a:hover {
-  background-color: #ffeed6;
-  color: #111;
+.topnav a:hover, a.active {
+  background-color: #dba76d;
+  color: #62442f;
+  font-size: 17px;
 }
-  
-.topnav a.active {
-  background-color: #ffc65d;
-  color: white;
+
+.topnav::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
   /*sidebar*/
+.menu-button {
+  position: absolute;
+  top: 60px; 
+  left: 8px; 
+  font-size: 20px;
+  cursor: pointer;
+  color: #f6e5cb; 
+  background-color: #705b33; 
+  padding: 10px 15px; 
+  border-radius: 10px; 
+}
+
+.menu-button:hover {
+  background-color:#c29045
+}
+
+
 .sidenav {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   background-color: #62442f;
@@ -85,7 +110,7 @@ h1 {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #ddc7ab;
   display: block;
   transition: 0.3s;
 }
