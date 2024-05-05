@@ -7,9 +7,7 @@ body {
 h1 {
   align-content: center;
   padding: 20px 300px;
-  background-color: #ffc65d;
   color: black;
-  border-style: ridge;
   margin: 5px;
 }
 
@@ -24,7 +22,7 @@ h1 {
 }
 
 .post_add {
-  border: 1px black;
+  border: 6px solid black;
   text-align: center;
   padding: 30px;
 }
@@ -76,21 +74,20 @@ h1 {
 }
 
   /*sidebar*/
-
-  .menu-button {
-    position: absolute;
-    top: 60px; 
-    left: 8px; 
-    font-size: 20px;
-    cursor: pointer;
-    color: #f6e5cb; 
-    background-color: #705b33; 
-    padding: 10px 15px; 
-    border-radius: 10px; 
+.menu-button {
+  position: absolute;
+  top: 60px; 
+  left: 8px; 
+  font-size: 20px;
+  cursor: pointer;
+  color: #f6e5cb; 
+  background-color: #705b33; 
+  padding: 10px 15px; 
+  border-radius: 10px; 
 }
 
 .menu-button:hover {
-    background-color:#c29045
+  background-color:#c29045
 }
 
 
