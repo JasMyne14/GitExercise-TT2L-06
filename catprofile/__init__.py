@@ -1,8 +1,14 @@
 from flask import Flask,Blueprint
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "cat"
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+    db.init_app(app)
 
     from .viewscat import viewscat
     from .profile_page import profile_page

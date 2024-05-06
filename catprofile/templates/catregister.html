@@ -43,7 +43,7 @@
                 <p>Please fill up this form to register an account for your cat.</p>
                 <hr>
 
-                <form class="catform">  
+                <form class="catform" action="/registercat/register" method="POST">  
                 <h3><u>Cat's Details</u></h3>
                 <section class ="cat_name">
                 <label for ="cat_name"><b>Cat's Name:</b></label>
@@ -58,13 +58,13 @@
                 <section class ="cat_age">
                     <label for ="age"><b>Cat's Age:</b></label>
                     <select name="age" id="age">
-                        <option value="age">Select age</option>
-                        <option value="age">0-2 year old</option>
-                        <option value="age">2-4 year old</option>
-                        <option value="age">4-8 year old</option>
-                        <option value="age">8-12 year old</option>
-                        <option value="age">12-16 year old</option>
-                        <option value="age">16-20 year old</option>
+                        <option value="0-2">Select age</option>
+                        <option value="2-4">0-2 year old</option>
+                        <option value="4-8">2-4 year old</option>
+                        <option value="8-12">4-8 year old</option>
+                        <option value="12-16">8-12 year old</option>
+                        <option value="12-16">12-16 year old</option>
+                        <option value="16-20">16-20 year old</option>
                     </select>
                 </section>
                 
@@ -100,14 +100,14 @@
 
                 <section class="cat_neutered">
                     <label for="neutered"><b>Neutered Status:</b></label>
-                    <input type="radio" name="neutered" id="yesneutered" value="yesneutered" required>Neutered
-                    <input type="radio" name="neutered" id="notneutered" value="notneutered" required>Not Neutered
+                    <input type="radio" name="neutered" id="yesneutered" value="yes" required>Neutered
+                    <input type="radio" name="neutered" id="notneutered" value="no" required>Not Neutered
                 </section>
 
                 <section class="cat_vaccinated">
                     <label for="vaccine"><b>Vaccine Status:</b></label>
-                    <input type="radio" name="vaccine" id="yesvaccinated" value="yesvaccinated" required>Vaccinated
-                    <input type="radio" name="vaccine" id="notvaccinated" value="notvaccinated" required>Not Vaccinated
+                    <input type="radio" name="vaccine" id="yesvaccinated" value="yes" required>Vaccinated
+                    <input type="radio" name="vaccine" id="notvaccinated" value="no" required>Not Vaccinated
                 </section>
 
                 <section class="cat_special_needs">
