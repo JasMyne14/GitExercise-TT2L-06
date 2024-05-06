@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy.sql import func 
 from flask_sqlalchemy import SQLAlchemy
-import datetime 
+from datetime import datetime 
 from flask import current_app
 from home import db 
 

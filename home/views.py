@@ -9,7 +9,7 @@ views = Blueprint('views',__name__)
 def main():
     return render_template('main.html', name='main', posts=posts)
 
-@views.route('/')
+@views.route('/notification')
 def notification():
     users = {
         'user1': {'username': 'user1', 'notifications': []},
