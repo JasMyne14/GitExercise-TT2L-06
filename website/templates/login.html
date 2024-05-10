@@ -1,15 +1,14 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
-
+<!DOCTYPE html>
 <form methods="POST">
     <h3 align="center">Login</h3>
     <div class="form-group">
-        <label for="email">Email Address</label>
+        <label for="username">Username</label>
         <input 
-            type="email" 
+            type="username" 
             class="form-control" 
-            id="email" 
-            name="email"
-            placeholder="Enter email"
+            id="username" 
+            name="username"
+            placeholder="Enter username"
         />
     </div>
     <div class="form-group">
@@ -23,7 +22,7 @@
         />
     </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="button-login">Login</button>
 </form>
 
-{% endblock%}
+</html>
