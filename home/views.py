@@ -1,13 +1,19 @@
-from flask import Flask, Blueprint, render_template, request, redirect,url_for, send_from_directory
+from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
+from .forms import PostForm
+from .models import Post
 
 views = Blueprint('views',__name__)
 
 @views.route('/')
-def main():
+def first():
     return render_template('firstpage.html', name='firstpage')
+
+@views.route('/main')
+def main():
+    return render_template('main.html', name='main')
 
 @views.route('/signup')
 def signup():
@@ -29,9 +35,13 @@ def notification():
 def post():
     return render_template('post.html',posts=posts)
 
-@views.route('/createpost')
+@views.route('/createpost', methods=['GET','POST'])
 def createpost():
-    return render_template('createpost.html')
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Your post has been created!','success')
+        return redirect(url_for('home'))
+    return render_template('createpost.html', title='New Post', form=form)
 
 @views.route('/adopt')
 def adopt():

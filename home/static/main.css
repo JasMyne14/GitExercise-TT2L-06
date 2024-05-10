@@ -11,14 +11,12 @@ h1 {
   margin: 20px;
 }
 
-.post, .post-content {
-  align-content: center;
-  border-radius: 5px;
-  border-style: solid;
-  background-color: white;
-  padding: 20px 400px;
-  color: black;
-  margin: 5px;
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
 }
 
 .post_add {
@@ -91,7 +89,6 @@ h1 {
 .menu-button:hover {
   background-color:#c29045
 }
-
 
 .sidenav {
   height: 100%;
