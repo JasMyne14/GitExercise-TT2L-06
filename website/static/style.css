@@ -1,0 +1,53 @@
+#css for mainpage
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.main-container {
+    position: relative;
+    height: 100%;
+    color: pink;
+}
+
+body .mainpage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('nekoyangi.jpg'); /* Replace 'your-background-image.jpg' with the path to your background image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; /* Adjust as needed */
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-top: 20%;
+    color: white; /* Adjust text color to be visible on the background */
+}
+
+.button-mainpage {
+    margin-top: 20px;
+    color: #705B33;
+    border-radius: 50px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff; /* Adjust button color as needed */
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Adjust hover color as needed */
+}

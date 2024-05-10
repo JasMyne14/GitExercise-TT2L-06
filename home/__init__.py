@@ -11,18 +11,21 @@ def create_app():
 
     db.init_app(app)
     
-
     from .donation import donation
     from .notification import notification
     from .views import views
     from .post import post
     from .createpost import createpost
+    from .signup import signup
+    from .login import login
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
     app.register_blueprint(donation, url_prefix='/donation')
     app.register_blueprint(post, url_prefix='/post')
     app.register_blueprint(createpost, url_prefix='/createpost')
+    app.register_blueprint(login, url_prefix='/login')
+    app.register_blueprint(signup, url_prefix='/signup')
 
 
     return app

@@ -7,7 +7,15 @@ views = Blueprint('views',__name__)
 
 @views.route('/')
 def main():
-    return render_template('main.html', name='main', posts=posts)
+    return render_template('firstpage.html', name='firstpage')
+
+@views.route('/signup')
+def signup():
+    return render_template('signup.html', signup='signup')
+
+@views.route('/login')
+def login():
+    return render_template('login.html', login='login')
 
 @views.route('/notification')
 def notification():
