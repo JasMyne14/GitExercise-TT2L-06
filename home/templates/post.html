@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Posts</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+   <script src='main.js'></script>
+
+    <div class="topnav">
+        <a href="/">Main</a>
+        <a class="active" href="/post">Post</a>
+        <a href="/adopt">Adopt meow</a>
+        <a href="/donation">About</a>
+      </div>
+
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/user">User</a>
+        <a href="/notification">Notification</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/profile_page">Cat Profile</a>
+        <a href="#">Log out</a>
+      </div>
+
+</head>
+<body>
+    <span class='menu-button' style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+    <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+    <br />
+
+    <title>Add Post</title>
+    <div class="mypost-content">
+        <h1>My Post</h1>
+        <div class="newpost">
+            <a href="/createpost">Add new post</a>
+        </div>
+    
+        <div class="post-content">
+            {% for post in posts %}
+                <h2>{{ post.title }}</h2>
+                <p>By {{ post.author }} on {{post.date}}</p>
+                <p>{{ post.content }}</p>
+            {% endfor %}
+        </div> 
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Main</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+   <script src='main.js'></script>
+
+    <div class="topnav">
+        <a href="/">Main</a>
+        <a href="/post">Post</a>
+        <a href="/adopt">Adopt meow</a>
+        <a class="active" href="/donation">About</a>
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/user">User</a>
+        <a href="/notification">Notification</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/profile_page">Cat Profile</a>
+        <a href="#">Log out</a>
+    </div>
+</head>
+<body>
+    <span class='menu-button' style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+    <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+    <br />
+
+    <h1>Show them your love ^^ </h1>
+    <ul>
+        <li>Jasmyne Yap : Founder of Nekoyangi</li>
+        <li>Aleez Dayana : Manager of Nekoyangi </li>
+        <li>Aniqah: Assistant Manager of Nekoyangi</li>
+    </ul>
+    <div class="donate">
+        <h3>list of donation websites/links from trusted organisations</h3>
+    </div>
+
+    <div class="image">
+        <a href ="https://www.paws.org.my/donate" target="_blank">
+        <img src="{{ url_for('static', filename='picture/paws.png') }}" alt="org. logo"></a>
+    </div>
+
+    <div class="image">
+        <a href="https://mnawf.org.my/donate/" target="_blank">
+        <img src="{{ url_for('static', filename='picture/MNAWF.png') }}" alt="org2. logo"></a>
+    </div>
+
+    <div class="image">
+        <a href="https://catbeachpenang.com/donate/" target="_blank">
+        <img src="{{ url_for('static', filename='picture/cat_beach.png') }}" alt="org3. logo"></a>
+    </div>
+    
+    <div class="link">
+        <ul>
+            {% for link in links %}
+            <li><a href="{{ link.url }}" target="_blank">{{ link.text }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
