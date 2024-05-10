@@ -227,3 +227,34 @@ body .firstpage-container {
 .login:hover {
   background-color: #dba76d; /* Adjust hover color as needed */
 }
+
+#signup.html
+.signup-container{
+  position: relative;
+  height: 50%;
+}
+body .signup-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('signupform.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.submitbutton {
+  padding: 20px;
+  margin-left: 146px;
+  font-size: 25px;
+  background-color: #705B33; /* Adjust button color as needed */
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 14%;
+  transition: background-color 0.3s; 
+}
+h1 .signuptitle{
+  color: #FFEED6;
+}
