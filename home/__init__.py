@@ -18,6 +18,7 @@ def create_app():
     from .createpost import createpost
     from .signup import signup
     from .login import login
+    from .mainpage import mainpage
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
@@ -26,6 +27,7 @@ def create_app():
     app.register_blueprint(createpost, url_prefix='/createpost')
     app.register_blueprint(login, url_prefix='/login')
     app.register_blueprint(signup, url_prefix='/signup')
+    app.register_blueprint(mainpage, url_prefix='/mainpage')
 
 
     return app

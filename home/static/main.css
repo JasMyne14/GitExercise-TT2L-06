@@ -1,24 +1,65 @@
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: beige;
+  background: #fad369;
+  overflow-x: hidden;
+  color: #333333;
+  margin-top: 5rem;
 }
 
-h1 {
-  align-content: center;
-  padding: 100px 200px 0px 10px;
-  color: black;
-  margin: 20px;
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+  margin-top: 15px;
 }
 
-.post, .post-content {
-  align-content: center;
-  border-radius: 5px;
-  border-style: solid;
-  background-color: white;
-  padding: 20px 400px;
-  color: black;
-  margin: 5px;
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.backbtn{
+  margin-left: 75%;
+  padding: 10px;
+  font-size: large;
+}
+
+.addpostbtn{
+  background-color: #ebd2a4;
+  border-color: #dba76d;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
 }
 
 .post_add {
@@ -35,12 +76,6 @@ h1 {
   font-size: 25px;
   color: #47301a;
   display: block;
-}
-
-.main img {
-  padding-left: 650px;
-  width: 200px;
-  height: min-content;
 }
 
 /* Nav Bar */
@@ -91,7 +126,6 @@ h1 {
 .menu-button:hover {
   background-color:#c29045
 }
-
 
 .sidenav {
   height: 100%;
@@ -190,7 +224,6 @@ body .firstpage-container {
   background-size: cover;
   background-position: center;
 }
-
 
 .signup{
   padding: 20px;

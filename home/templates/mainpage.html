@@ -5,16 +5,17 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Main</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
    <script src='main.js'></script>
 
     <div class="topnav">
-        <a href="/main">Main</a>
+        <a class="active" href="/mainpage">Main</a>
         <a href="/post">Post</a>
         <a href="/adopt">Adopt meow</a>
-        <a class="active" href="/donation">About</a>
+        <a href="/donation">About</a>
     </div>
 
     <div id="mySidenav" class="sidenav">
@@ -25,6 +26,7 @@
         <a href="/profile_page">Cat Profile</a>
         <a href="/">Log out</a>
     </div>
+
 </head>
 <body>
     <span class='menu-button' style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
@@ -39,38 +41,36 @@
     }
     </script>
     <br />
-
-    <h1>Show them your love ^^ </h1>
-    <ul>
-        <li>Jasmyne Yap : Founder of Nekoyangi</li>
-        <li>Aleez Dayana : Manager of Nekoyangi </li>
-        <li>Aniqah: Assistant Manager of Nekoyangi</li>
-    </ul>
-    <div class="donate">
-        <h3>list of donation websites/links from trusted organisations</h3>
-    </div>
-
-    <div class="image">
-        <a href ="https://www.paws.org.my/donate" target="_blank">
-        <img src="{{ url_for('static', filename='picture/paws.png') }}" alt="org. logo"></a>
-    </div>
-
-    <div class="image">
-        <a href="https://mnawf.org.my/donate/" target="_blank">
-        <img src="{{ url_for('static', filename='picture/MNAWF.png') }}" alt="org2. logo"></a>
-    </div>
-
-    <div class="image">
-        <a href="https://catbeachpenang.com/donate/" target="_blank">
-        <img src="{{ url_for('static', filename='picture/cat_beach.png') }}" alt="org3. logo"></a>
-    </div>
-    
-    <div class="link">
+    <div class="main">
         <ul>
-            {% for link in links %}
-            <li><a href="{{ link.url }}" target="_blank">{{ link.text }}</a></li>
-            {% endfor %}
+            <h1>Home Feed</h1>
         </ul>
+        <div class="row">
+            <div class="col-md-8">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </div>
+        </div>
+        {% for post in posts %}
+            <article class="media content-section">
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='neko.jpg' )}}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="#">{{ post.author }}</a>
+                  <small class="text-muted">{{ post.date }}</small>
+                </div>
+                <h2><a class="article-title">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content }}</p>
+              </div>
+            </article>
+        {% endfor %}
     </div>
 </body>
 </html>
