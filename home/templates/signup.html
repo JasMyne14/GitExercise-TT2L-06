@@ -2,16 +2,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nekoyangi</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" type='text/css' media="screen"  href={{ url_for('static',filename='main.css')}}>
 </head>
 <body>
     <div class="signup-container">
-        <h1 class="signuptitle">Sign Up</h1>
-        <form method ="POST">
+        <form method ="POST" class="signup-form">
+            <h1 class="signuptitle">Sign Up</h1>
             <div class="user.details">
                 <div class="input-box">
-                    <label class="details">Full Name</label>
+                    <label class="details">Full Name :</label>
                     <input 
                         type="text" 
                         placeholder="Enter Full Name" 
@@ -19,23 +19,23 @@
                         name="full-name" required>
                 </div>
                 <div class="input-box">
-                    <label class="details">Email</label>
+                    <label class="details">Email :</label>
                     <input 
                         type="email" 
-                        placeholder="Enter email"
+                        placeholder="Enter Email"
                         id="email" 
                         name="email" required>
                 </div>
                 <div class="input-box">
-                    <label class="details">Username</label>
+                    <label class="details">Username :</label>
                     <input 
                         type="text" 
-                        placeholder="Username" 
+                        placeholder="Enter Username" 
                         id="username" 
                         name="username" required>
                 </div>
                 <div class="input-box">
-                    <label class="password1">Password</label>
+                    <label class="password1">Password :</label>
                     <input 
                         type="password" 
                         placeholder="Enter Password" 
@@ -43,7 +43,7 @@
                         name="password1" required>
                 </div>
                 <div class="input-box">
-                    <label class="details">Password(Confirm)</label>
+                    <label class="details">Password (Confirm) :</label>
                     <input 
                         type="password" 
                         placeholder="Confirm password" 
@@ -51,7 +51,7 @@
                         name="password2" required>
                 </div>
                 <div class="input-box">
-                <label class="details">State</label>
+                <label class="details">State :</label>
                 <select id="state">
                     <option value="state">Select your state</option>
                     <option value="selangor">Selangor</option>
@@ -70,12 +70,12 @@
                 </select>
                 </div>
                 <div class="input-box">
-                    <label class="details">Phone Number</label>
+                    <label class="details">Phone Number :</label>
                     <input type="text" placeholder="Phone Number" required>
                 </div>
             </div>
             <button type="submit" class="button submitbutton">Submit</button>
-        </form>
+        </form>    
     </div>
 </body>
 </html>

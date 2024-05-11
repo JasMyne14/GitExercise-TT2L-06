@@ -6,8 +6,9 @@
     <link rel="stylesheet" type='text/css' media="screen"  href={{ url_for('static',filename='main.css')}}>
 </head>
 <body>
+    <div class="login-container">
     <form methods="POST">
-        <h3 align="center">Login</h3>
+        <h1 class="logintitle">Login</h1>
         <div class="form-group">
             <label for="username">Username</label>
             <input 
@@ -31,5 +32,6 @@
 
         <button type="submit" class="button-login">Login</button>
     </form>
+    </div>
 </body>
 </html>
