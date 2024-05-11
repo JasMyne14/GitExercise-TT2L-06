@@ -11,9 +11,9 @@ views = Blueprint('views',__name__)
 def first():
     return render_template('firstpage.html', name='firstpage')
 
-@views.route('/main')
-def main():
-    return render_template('main.html', name='main')
+@views.route('/mainpage')
+def mainpage():
+    return render_template('mainpage.html', mainpage='mainpage', posts=posts)
 
 @views.route('/signup')
 def signup():
@@ -29,21 +29,19 @@ def notification():
         'user1': {'username': 'user1', 'notifications': []},
         'user2': {'username': 'user2', 'notifications': []}
     }    
-    return render_template('notification.html', notification='Notification', users=users)
+    return render_template('notification.html', notification='Notification', users=users) 
 
 @views.route('/post')
 def post():
-    return render_template('post.html',posts=posts)
+    return render_template('post.html', posts=posts)
 
 @views.route('/createpost', methods=['GET','POST'])
 def createpost():
     form = PostForm()
     if form.validate_on_submit():
         flash('Your post has been created!','success')
-        return redirect(url_for('home'))
-    return render_template('createpost.html', title='New Post', form=form)
-
-@views.route('/adopt')
+        return redirect(url_for('views.mainpage'))
+    return render_template('createpost.html', title='New Post', form=form,)
 def adopt():
     return '<h2>Adoption page</h2>'
 

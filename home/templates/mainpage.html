@@ -5,13 +5,14 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Main</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
    <script src='main.js'></script>
 
     <div class="topnav">
-        <a class="active" href="/main">Main</a>
+        <a class="active" href="/mainpage">Main</a>
         <a href="/post">Post</a>
         <a href="/adopt">Adopt meow</a>
         <a href="/donation">About</a>
@@ -23,7 +24,7 @@
         <a href="/notification">Notification</a>
         <a href="/registercat">Register Cat</a>
         <a href="/profile_page">Cat Profile</a>
-        <a href="#">Log out</a>
+        <a href="/">Log out</a>
     </div>
 
 </head>
@@ -43,17 +44,33 @@
     <div class="main">
         <ul>
             <h1>Home Feed</h1>
-            <img src="{{url_for('static',filename='picture/neko.jpg')}}" alt="cat pic">
         </ul>
+        <div class="row">
+            <div class="col-md-8">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </div>
+        </div>
+        {% for post in posts %}
+            <article class="media content-section">
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='neko.jpg' )}}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="#">{{ post.author }}</a>
+                  <small class="text-muted">{{ post.date }}</small>
+                </div>
+                <h2><a class="article-title">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content }}</p>
+              </div>
+            </article>
+        {% endfor %}
     </div>
-
-    {% for post in posts %}
-    <div class="post-content">
-        <h3>{{ post.title }}</h3>
-        <small>By {{ post.author }} on {{post.date}}</small>
-        <p>{{ post.content }}</p>
-    </div>
-    {% endfor %}
-    
 </body>
 </html>
