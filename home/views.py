@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
-from .forms import PostForm
+from .forms import PostForm,RegistrationForm,LoginForm
 from .models import Post
 
 views = Blueprint('views',__name__)
@@ -15,13 +15,18 @@ def first():
 def mainpage():
     return render_template('mainpage.html', mainpage='mainpage', posts=posts)
 
-@views.route('/signup')
+@views.route('/signup', methods=['GET','POST'])
 def signup():
-    return render_template('signup.html', signup='signup')
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.user.data}!','success')
+        return redirect(url_for('mainpage'))
+    return render_template('signup.html', title='Sign Up', form=form)
 
 @views.route('/login')
 def login():
-    return render_template('login.html', login='login')
+    form = LoginForm()
+    return render_template('login.html', title='login', form=form)
 
 @views.route('/notification')
 def notification():
