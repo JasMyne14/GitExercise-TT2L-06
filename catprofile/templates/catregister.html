@@ -43,7 +43,7 @@
                 <p>Please fill up this form to register an account for your cat.</p>
                 <hr>
 
-                <form class="catform" action="/registercat/register" method="POST">  
+                <form class="catform" action="/registercat/register" method="POST" enctype="multipart/form-data">  
                 <h3><u>Cat's Details</u></h3>
                 <section class ="cat_name">
                 <label for ="cat_name"><b>Cat's Name:</b></label>
@@ -56,68 +56,79 @@
                 </section>
 
                 <section class ="cat_age">
-                    <label for ="age"><b>Cat's Age:</b></label>
-                    <select name="age" id="age">
-                        <option value="0-2">Select age</option>
-                        <option value="2-4">0-2 year old</option>
-                        <option value="4-8">2-4 year old</option>
-                        <option value="8-12">4-8 year old</option>
-                        <option value="12-16">8-12 year old</option>
-                        <option value="12-16">12-16 year old</option>
-                        <option value="16-20">16-20 year old</option>
+                    <label for ="cat_age"><b>Cat's Age:</b></label>
+                    <select name="cat_age" id="cat_age">
+                        <option>Select age</option>
+                        <option value="0-2">0-2 years old</option>
+                        <option value="2-4">2-4 years old</option>
+                        <option value="4-6">4-6 years old</option>
+                        <option value="6-8">6-8 years old</option>
+                        <option value="12-10">8-10 years old</option>
+                        <option value="10-12">10-12 years old</option>
+                        <option value="12-14">12-14 years old</option>
+                        <option value="14-16">14-16 years old</option>
+                        <option value="16-18">16-18 years old</option>
+                        <option value="18-20">18-20 years old</option>
+                        <option value="20-22">20-22 years old</option>
+                        <option value="22-24">22-24 years old</option>
+                        <option value="24-26">24-26 years old</option>
+                        <option value="26-28">26-28 years old</option>
+
+
+
                     </select>
                 </section>
                 
                 <section class ="cat_breed">
                     <label for ="breed"><b>Cat's Breed:</b></label>
-                        <input type="checkbox" name="breed" id="Siamese" value="Siamese">
+                        <input type="checkbox" name="cat_breed[]" id="Siamese" value="Siamese">
                         <label for="Siamese">Siamese</label>
 
-                        <input type="checkbox" name="breed" id="Persian" value="Persian">
+                        <input type="checkbox" name="cat_breed[]" id="Persian" value="Persian">
                         <label for="Persian">Persian</label>
 
-                        <input type="checkbox" name="breed" id="Maine Coon" value="Maine Coon">
+                        <input type="checkbox" name="cat_breed[]" id="Maine Coon" value="Maine Coon">
                         <label for="Maine Coon">Maine Coon</label>
 
-                        <input type="checkbox" name="breed" id="British Shorthair" value="British Shorthair">
+                        <input type="checkbox" name="cat_breed[]" id="British Shorthair" value="British Shorthair">
                         <label for="Britsh Shorthair">British Shorthair</label>
 
-                        <input type="checkbox" name="breed" id="Ragdoll" value="Ragdoll">
+                        <input type="checkbox" name="cat_breed[]" id="Ragdoll" value="Ragdoll">
                         <label for="Ragdoll">Ragdoll</label>
 
-                        <input type="checkbox" name="breed" id="Siberian" value="Siberian">
+                        <input type="checkbox" name="cat_breed[]" id="Siberian" value="Siberian">
                         <label for="Siberian">Siberian</label>
 
-                        <input type="checkbox" name="breed" id="Other" value="Other">
+                        <input type="checkbox" name="cat_breed[]" id="Other" value="Other">
                         <label for="Other">Others</label>  
                 </section>
 
                 <section class="cat_gender">
-                    <label for="gender"><b>Cat's Gender:</b></label>
-                    <input type="radio" name="gender" id="gender_male" value="male" required> Male
-                    <input type="radio" name="gender" id="gender_female" value="female" required> Female
+                    <label for="cat_gender"><b>Cat's Gender:</b></label>
+                    <input type="radio" name="cat_gender" id="gender_male" value="Male" required> Male
+                    <input type="radio" name="cat_gender" id="gender_female" value="Female" required> Female
                 </section>
 
                 <section class="cat_neutered">
                     <label for="neutered"><b>Neutered Status:</b></label>
-                    <input type="radio" name="neutered" id="yesneutered" value="yes" required>Neutered
-                    <input type="radio" name="neutered" id="notneutered" value="no" required>Not Neutered
+                    <input type="radio" name="cat_neutered" id="yesneutered" value="Neutered" required>Neutered
+                    <input type="radio" name="cat_neutered" id="notneutered" value="Not Neutered" required>Not Neutered
                 </section>
 
                 <section class="cat_vaccinated">
                     <label for="vaccine"><b>Vaccine Status:</b></label>
-                    <input type="radio" name="vaccine" id="yesvaccinated" value="yes" required>Vaccinated
-                    <input type="radio" name="vaccine" id="notvaccinated" value="no" required>Not Vaccinated
+                    <input type="radio" name="cat_vaccine" id="yesvaccinated" value="Vaccinated" required>Vaccinated
+                    <input type="radio" name="cat_vaccine" id="notvaccinated" value="Not Vaccinated" required>Not Vaccinated
                 </section>
 
                 <section class="cat_special_needs">
                     <label for="special_needs"><b>Special Needs:</b></label>
-                    <input type="text" placeholder="Enter special needs" name="special_needs" id="special_needs" required maxlength="50">
+                    <input type="text" placeholder="Enter special needs" name="cat_special_needs" id="special_needs" required maxlength="50">
                 </section>
 
                 <section class="cat_about_me">
-                    <label for="about_me"><b>About Meow :3</b></label>
-                    <input type="text" placeholder="What is your baby like?" name="about_me" id="about_me" required maxlength="120">
+                    <label for="about_me" style="display:block;"><b>About Meow :3</b></label>
+                    <textarea placeholder="What is your baby like?" name="cat_about_me" id="about_me" rows="5" cols="121" style="border-radius: 8px;"></textarea>
                 </section>
                 <hr>
 

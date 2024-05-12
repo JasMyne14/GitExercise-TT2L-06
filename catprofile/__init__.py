@@ -1,13 +1,18 @@
-from flask import Flask,Blueprint
+from flask import Flask
+import os
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "cat"
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
+    app.config['SQLALCHEMY_DATABASE_URI'] =\
+        'sqlite:///' + os.path.join(basedir, 'database.db')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
     db.init_app(app)
 
     from .viewscat import viewscat

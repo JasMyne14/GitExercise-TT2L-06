@@ -1,4 +1,6 @@
 from flask import Flask, Blueprint, render_template
+from .models import CatForm
+from flask import flash
 
 viewscat = Blueprint('viewscat', __name__)
 
@@ -16,4 +18,5 @@ def registercat():
 
 @viewscat.route('/profile_page')
 def profile_page():
-    return render_template('catprofile.html')
+    formcat = CatForm.query.all()
+    return render_template('catprofile.html', fomrcat=formcat)
