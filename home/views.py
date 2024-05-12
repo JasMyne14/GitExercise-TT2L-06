@@ -1,11 +1,10 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from home import create_app, db
+from home import create_app
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User
 from flask_bcrypt import Bcrypt
-
 
 views = Blueprint('views',__name__)
 
@@ -24,26 +23,22 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password1.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
         selected_option = form.selected_option.data
-        flash(f'Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('views.login'))
+        flash(f'Account created for {form.username.data}!','success')
+        return redirect(url_for('views.mainpage'))
     return render_template('signup.html', form=form)
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.username.data == 'username' and form.password.data == 'password':
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and Bcrypt.check_password_hash(user.password, form.password.data):
             flash('You have been logged in!', 'success')
             return redirect(url_for('views.mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', form=form)
-
 @views.route('/notification')
 def notification():
     users = {
