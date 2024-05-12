@@ -1,4 +1,5 @@
 body {
+<<<<<<< HEAD
   margin: 0;
   padding: 0;
   background: pink;
@@ -6,6 +7,12 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   width: 90%;
+=======
+  background: #fad369;
+  /*overflow-x: hidden;*/
+  color: #333333;
+  margin-top: 5rem;
+>>>>>>> 602c70a2849527cfbc78bbd918515a0e8725f68f
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -164,7 +171,7 @@ a.article-title:hover {
   margin-left: 50px;
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (max-height: 500px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
@@ -212,53 +219,47 @@ a.article-title:hover {
 }
 
 #firstpage.html
-.firstpage-container{
-  position: relative;
-  height: 100%;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-between;
-}
-
-body .firstpage-container {
-  position: absolute;
+.firstpage-container {
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-image: url('nekoyangi3.jpg'); /* Replace 'your-background-image.jpg' with the path to your background image */
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
 }
 
-.signup{
+.button-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.signup, .login{
   padding: 20px;
-  margin-top: 25%;
-  margin-left: 30%;
+  /*margin-top: 99px;
+  margin-left: 50px;*/
   font-size: 25px;
   font-family: Helvetica;
   background-color: #705B33; /* Adjust button color as needed */
   color: white;
   border: none;
   border-radius: 50px;
-  width: 15%;
+  width: 250px;
+  margin-right: 0px;
   z-index: 1;
   text-align: center;
+  /*position: sticky;*/
   transition: background-color 0.3s; 
 }
 
-.login{
-  padding: 20px;
-  margin-left: 146px;
-  font-size: 25px;
-  background-color: #705B33; /* Adjust button color as needed */
-  color: white;
-  border: none;
-  border-radius: 50px;
-  width: 14%;
-  transition: background-color 0.3s; 
+.signup{
+  margin-right: 130px;
 }
 .signup:hover {
   background-color: #dba76d;
@@ -281,22 +282,32 @@ body .signup-container {
 
 .signup-container {
   background-image: url('signupbg.jpg');
-  background-size: cover;
+  /*background-size: cover;
   background-position: center;
   min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 90%;
-  margin: 0;
-  padding: 0;
-  justify-content: center;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
 }
 
 .signup-form {
   width: 42%;
-  margin-left: auto;
-  margin-right: auto; 
+  margin-left: 45%; 
+  margin-top: 8%;
   font-family: 'Canva sans';
   padding-bottom: 20px;
   color: #FFEED6;
@@ -354,7 +365,7 @@ body .signup-container {
   font-size: 30px;
   font-family: serif;
   text-align: center;
-  margin-left: 30%;
+  /*margin-left: 15%;*/
 }
 
 .signin-options{
@@ -377,7 +388,7 @@ body .login-container {
 
 .login-container {
   background-image: url('loginbg.jpg');
-  background-size: cover;
+  /*background-size: cover;
   background-position: center;
   height: 100vh;
   display: flex;
@@ -388,16 +399,25 @@ body .login-container {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content:space-between;
+  justify-content:space-between;*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
 }
 
 .login-form {
   width: 42%;
-  margin-left: 35%; 
+  margin-left: 45%; 
+  margin-top: 10%;
   font-family: 'Canva sans';
   padding-bottom: 50px;
   color: #FFEED6;
-  margin-bottom: 5%;
 }
 
 .login-box {
@@ -434,7 +454,7 @@ body .login-container {
   width: 115px; 
   transition: background-color 0.3s;
   margin-top: 35px;
-  margin-left: 38%;
+  margin-left: 41%;
   margin-bottom: 7%;
 }
 
@@ -447,7 +467,6 @@ body .login-container {
   font-size: 30px;
   font-family: serif;
   text-align: center;
-  margin-left: 28%;
   margin-bottom: 10%;
 }
 
