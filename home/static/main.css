@@ -220,7 +220,7 @@ a.article-title:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('nekoyangi3.jpg'); /* Replace 'your-background-image.jpg' with the path to your background image */
+  background-image: url('nekoyangi3.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -242,7 +242,7 @@ a.article-title:hover {
   margin-left: 50px;*/
   font-size: 25px;
   font-family: Helvetica;
-  background-color: #705B33; /* Adjust button color as needed */
+  background-color: #705B33;
   color: white;
   border: none;
   border-radius: 50px;
