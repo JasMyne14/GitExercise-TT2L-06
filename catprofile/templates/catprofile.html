@@ -40,44 +40,35 @@
 
         <p class="profileheader"><b><u>Cat Profile</u></b></p>
 
-        <div class="catprofile1">
+        <div class="catprofile_container">
+            {% for cat in formcat %}
+            <div class="catprofile catprofile{{ loop.index }}">
 
-            <div class="cat_pfp">
-                <img src="static/photos/juju2.jpg" alt="Cat Photo">
-            </div>
-                
-            <div class="cat_info">
-                <h2>Cat's Name: Juju</h2>
-                <p><strong>Age:</strong> 13 years old</p>
-                <p><strong>Breed:</strong> Maine Coon</p>
-                <p><strong>Gender:</strong> Male</p>
-                <p><strong>Neutered Status:</strong> Neutered</p>
-                <p><strong>Vaccine Status:</strong> Vaccinated</p>
-                <p><strong>Special Needs:</strong> None</p>
-                <p><strong>About Me:</strong> I am smelly lol</p>
+                <div class="cat_pfp">
+                    <img src="{{ cat.cat_photo }}" alt="Cat Photo">
+                </div>
+                    
+                <div class="cat_info">
+                    <h2>Cat's Name: {{ cat.cat_name }}</h2>
+                    <p><strong>Age:</strong> {{ cat.cat_age }} years old</p>
+                    <p><strong>Breed:</strong> {{ cat.cat_breed }} </p>
+                    <p><strong>Gender:</strong> {{ cat.cat_gender }} </p>
+                    <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }} </p>
+                    <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }} </p>
+                    <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }} </p>
+                    <p><strong>About Me:</strong> {{ cat.cat_about_me }} </p>
 
-                <button class="editcatprofile">Edit</button>
-            </div>
-        </div>
-        
-        <div class="catprofile2">
+                    <div class="catowner_info">
+                    <p><strong>Owner's Name:</strong> {{ cat.owner_name }} </p>
+                    <p><strong>Owner's Email:</strong> {{ cat.owner_email }} </p>
+                    <p><strong>Owner's Contact:</strong> {{ cat.owner_contact }} </p>
+                    </div>
+                    
+                    <button class="editcatprofile">Edit</button>
+                </div>
 
-            <div class="cat_pfp">
-                <img src="static/photos/joji.jpg" alt="Joji Photo">
             </div>
-                
-            <div class="cat_info">
-                <h2>Cat's Name: Joji</h2>
-                <p><strong>Age:</strong> 1 years old</p>
-                <p><strong>Breed:</strong> British Shorthair</p>
-                <p><strong>Gender:</strong> Male</p>
-                <p><strong>Neutered Status:</strong> Neutered</p>
-                <p><strong>Vaccine Status:</strong> Vaccinated</p>
-                <p><strong>Special Needs:</strong> None</p>
-                <p><strong>About Me:</strong> I am very naughty. I pee on yoga mats.</p>
-
-                <button class="editcatprofile">Edit</button>
-            </div>
+            {% endfor %}
         </div>
 
             <div class="addcat_button_container">
