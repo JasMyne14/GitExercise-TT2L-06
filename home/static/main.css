@@ -1,8 +1,11 @@
 body {
-  background: #fad369;
+  margin: 0;
+  padding: 0;
+  background: pink;
+  background-size: cover;
   overflow-x: hidden;
-  color: #333333;
-  margin-top: 5rem;
+  min-height: 100vh;
+  width: 90%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -273,26 +276,27 @@ body .signup-container {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-size: cover;
 }
 
 .signup-container {
   background-image: url('signupbg.jpg');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-between;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
 }
 
 .signup-form {
   width: 42%;
-  margin-left: 35%; 
+  margin-left: auto;
+  margin-right: auto; 
   font-family: 'Canva sans';
   padding-bottom: 20px;
   color: #FFEED6;
@@ -357,6 +361,9 @@ body .signup-container {
   margin-left: 65%;
 }
 
+.invalid-feedback {
+  color: red;
+}
 
 #login.html
 body .login-container {
