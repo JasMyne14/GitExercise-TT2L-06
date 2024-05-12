@@ -281,7 +281,7 @@ body .signup-container {
 
 .signup-container {
   background-image: url('signupbg.jpg');
-  background-size: cover;
+  /*background-size: cover;
   background-position: center;
   height: 100vh;
   display: flex;
@@ -291,12 +291,22 @@ body .signup-container {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content:space-between;
+  justify-content:space-between;*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
 }
 
 .signup-form {
   width: 42%;
-  margin-left: 35%; 
+  margin-left: 45%; 
+  margin-top: 8%;
   font-family: 'Canva sans';
   padding-bottom: 20px;
   color: #FFEED6;
@@ -354,7 +364,7 @@ body .signup-container {
   font-size: 30px;
   font-family: serif;
   text-align: center;
-  margin-left: 30%;
+  /*margin-left: 15%;*/
 }
 
 .signin-options{
@@ -374,7 +384,7 @@ body .login-container {
 
 .login-container {
   background-image: url('loginbg.jpg');
-  background-size: cover;
+  /*background-size: cover;
   background-position: center;
   height: 100vh;
   display: flex;
@@ -385,16 +395,25 @@ body .login-container {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content:space-between;
+  justify-content:space-between;*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
 }
 
 .login-form {
   width: 42%;
-  margin-left: 35%; 
+  margin-left: 45%; 
+  margin-top: 10%;
   font-family: 'Canva sans';
   padding-bottom: 50px;
   color: #FFEED6;
-  margin-bottom: 5%;
 }
 
 .login-box {
@@ -431,7 +450,7 @@ body .login-container {
   width: 115px; 
   transition: background-color 0.3s;
   margin-top: 35px;
-  margin-left: 38%;
+  margin-left: 41%;
   margin-bottom: 7%;
 }
 
@@ -444,7 +463,6 @@ body .login-container {
   font-size: 30px;
   font-family: serif;
   text-align: center;
-  margin-left: 28%;
   margin-bottom: 10%;
 }
 
