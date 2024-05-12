@@ -8,7 +8,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Password (confirm)',validators=[DataRequired(), EqualTo('password')])
-    selected_option = SelectField('Select your state', state=[
+    selected_option = SelectField('Select your state', choices=[
         ('selangor', 'Selangor'),
         ('kelantan', 'Kelantan'),
         ('terengganu', 'Terengganu'),

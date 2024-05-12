@@ -19,9 +19,11 @@ def mainpage():
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
+        selected_option = form.selected_option.data
+        flash(f"you selected: {selected_option}",'success')
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('mainpage'))
-    return render_template('signup.html', title='Sign Up', form=form)
+    return render_template('signup.html', form=form)
 
 @views.route('/login')
 def login():
@@ -32,7 +34,7 @@ def login():
             return redirect(url_for('mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
-    return render_template('login.html', title='login', form=form)
+    return render_template('login.html', form=form)
 
 @views.route('/notification')
 def notification():

@@ -18,17 +18,17 @@
                         placeholder="Enter Full Name" 
                         id="full-name" 
                         name="full-name" required>
-                        {{ form.fullname.label(class="form-control-label") }}
+                        {{ form.username.label(class="form-control-label") }}
 
-                        {% if form.fullname.errors %}
-                            {{ form.fullname(class="form-control form-control-lg is-invalid")}}
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control form-control-lg is-invalid")}}
                             <div class="invalid-feedback">
-                                {% for error in form.fullname.errors %}
+                                {% for error in form.username.errors %}
                                     <span>{{error}}</span>
-                                {%% endfor %}
+                                {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.fullname.label(class="form-control form-control-lg") }}
+                            {{ form.username.label(class="form-control form-control-lg") }}
                         {% endif %}
                 </div>
 
@@ -45,7 +45,7 @@
                             <div class="invalid-feedback">
                                 {% for error in form.email.errors %}
                                     <span>{{error}}</span>
-                                {%% endfor %}
+                                {% endfor %}
                             </div>
                         {% else %}
                             {{ form.email.label(class="form-control form-control-lg") }}
@@ -64,7 +64,7 @@
                             <div class="invalid-feedback">
                                 {% for error in form.username.errors %}
                                     <span>{{error}}</span>
-                                {%% endfor %}
+                                {% endfor %}
                             </div>
                         {% else %}
                             {{ form.username.label(class="form-control form-control-lg") }}
@@ -83,7 +83,7 @@
                             <div class="invalid-feedback">
                                 {% for error in form.password1.errors %}
                                     <span>{{error}}</span>
-                                {%% endfor %}
+                                {% endfor %}
                             </div>
                         {% else %}
                             {{ form.password1.label(class="form-control form-control-lg") }}
@@ -102,7 +102,7 @@
                             <div class="invalid-feedback">
                                 {% for error in form.password2.errors %}
                                     <span>{{error}}</span>
-                                {%% endfor %}
+                                {% endfor %}
                             </div>
                         {% else %}
                             {{ form.password2.label(class="form-control form-control-lg") }}
@@ -144,7 +144,7 @@
                             <div class="invalid-feedback">
                                 {% for error in form.phonenumber.errors %}
                                     <span>{{error}}</span>
-                                {%% endfor %}
+                                {% endfor %}
                             </div>
                         {% else %}
                             {{ form.phonenumber.label(class="form-control form-control-lg") }}
@@ -152,7 +152,7 @@
                 </div>
             </div>
             <button type="submit" class="submitbutton">Submit</button>
-                    {{ form.submit(class="class="submitbutton"")}}
+                    {{ form.submit(class="submitbutton")}}
             <div class="signin-options">
                 <a href="/login" class="have-account">Already have an account?</a>
             </div>
