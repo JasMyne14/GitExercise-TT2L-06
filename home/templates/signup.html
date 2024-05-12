@@ -7,156 +7,132 @@
 </head>
 <body>
     <div class="signup-container">
-        <form method ="POST" class="signup-form" action="">
-                {{ form.hidden_tag() }}
+        <form method="POST" class="signup-form" action="">
+            {{ form.hidden_tag() }}
             <h1 class="signuptitle">Sign Up</h1>
-            <div class="user.details">
+            <div class="user-details">
                 <div class="input-box">
-                    <label class="details">Full Name :</label>
+                    <label class="details" for="fullname">Full Name :</label>
                     <input 
                         type="text" 
                         placeholder="Enter Full Name" 
-                        id="full-name" 
-                        name="full-name" required>
-                        {{ form.username.label(class="form-control-label") }}
-
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in form.username.errors %}
-                                    <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.username.label(class="form-control form-control-lg") }}
-                        {% endif %}
+                        id="fullname" 
+                        name="fullname" required>
+                    {% if form.fullname.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.fullname.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-
                 <div class="input-box">
-                    <label class="details">Email :</label>
+                    <label class="details" for="email">Email :</label>
                     <input 
-                        type="email" 
-                        placeholder="Enter Email"
+                        type="text" 
+                        placeholder="Enter Email" 
                         id="email" 
                         name="email" required>
-                        {{ form.email.label(class="form-control-label") }}
-                        {% if form.email.errors %}
-                            {{ form.email(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in form.email.errors %}
-                                    <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.email.label(class="form-control form-control-lg") }}
-                        {% endif %}
+                    {% if form.email.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details">Username :</label>
+                    <label class="details" for="username">Username :</label>
                     <input 
                         type="text" 
                         placeholder="Enter Username" 
                         id="username" 
                         name="username" required>
-                        {{ form.username.label(class="form-control-label") }}
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in form.username.errors %}
-                                    <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.username.label(class="form-control form-control-lg") }}
-                        {% endif %}
+                    {% if form.username.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="password1">Password :</label>
-                    <input 
-                        type="password" 
-                        placeholder="Enter Password" 
-                        id="password1"
-                        name="password1" required>
-                        {{ form.password1.label(class="form-control-label") }}
-                        {% if form.password1.errors %}
-                            {{ form.password1(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in form.password1.errors %}
-                                    <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.password1.label(class="form-control form-control-lg") }}
-                        {% endif %}
-                </div>
-                <div class="input-box">
-                    <label class="details">Password (Confirm) :</label>
-                    <input 
-                        type="password" 
-                        placeholder="Confirm Password" 
-                        id="password2"
-                        name="password2" required>
-                        {{ form.password2.label(class="form-control-label") }}
-                        {% if form.password2.errors %}
-                            {{ form.password2(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in form.password2.errors %}
-                                    <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.password2.label(class="form-control form-control-lg") }}
-                        {% endif %}
-                </div>
-                <div class="input-box">
-                <label for="select_field" class="details">State :</label>
-                <select id="select_field" name="selected_option">
-                    <option value="state">Select your state</option>
-                    <option value="selangor">Selangor</option>
-                    <option value="kelantan">Kelantan</option>
-                    <option value="terengganu">Terengganu</option>
-                    <option value="perlis">Perlis</option>
-                    <option value="negerisembilan">Negeri Sembilan</option>
-                    <option value="pulaupinang">Pulau Pinang</option>
-                    <option value="perak">Perak</option>
-                    <option value="pahang">Pahang</option>
-                    <option value="johor">Johor</option>
-                    <option value="kedah">Kedah</option>
-                    <option value="melaka">Melaka</option>
-                    <option value="wilayahkl">Wilayah Persekutuan Kuala Lumpur</option>
-                    <option value="wilayahputrajaya">Wilayah Persekutuan Putrajaya</option>
-                </select>
-                        {{ form.hidden_tag() }}
-                        {{ form.selected_option.label }}
-                        {{ form.selected_option }}
-
-                </div>
-                <div class="input-box">
-                    <label class="details">Phone Number :</label>
+                    <label class="details" for="password1">Password :</label>
                     <input 
                         type="text" 
-                        placeholder="Phone Number" 
+                        placeholder="Enter Password" 
+                        id="password1" 
+                        name="password1" required>
+                    {% if form.password1.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.password1.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label class="details" for="password2">Password (Confirm) :</label>
+                    <input 
+                        type="text" 
+                        placeholder="Confirm Password" 
+                        id="password2" 
+                        name="password2" required>
+                    {% if form.password2.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.password2.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label class="details" for="select_field">State :</label>
+                    <select id="select_field" name="selected_option">
+                        <option value="state">Select your state</option>
+                        <option value="selangor">Selangor</option>
+                        <option value="kelantan">Kelantan</option>
+                        <option value="terengganu">Terengganu</option>
+                        <option value="perlis">Perlis</option>
+                        <option value="negerisembilan">Negeri Sembilan</option>
+                        <option value="pulaupinang">Pulau Pinang</option>
+                        <option value="perak">Perak</option>
+                        <option value="pahang">Pahang</option>
+                        <option value="johor">Johor</option>
+                        <option value="kedah">Kedah</option>
+                        <option value="melaka">Melaka</option>
+                        <option value="wilayahkl">Wilayah Persekutuan Kuala Lumpur</option>
+                        <option value="wilayahputrajaya">Wilayah Persekutuan Putrajaya</option>
+                    </select>
+                    {% if form.selected_option.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.selected_option.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label class="details" for="phonenumber">Phone Number :</label>
+                    <input 
+                        type="text" 
+                        placeholder="Enter Phone Number" 
                         id="phonenumber" 
                         name="phonenumber" required>
-                        {{ form.phonenumber.label(class="form-control-label") }}
-                        {% if form.phonenumber.errors %}
-                            {{ form.phonenumber(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in form.phonenumber.errors %}
-                                    <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.phonenumber.label(class="form-control form-control-lg") }}
-                        {% endif %}
+                    {% if form.phonenumber.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.phonenumber.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <button type="submit" class="submitbutton">Submit</button>
-                    {{ form.submit(class="submitbutton")}}
-            <div class="signin-options">
-                <a href="/login" class="have-account">Already have an account?</a>
-            </div>
         </form>    
+        <div class="signin-options">
+            <a href="/login" class="have-account">Already have an account?</a>
+        </div>
     </div>
 </body>
 </html>
