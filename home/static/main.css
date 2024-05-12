@@ -212,6 +212,11 @@ a.article-title:hover {
 .firstpage-container{
   position: relative;
   height: 100%;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
 }
 
 body .firstpage-container {
@@ -276,9 +281,13 @@ body .signup-container {
   background-position: center;
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
 }
 
 .signup-form {
@@ -368,6 +377,11 @@ body .login-container {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
 }
 
 .login-form {
