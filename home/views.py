@@ -19,13 +19,19 @@ def mainpage():
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.user.data}!','success')
+        flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('mainpage'))
     return render_template('signup.html', title='Sign Up', form=form)
 
 @views.route('/login')
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('mainpage'))
+        else:
+            flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', title='login', form=form)
 
 @views.route('/notification')

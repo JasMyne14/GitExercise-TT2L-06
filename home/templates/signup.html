@@ -7,7 +7,8 @@
 </head>
 <body>
     <div class="signup-container">
-        <form method ="POST" class="signup-form">
+        <form method ="POST" class="signup-form" action="">
+                {{ form.hidden_tag() }}
             <h1 class="signuptitle">Sign Up</h1>
             <div class="user.details">
                 <div class="input-box">
@@ -17,7 +18,20 @@
                         placeholder="Enter Full Name" 
                         id="full-name" 
                         name="full-name" required>
+                        {{ form.fullname.label(class="form-control-label") }}
+
+                        {% if form.fullname.errors %}
+                            {{ form.fullname(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.fullname.errors %}
+                                    <span>{{error}}</span>
+                                {%% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.fullname.label(class="form-control form-control-lg") }}
+                        {% endif %}
                 </div>
+
                 <div class="input-box">
                     <label class="details">Email :</label>
                     <input 
@@ -25,6 +39,17 @@
                         placeholder="Enter Email"
                         id="email" 
                         name="email" required>
+                        {{ form.email.label(class="form-control-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{error}}</span>
+                                {%% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email.label(class="form-control form-control-lg") }}
+                        {% endif %}
                 </div>
                 <div class="input-box">
                     <label class="details">Username :</label>
@@ -33,6 +58,17 @@
                         placeholder="Enter Username" 
                         id="username" 
                         name="username" required>
+                        {{ form.username.label(class="form-control-label") }}
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <span>{{error}}</span>
+                                {%% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username.label(class="form-control form-control-lg") }}
+                        {% endif %}
                 </div>
                 <div class="input-box">
                     <label class="password1">Password :</label>
@@ -41,6 +77,17 @@
                         placeholder="Enter Password" 
                         id="password1"
                         name="password1" required>
+                        {{ form.password1.label(class="form-control-label") }}
+                        {% if form.password1.errors %}
+                            {{ form.password1(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.password1.errors %}
+                                    <span>{{error}}</span>
+                                {%% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password1.label(class="form-control form-control-lg") }}
+                        {% endif %}
                 </div>
                 <div class="input-box">
                     <label class="details">Password (Confirm) :</label>
@@ -49,10 +96,21 @@
                         placeholder="Confirm Password" 
                         id="password2"
                         name="password2" required>
+                        {{ form.password2.label(class="form-control-label") }}
+                        {% if form.password2.errors %}
+                            {{ form.password2(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.password2.errors %}
+                                    <span>{{error}}</span>
+                                {%% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password2.label(class="form-control form-control-lg") }}
+                        {% endif %}
                 </div>
                 <div class="input-box">
-                <label class="details">State :</label>
-                <select id="state">
+                <label for="select_field" class="details">State :</label>
+                <select id="select_field" name="selected_option">
                     <option value="state">Select your state</option>
                     <option value="selangor">Selangor</option>
                     <option value="kelantan">Kelantan</option>
@@ -68,13 +126,33 @@
                     <option value="wilayahkl">Wilayah Persekutuan Kuala Lumpur</option>
                     <option value="wilayahputrajaya">Wilayah Persekutuan Putrajaya</option>
                 </select>
+                        {{ form.hidden_tag() }}
+                        {{ form.selected_option.label }}
+                        {{ form.selected_option }}
+
                 </div>
                 <div class="input-box">
                     <label class="details">Phone Number :</label>
-                    <input type="text" placeholder="Phone Number" required>
+                    <input 
+                        type="text" 
+                        placeholder="Phone Number" 
+                        id="phonenumber" 
+                        name="phonenumber" required>
+                        {{ form.phonenumber.label(class="form-control-label") }}
+                        {% if form.phonenumber.errors %}
+                            {{ form.phonenumber(class="form-control form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.phonenumber.errors %}
+                                    <span>{{error}}</span>
+                                {%% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.phonenumber.label(class="form-control form-control-lg") }}
+                        {% endif %}
                 </div>
             </div>
             <button type="submit" class="submitbutton">Submit</button>
+                    {{ form.submit(class="class="submitbutton"")}}
             <div class="signin-options">
                 <a href="/login" class="have-account">Already have an account?</a>
             </div>
