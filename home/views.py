@@ -7,6 +7,9 @@ from .models import Post
 
 views = Blueprint('views',__name__)
 
+app = Flask(__name__,static_url_path='/static')
+app.config['SECRET_KEY'] = 'appviews'
+
 @views.route('/')
 def first():
     return render_template('firstpage.html', name='firstpage')
