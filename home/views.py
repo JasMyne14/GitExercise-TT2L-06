@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
-from .forms import PostForm,RegistrationForm,LoginForm
+from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post
 
 views = Blueprint('views',__name__)
@@ -17,12 +17,12 @@ def mainpage():
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():
-    form = RegistrationForm()
+    form = SignUpForm()
     if form.validate_on_submit():
         selected_option = form.selected_option.data
         flash(f"you selected: {selected_option}",'success')
         flash(f'Account created for {form.username.data}!','success')
-        return redirect(url_for('mainpage'))
+        return redirect(url_for('views.mainpage'))
     return render_template('signup.html', form=form)
 
 @views.route('/login')
@@ -31,7 +31,7 @@ def login():
     if form.validate_on_submit():
         if form.email.data == 'admin@blog.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
-            return redirect(url_for('mainpage'))
+            return redirect(url_for('views.mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', form=form)

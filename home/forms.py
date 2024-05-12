@@ -3,12 +3,12 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, BooleanField, TextAreaField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
-class RegistrationForm(FlaskForm):
+class SignUpForm(FlaskForm):
     fullname = StringField('Full Name',validators=[DataRequired(),Length(min=2,max=50)])
     email = StringField('Email Address', validators=[DataRequired(), Email()])
     username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
     password1 = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Password (Confirm)',validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Password (Confirm)',validators=[DataRequired(), EqualTo('password1', message='Password must match')])
     selected_option = SelectField('Select your state', choices=[
         ('selangor', 'Selangor'),
         ('kelantan', 'Kelantan'),
