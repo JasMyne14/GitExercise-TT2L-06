@@ -23,16 +23,15 @@ def signup():
     form = SignUpForm()
     if form.validate_on_submit():
         selected_option = form.selected_option.data
-        flash(f"you selected: {selected_option}",'success')
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
     return render_template('signup.html', form=form)
 
-@views.route('/login')
+@views.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+        if form.username.data == 'dell05' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('views.mainpage'))
         else:
