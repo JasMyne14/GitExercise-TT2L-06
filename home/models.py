@@ -21,14 +21,14 @@ class User(db.Model):
     fullname = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(20), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
-    password1 = db.Column(db.String(60), nullable=False)
-    password2 = db.Column(db.String(60), nullable=False)
+    password1 = db.Column(db.String(255), nullable=False)
+    password2 = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(120), nullable=False)
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
     #posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.password1}', '{self.password2}', '{self.state}', '{self.phonenumber}')"
+        return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"
 
 class RegisterCat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
