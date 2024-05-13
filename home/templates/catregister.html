@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>Cat Registration</title>
-        <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='style.css')}}">
+        <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src='main.js'></script>    
     </head>
@@ -39,12 +39,12 @@
         <br />
         
             <div class="container_catform">
-                <h1>Register Your Cat Here!</h1>
-                <p>Please fill up this form to register an account for your cat.</p>
+                <h1 class="register_cat_title">Register Your Cat Here!</h1>
+                <p class="register_cat_title">Please fill up this form to register an account for your cat.</p>
                 <hr>
 
                 <form class="catform" action="/registercat/register" method="POST" enctype="multipart/form-data">  
-                <h3><u>Cat's Details</u></h3>
+                <h3 class="register_cat_title"><u>Cat's Details</u></h3>
                 <section class ="cat_name">
                 <label for ="cat_name"><b>Cat's Name:</b></label>
                 <input type ="text" placeholder="Enter cat name" name="cat_name" id="cat_name" required maxlength="50">
@@ -133,7 +133,7 @@
                 <hr>
 
                 <div class="Owner's Details">
-                    <h3><u>Owner's Details</u></h3>
+                    <h3 class="register_cat_title"><u>Owner's Details</u></h3>
                     <section class="owner_name">
                     <label for="owner_name"><b>Owner's Name:</b></label>
                     <input type="text" placeholder="Enter owner name" name="owner_name" id="owner_name" required>
