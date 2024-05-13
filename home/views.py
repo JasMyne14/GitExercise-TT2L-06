@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
-from .models import Post, User
+from .models import Post, User, RegisterCat
 from flask_bcrypt import Bcrypt
 
 views = Blueprint('views',__name__)
@@ -39,6 +39,7 @@ def login():
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', form=form)
+
 @views.route('/notification')
 def notification():
     users = {
@@ -58,6 +59,7 @@ def createpost():
         flash('Your post has been created!','success')
         return redirect(url_for('views.mainpage'))
     return render_template('createpost.html', title='New Post', form=form,)
+    
 def adopt():
     return '<h2>Adoption page</h2>'
 
@@ -68,3 +70,12 @@ def donation():
             {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
     ]
     return render_template('donation.html', donation='donation', links=links)
+
+@views.route('/registercat')
+def registercat():
+    return render_template('catregister.html') 
+
+@views.route('/profile_page')
+def profile_page():
+    formcat = RegisterCat.query.all()
+    return render_template('catprofile.html', formcat=formcat)
