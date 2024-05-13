@@ -6,7 +6,7 @@ import os
 
 registercat = Blueprint('registercat', __name__)
 
-upload_folder = 'catprofile/static/catregisterupload'
+upload_folder = 'home/static/catregisterupload'
 allowed_extensions = {'png','jpg', 'jpeg'}
 
 def allowed_catfile(filename):
@@ -65,5 +65,5 @@ def register_cat_form():
     db.session.add(formcat)
     db.session.commit()
 
-    return redirect(url_for('viewscat.profile_page'))
+    return redirect(url_for('views.profile_page'))
 
