@@ -13,6 +13,9 @@ def allowed_catfile(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
+def convert_backslashes_to_forward_slashes(file_path):
+    return file_path.replace('\\', '/')
+
 @registercat.route('/register', methods=['GET', 'POST'])
 def register_cat_form():
     cat_name = request.form['cat_name']
@@ -36,8 +39,9 @@ def register_cat_form():
 
         if catfile and allowed_catfile(catfile.filename): #check if the file is allowed
             filename = secure_filename(catfile.filename) #saving file
-            catfile.save(os.path.join(upload_folder, filename))
-            cat_photo = os.path.join(upload_folder, filename) #setting cat photo to saved file path
+            file_path = os.path.join(upload_folder, filename)
+            catfile.save(file_path)
+            cat_photo = convert_backslashes_to_forward_slashes(file_path) #setting cat photo to saved file path
         else:
             flash('Invalid file format. Please upload an image file.')
             return redirect(request.url)
