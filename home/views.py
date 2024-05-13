@@ -79,3 +79,11 @@ def registercat():
 def profile_page():
     formcat = RegisterCat.query.all()
     return render_template('catprofile.html', formcat=formcat)
+
+@views.route('/user')
+def user():
+    return render_template('user.html')
+
+@views.route('/adoptmeow')
+def adoptmeow():
+    return render_template('adoptmeow.html')
