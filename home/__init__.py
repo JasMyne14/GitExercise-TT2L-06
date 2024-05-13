@@ -28,5 +28,4 @@ def create_app():
     app.register_blueprint(signup, url_prefix='/signup')
     app.register_blueprint(mainpage, url_prefix='/mainpage')
 
-
     return app
