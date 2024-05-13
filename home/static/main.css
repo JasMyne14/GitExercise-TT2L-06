@@ -247,6 +247,7 @@ a.article-title:hover {
   top: 0;
   left: 0;
   width: 100%;
+  background-image: url('nekoyangi3.jpg');
   height: 80%;
   background-size: cover;
   background-position: center center;
@@ -294,7 +295,7 @@ body .firstpage-container {
   margin-left: 50px;*/
   font-size: 25px;
   font-family: Helvetica;
-  background-color: #705B33; /* Adjust button color as needed */
+  background-color: #705B33;
   color: white;
   border: none;
   border-radius: 50px;
