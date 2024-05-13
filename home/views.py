@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
-from .models import Post
+from .models import Post, User
+from flask_bcrypt import Bcrypt
 
 views = Blueprint('views',__name__)
 
@@ -23,22 +24,21 @@ def signup():
     form = SignUpForm()
     if form.validate_on_submit():
         selected_option = form.selected_option.data
-        flash(f"you selected: {selected_option}",'success')
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
     return render_template('signup.html', form=form)
 
-@views.route('/login')
+@views.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and Bcrypt.check_password_hash(user.password, form.password.data):
             flash('You have been logged in!', 'success')
             return redirect(url_for('views.mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', form=form)
-
 @views.route('/notification')
 def notification():
     users = {
