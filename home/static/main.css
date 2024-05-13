@@ -1,7 +1,11 @@
+
 body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background-color: #ffdc9c;
+  margin-top: 100px;
+
 }
   /*background: pink;
   background-size: cover;
@@ -174,12 +178,11 @@ a.article-title:hover {
 }
 
 /*Donation page*/
-
 .donate {
   margin-left: 30px;
 }
 
-.donate a:link {
+/*.donate a:link {
   background-color: rgb(239, 217, 191);
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
@@ -189,30 +192,54 @@ a.article-title:hover {
   border: 2px solid black;
   display: inline-block;
   margin: 5px;
-}
-
-.donate a:hover, a:active {
-  color: black;
-}
+}*/
 
 .image {
   text-align: center;
 }
 
 .image img:hover {
-  border: 5px solid rgb(247, 72, 72);
+  border: 5px solid rgb(251, 182, 86);
 }
 
 .image img {
   width: 360px;
   height: 260px;
   float: left;
-  margin: 10px;
-  border: 2px solid black;
+  margin: 70px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  border: 2px solid rgb(255, 255, 255);
 }
 
-.link {
+.link1, .link2 , .link3 {
   overflow: hidden;
+  clear: both;
+  color: #ddc7ab;
+  text-align: center;
+  display: inline-block;
+  border: solid 2px #62442f;
+  border-radius: 30px;
+  margin-left: 125px;
+  padding: 10px;
+  background-color: #62442f;
+}
+.donate-link a:link{
+  background-color: #c29045;
+  color: #ffffff;
+}
+.link1{
+  padding: 24px;
+}
+.link2{
+  width: 20%;
+  margin-left: 230px;
+  margin-top: 20px;
+}
+
+.link3 {
+  margin-left: 230px;
+  padding: 24px;
 }
 
 #firstpage.html
@@ -220,6 +247,7 @@ a.article-title:hover {
   top: 0;
   left: 0;
   width: 100%;
+  background-image: url('nekoyangi3.jpg');
   height: 80%;
   background-size: cover;
   background-position: center center;
@@ -267,7 +295,7 @@ body .firstpage-container {
   margin-left: 50px;*/
   font-size: 25px;
   font-family: Helvetica;
-  background-color: #705B33; /* Adjust button color as needed */
+  background-color: #705B33;
   color: white;
   border: none;
   border-radius: 50px;
