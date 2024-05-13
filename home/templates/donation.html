@@ -53,35 +53,24 @@
             <a href ="https://www.paws.org.my/donate" target="_blank">
             <img src="{{ url_for('static', filename='picture/paws.png') }}" alt="org. logo"></a>
         </div>
-        <div class="link">
-            <a href="https://www.paws.org.my/donate" target="_blank">Donate to PAWS Malaysia</a>
-        </div>    
     </div>
     <div class="image-link">
         <div class="image">
             <a href="https://mnawf.org.my/donate/" target="_blank">
             <img src="{{ url_for('static', filename='picture/MNAWF.png') }}" alt="org2. logo"></a>
         </div>
-        <div class="link">
-            <a href="https://mnawf.org.my/donate/" target="_blank">Donate to Malaysian National Animal Welfare Foundation (MNAWF)</a>
-        </div>    
     </div>
     <div class="image-link">
         <div class="image">
             <a href="https://catbeachpenang.com/donate/" target="_blank">
             <img src="{{ url_for('static', filename='picture/cat_beach.png') }}" alt="org3. logo"></a>
         </div>
-        <div class="link">
-            <a href="https://catbeachpenang.com/donate/" target="_blank">Donate to Cat Beach Penang</a>
-        </div>    
     </div>
-
-    <div class="link">
-        <ul>
-            {% for link in links %}
-            <li><a href="{{ link.url }}" target="_blank">{{ link.text }}</a></li>
-            {% endfor %}
-        </ul>
+    <br />
+    <div class="donate-links">
+        <a class="link1" href="https://www.paws.org.my/donate" target="_blank">Donate to PAWS Malaysia</a>
+        <a class="link2" href="https://mnawf.org.my/donate/" target="_blank">Donate to Malaysian National Animal Welfare Foundation (MNAWF)</a>
+        <a class="link3" href="https://catbeachpenang.com/donate/" target="_blank">Donate to Cat Beach Penang</a>    
     </div>
 </body>
 </html>
