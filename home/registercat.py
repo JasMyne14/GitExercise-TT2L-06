@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, url_for
-from .models import db, CatForm
+from .models import db, RegisterCat
 from werkzeug.utils import secure_filename
 from flask import flash
 import os
@@ -49,7 +49,7 @@ def register_cat_form():
     else:
         cat_photo = None            
 
-    formcat = CatForm(cat_name=cat_name,
+    formcat = RegisterCat(cat_name=cat_name,
                      cat_photo=cat_photo, 
                      cat_breed=cat_breed, 
                      cat_age=cat_age, 
