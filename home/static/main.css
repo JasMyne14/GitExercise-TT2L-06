@@ -357,7 +357,7 @@ body .signup-container {
 .signup-form {
   width: 42%;
   margin-left: 45%; 
-  margin-top: 8%;
+  margin-top: 7%;
   font-family: 'Canva sans';
   padding-bottom: 20px;
   color: #FFEED6;
@@ -367,7 +367,7 @@ body .signup-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .input-box label {
@@ -401,9 +401,9 @@ body .signup-container {
   border-radius: 50px;
   width: 115px; 
   transition: background-color 0.3s;
-  margin-top: 34px;
+  margin-top: 5px;
   margin-left: 40%;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
 }
 
 .submitbutton:hover {
