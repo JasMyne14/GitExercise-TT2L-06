@@ -33,6 +33,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 20%;
 }
 
+.mypost-content h1,h5{
+  margin-left: 10px;
+}
+
 .backbtn{
   margin-left: 75%;
   padding: 10px;
@@ -183,18 +187,6 @@ a.article-title:hover {
   margin-left: 30px;
 }
 
-/*.donate a:link {
-  background-color: rgb(239, 217, 191);
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: medium;
-  text-align: center;
-  padding: 20px 10px;
-  border: 2px solid black;
-  display: inline-block;
-  margin: 5px;
-}*/
-
 .image {
   text-align: center;
 }
@@ -213,7 +205,7 @@ a.article-title:hover {
   border: 2px solid rgb(255, 255, 255);
 }
 
-.link1, .link2 , .link3 {
+.link1, .link2, .link3 {
   overflow: hidden;
   clear: both;
   color: #ddc7ab;
@@ -225,10 +217,15 @@ a.article-title:hover {
   padding: 10px;
   background-color: #62442f;
 }
-.donate-link a:link{
-  background-color: #c29045;
+.link1, .link2, .link3, a:visited{
   color: #ffffff;
 }
+
+.link1, .link2, .link3, a:hover{
+  color: #fafdcb;
+  
+}
+
 .link1{
   padding: 24px;
 }
