@@ -5,12 +5,14 @@ from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User, RegisterCat
 from flask_bcrypt import Bcrypt
+from werkzeug.utils import secure_filename
+import os
 
 views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
-app.config['S']
+app.config['UPLOAD_FOLDER'] = 'static/files'
 
 @views.route('/')
 def first():
@@ -57,6 +59,8 @@ def post():
 def createpost():
     form = PostForm()
     if form.validate_on_submit():
+        file = form.file.data
+        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename)))
         flash('Your post has been created!','success')
         return redirect(url_for('views.mainpage'))
     return render_template('createpost.html', title='New Post', form=form,)
