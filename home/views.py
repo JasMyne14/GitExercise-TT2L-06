@@ -3,8 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
-from .models import Post, User, RegisterCat
+from .models import Post, User, RegisterCat, db
 from flask_bcrypt import Bcrypt
+from werkzeug.security import generate_password_hash
 
 views = Blueprint('views',__name__)
 
@@ -23,6 +24,16 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password1.data)
+        user = User(fullname=form.fullname.data,
+                    email=form.email.data,
+                    username=form.username.data,
+                    password1=hashed_password,
+                    password2=hashed_password,
+                    state=form.selected_option.data,
+                    phonenumber=form.phonenumber.data)
+        db.session.add(user)
+        db.session.commit()
         selected_option = form.selected_option.data
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
@@ -79,3 +90,11 @@ def registercat():
 def profile_page():
     formcat = RegisterCat.query.all()
     return render_template('catprofile.html', formcat=formcat)
+
+@views.route('/user')
+def user():
+    return render_template('user.html')
+
+@views.route('/adoptmeow')
+def adoptmeow():
+    return render_template('adoptmeow.html')

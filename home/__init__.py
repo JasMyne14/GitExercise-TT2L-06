@@ -3,6 +3,8 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy.sql import func
+from .forms import PostForm,SignUpForm,LoginForm
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 db = SQLAlchemy()
@@ -27,6 +29,8 @@ def create_app():
     from .mainpage import mainpage
     from .profile_page import profile_page
     from .registercat import registercat
+    from .user import user
+    from .adoptmeow import adoptmeow
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
@@ -38,5 +42,9 @@ def create_app():
     app.register_blueprint(mainpage, url_prefix='/mainpage')
     app.register_blueprint(profile_page, url_prefix='/profile_page')
     app.register_blueprint(registercat, url_prefix='/registercat')
+    app.register_blueprint(user, url_prefix='/user')
+    app.register_blueprint(adoptmeow, url_prefix='/adoptmeow')
+
+
 
     return app
