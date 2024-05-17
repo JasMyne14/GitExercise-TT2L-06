@@ -8,7 +8,7 @@
 <body>
     <div class="login-container">
     <form methods="POST" class="login-form">
-        {{ form.hidden_tag( )}}
+        {{ form.hidden_tag() }}
         <h1 class="logintitle">Login</h1>
         <div class="login-box">
             <label for="username">Username :</label>
@@ -34,9 +34,9 @@
                 id="password" 
                 name="password"
                 placeholder="Enter password" required >
-            {% if form.password.errors %}
+            {% if form.password1.errors %}
                 <div class="invalid-feedback">
-                    {% for error in form.password.errors %}
+                    {% for error in form.password1.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>

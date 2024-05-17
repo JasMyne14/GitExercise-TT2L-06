@@ -6,11 +6,17 @@ from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User, RegisterCat, db
 from flask_bcrypt import Bcrypt
 from werkzeug.security import generate_password_hash
+from flask_bcrypt import Bcrypt
+from flask_login import UserMixin, login_user,LoginManager, login_required, logout_user, current_user
 
 views = Blueprint('views',__name__)
+bcrypt = Bcrypt()
+
+import logging
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
+logging.basicConfig(level=logging.DEBUG)
 
 @views.route('/')
 def first():
@@ -24,7 +30,7 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password1.data)
+        hashed_password = bcrypt.generate_password_hash(form.password1.data)
         user = User(fullname=form.fullname.data,
                     email=form.email.data,
                     username=form.username.data,
@@ -41,14 +47,26 @@ def signup():
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('mainpage'))
+
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and Bcrypt.check_password_hash(user.password, form.password.data):
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('views.mainpage'))
+        if user:
+            app.logger.debug(f"User found: {user.username}") 
+            if bcrypt.check_password_hash(user.password1, form.password1.data):
+                app.logger.debug("Password matched")  
+                login_user(user)
+                flash('You have been logged in!', 'success')
+                return redirect(url_for('mainpage'))
+            else:
+                app.logger.debug("Password mismatch")  
+                flash('Login Unsuccessful. Please check your username and password', 'danger')
         else:
-            flash('Login Unsuccessful. Please check your username and password', 'danger')
+            app.logger.debug("User not found")  # Log user not found
+            flash('User not found. Please check your username and password', 'danger')
+
     return render_template('login.html', form=form)
 
 @views.route('/notification')
