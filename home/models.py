@@ -5,6 +5,7 @@ from datetime import datetime
 from flask import current_app
 from home import db 
 from .forms import SignUpForm, LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -29,7 +30,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"
-
+    
 class RegisterCat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cat_name = db.Column(db.String(100), nullable=False)

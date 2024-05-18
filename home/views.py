@@ -11,7 +11,7 @@ from flask_login import UserMixin, login_user,LoginManager, login_required, logo
 
 views = Blueprint('views',__name__)
 bcrypt = Bcrypt()
-
+db = SQLAlchemy
 import logging
 
 app = Flask(__name__,static_url_path='/static')
