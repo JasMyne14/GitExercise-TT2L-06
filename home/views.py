@@ -22,7 +22,7 @@ def first():
 
 @views.route('/mainpage')
 def mainpage():
-    return render_template('mainpage.html', mainpage='mainpage')
+    return render_template('mainpage.html', mainpage='mainpage', user=current_user)
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():
@@ -79,13 +79,21 @@ def post():
     return render_template('post.html')
 
 @views.route('/createpost', methods=['GET','POST'])
+@login_required
 def createpost():
     form = PostForm()
     if form.validate_on_submit():
         file = form.file.data
         if file:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+            file.save(file_path)
+        else:
+            file_path = None
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_path)
+        db.session.add(post)
+        db.session.commit()
+        if file:
             flash('Your post has been created!','success')
         else:
             flash('your post has been created (no file selected)','success')
