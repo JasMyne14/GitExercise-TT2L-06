@@ -11,18 +11,3 @@ post = Blueprint('post',__name__)
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'love'
 
-posts = [
-    {
-        'author':'Aniqah',
-        'title':'blog 1',
-        'content':'First post',
-        'date':'April 13'
-    },
-    {
-        'author':'oyes',
-        'title':'blog 2',
-        'content':'sec post',
-        'date':'April 34'
-    }
-]    
-

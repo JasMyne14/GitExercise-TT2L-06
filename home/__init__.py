@@ -9,7 +9,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 db = SQLAlchemy()
 
 login_manager = LoginManager()
-login_manager.login_view = 'login'
+login_manager.login_view = 'views.login'
 
 def create_app():
     app = Flask(__name__,static_url_path='/static')

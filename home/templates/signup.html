@@ -64,30 +64,15 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="password1">Password :</label>
+                    <label class="details" for="password">Password :</label>
                     <input 
                         type="password" 
                         placeholder="Enter Password" 
-                        id="password1" 
-                        name="password1" required>
-                    {% if form.password1.errors %}
+                        id="password" 
+                        name="password" required>
+                    {% if form.password.errors %}
                         <div class="invalid-feedback">
-                            {% for error in form.password1.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="input-box">
-                    <label class="details" for="password2">Password (Confirm) :</label>
-                    <input 
-                        type="password" 
-                        placeholder="Confirm Password" 
-                        id="password2" 
-                        name="password2" required>
-                    {% if form.password2.errors %}
-                        <div class="invalid-feedback">
-                            {% for error in form.password2.errors %}
+                            {% for error in form.password.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
