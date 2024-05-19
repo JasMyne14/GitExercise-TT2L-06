@@ -1,5 +1,5 @@
 from home import create_app
-from home import db
+from home import db, bcrypt 
 
 app = create_app()
 

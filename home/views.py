@@ -4,19 +4,14 @@ from home import create_app
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User, RegisterCat, db
-from flask_bcrypt import Bcrypt
-from werkzeug.security import generate_password_hash
-from flask_bcrypt import Bcrypt
-from flask_login import UserMixin, login_user,LoginManager, login_required, logout_user, current_user
+import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, current_user, logout_user, login_required
 
 views = Blueprint('views',__name__)
-bcrypt = Bcrypt()
-db = SQLAlchemy
-import logging
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
-logging.basicConfig(level=logging.DEBUG)
 
 @views.route('/')
 def first():
@@ -30,7 +25,7 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password1.data)
+        hashed_password = generate_password_hash(form.password1.data)
         user = User(fullname=form.fullname.data,
                     email=form.email.data,
                     username=form.username.data,
@@ -48,26 +43,24 @@ def signup():
 @views.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('mainpage'))
-
+        return redirect(url_for('views.mainpage'))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user:
-            app.logger.debug(f"User found: {user.username}") 
-            if bcrypt.check_password_hash(user.password1, form.password1.data):
-                app.logger.debug("Password matched")  
-                login_user(user)
-                flash('You have been logged in!', 'success')
-                return redirect(url_for('mainpage'))
-            else:
-                app.logger.debug("Password mismatch")  
-                flash('Login Unsuccessful. Please check your username and password', 'danger')
+        if user and check_password_hash(user.password1, form.password1.data):            
+            login_user(user)
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('views.mainpage'))
         else:
-            app.logger.debug("User not found")  # Log user not found
-            flash('User not found. Please check your username and password', 'danger')
-
+            flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', form=form)
+
+@views.route('/logout')
+def logout():
+    logout_user()
+    flash('logged out successfully!', 'info')
+    return redirect(url_for('views.firstpage'))
 
 @views.route('/notification')
 def notification():
