@@ -3,9 +3,13 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy.sql import func
+from flask_login import LoginManager
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 db = SQLAlchemy()
+
+login_manager = LoginManager()
+login_manager.login_view = 'login'
 
 def create_app():
     app = Flask(__name__,static_url_path='/static')
@@ -16,6 +20,16 @@ def create_app():
 
     db.init_app(app)
     bcrypt = Bcrypt(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'views.login'
+    login_manager.init_app(app)
+
+    from .models import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
     
     from .donation import donation
     from .notification import notification

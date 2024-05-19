@@ -1,18 +1,20 @@
-from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory
+from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory,session
 from flask_sqlalchemy import SQLAlchemy
-from home import create_app
+from flask_login import LoginManager, login_user, UserMixin, logout_user
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User, RegisterCat
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt, generate_password_hash,check_password_hash
 from werkzeug.utils import secure_filename
 import os
+from . import db
 
 views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
 app.config['UPLOAD_FOLDER'] = 'static/files'
+bcrypt = Bcrypt()
 
 @views.route('/')
 def first():
@@ -26,23 +28,38 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        selected_option = form.selected_option.data
+        if form.password1.data != form.password2.data:
+            flash('password do not match','danger')
+            return render_template('signup.html', form=form)
+        
+        hashed_password = generate_password_hash(form.password1.data).decode('utf-8')
+        user = User(fullname=form.fullname.data, email=form.email.data, username=form.username.data, password1=hashed_password, password2=form.password2.data, selected_option = form.selected_option.data, phonenumber=form.phonenumber.data)
+        db.session.add(user)
+        db.session.commit()
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
     return render_template('signup.html', form=form)
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and Bcrypt.check_password_hash(user.password, form.password.data):
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('views.mainpage'))
-        else:
-            flash('Login Unsuccessful. Please check your username and password', 'danger')
-            
-    return render_template('login.html', form=form)
+    email = request.form.get('email')
+    password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password, password):
+        flash('try again')
+        return redirect(url_for('views.login'))
+    
+    login_user(user, remember=remember)
+    flash('You have been logged in!', 'success')
+    return redirect(url_for('views.mainpage'))
+
+@views.route('/logout')
+def logout():
+    logout_user()
+    flash('Logged out successfully','info')
+    return redirect(url_for('views.firstpage'))
 
 @views.route('/notification')
 def notification():

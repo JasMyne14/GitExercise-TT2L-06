@@ -6,49 +6,45 @@
     <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css') }}">
 </head>
 <body>
-    <div class="login-container">
-    <form methods="POST" class="login-form">
-        {{ form.hidden_tag( )}}
+<div class="login-container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <form method='POST' class="login-form" action="/login">
+        {{ form.hidden_tag() }}
         <h1 class="logintitle">Login</h1>
         <div class="login-box">
-            <label for="username">Username :</label>
-            <input 
-                type="username" 
-                class="form-control" 
-                id="username" 
-                name="username"
-                placeholder="Enter username" required >
-            {% if form.username.errors %}
-                    <div class="invalid-feedback">
-                    {% for error in form.username.errors %}
-                        <span>{{error}}</span>
+            {{ form.email.label }}
+            {{ form.email() }}
+            {% if form.email.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
         <div class="login-box">
-            <label for="password">Password :</label>
-            <input 
-                type="password" 
-                class="form-control" 
-                id="password" 
-                name="password"
-                placeholder="Enter password" required >
+            {{ form.password.label }}
+            {{ form.password() }}
             {% if form.password.errors %}
                 <div class="invalid-feedback">
                     {% for error in form.password.errors %}
-                        <span>{{error}}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
-        <button type="submit" class="loginbutton">Log In</button>
+        {{ form.submit() }}
+    </form>
         <div class="login-options">
-            <a href="#" class="forgot-password">Forgot Password?</a>
             <span class="separator">|</span>
             <a href="/signup" class="create-account">Don't have an account yet?</a>
         </div>
-    </form>
     </div>
 </body>
 </html>
