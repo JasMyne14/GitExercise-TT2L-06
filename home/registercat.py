@@ -1,7 +1,6 @@
 from flask import Blueprint, request, redirect, url_for,flash
 from .models import db, RegisterCat
 from werkzeug.utils import secure_filename
-from flask_uploads import UploadSet, configure_uploads, IMAGES
 import os
 
 registercat = Blueprint('registercat', __name__)
