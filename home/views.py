@@ -1,7 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory,session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, UserMixin, logout_user
-from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User, RegisterCat
 from flask_bcrypt import Bcrypt, generate_password_hash,check_password_hash
@@ -28,12 +27,8 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        if form.password1.data != form.password2.data:
-            flash('password do not match','danger')
-            return render_template('signup.html', form=form)
-        
-        hashed_password = generate_password_hash(form.password1.data).decode('utf-8')
-        user = User(fullname=form.fullname.data, email=form.email.data, username=form.username.data, password1=hashed_password, password2=form.password2.data, selected_option = form.selected_option.data, phonenumber=form.phonenumber.data)
+        hashed_password = generate_password_hash(form.password.data).decode('utf-8')
+        user = User(fullname=form.fullname.data, email=form.email.data, username=form.username.data, password=hashed_password, selected_option = form.selected_option.data, phonenumber=form.phonenumber.data)
         db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.username.data}!','success')
