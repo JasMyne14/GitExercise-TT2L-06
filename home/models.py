@@ -1,10 +1,11 @@
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from sqlalchemy.sql import func 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 from flask import current_app
 from home import db 
 from .forms import SignUpForm, LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -16,21 +17,20 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
     
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(20), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
-    password1 = db.Column(db.String(60), nullable=False)
-    password2 = db.Column(db.String(60), nullable=False)
+    password1 = db.Column(db.String(255), nullable=False)
+    password2 = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(120), nullable=False)
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='deafult.jpg')
-    posts = db.relationship('Post', backref='author', lazy=True)
+    #posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
-
+        return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"
+    
 class RegisterCat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cat_name = db.Column(db.String(100), nullable=False)

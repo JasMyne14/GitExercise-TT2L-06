@@ -12,34 +12,35 @@
 </head>
 <body>
     
-    <div class="topnav">
-        <a class="active" href="/">Main</a>
-        <a href="/post">Post</a>
-        <a href="/adopt">Adopt Meow</a>
-        <a href="/donation">About</a>
-      </div>
+  <div class="topnav">
+    <a class="active" href="/">Main</a>
+    <a href="/post">Post</a>
+    <a href="/adoptmeow">Adopt Meow</a>
+    <a href="/donation">About</a>
+  </div>
 
-      <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/user">User</a>
-        <a href="/notification">Notification</a>
-        <a href="/registercat">Register Cat</a>
-        <a href="/profile_page">Cat Profile</a>
-        <a href="#">Log out</a>
-      </div>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/user">User</a>
+    <a href="/notification">Notification</a>
+    <a href="/registercat">Register Cat</a>
+    <a href="/profile_page">Cat Profile</a>
+    <a href="/">Log out</a>
+  </div>
 
-    <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
+  <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
 
-    <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
+  <script>
+  function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+  }
 
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-    </script>
-    <br />
-
+  function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+  }
+  </script>
+  <br />
+  {% block content %}
+  {% endblock content %}
 
 </body>
