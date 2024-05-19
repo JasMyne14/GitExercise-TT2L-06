@@ -7,6 +7,13 @@
 </head>
 <body>
     <div class="signup-container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}"
+            </div>
+        {% endif %}
+        {% endwith %}
         <form method="POST" class="signup-form" action="/signup">
             {{ form.hidden_tag() }}
             <h1 class="signuptitle">Sign Up</h1>
