@@ -2,8 +2,10 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, UserMixin, logout_user
 from .forms import PostForm,SignUpForm,LoginForm
-from .models import Post, User, RegisterCat
-from flask_bcrypt import Bcrypt, generate_password_hash,check_password_hash
+from .models import Post, User, RegisterCat, db
+import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, current_user, logout_user, login_required, generate_password_hash,check_password_hash
 from werkzeug.utils import secure_filename
 import os
 from . import db
@@ -27,33 +29,27 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data).decode('utf-8')
-        user = User(fullname=form.fullname.data, email=form.email.data, username=form.username.data, password=hashed_password, selected_option = form.selected_option.data, phonenumber=form.phonenumber.data)
-        db.session.add(user)
-        db.session.commit()
+        selected_option = form.selected_option.data
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
     return render_template('signup.html', form=form)
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
-
-    user = User.query.filter_by(email=email).first()
-    if not user or not check_password_hash(user.password, password):
-        flash('try again')
-        return redirect(url_for('views.login'))
-    
-    login_user(user, remember=remember)
-    flash('You have been logged in!', 'success')
-    return redirect(url_for('views.mainpage'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and Bcrypt.check_password_hash(user.password, form.password.data):
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('views.mainpage'))
+        else:
+            flash('Login Unsuccessful. Please check your username and password', 'danger')
+    return render_template('login.html', form=form)
 
 @views.route('/logout')
 def logout():
     logout_user()
-    flash('Logged out successfully','info')
+    flash('logged out successfully!', 'info')
     return redirect(url_for('views.firstpage'))
 
 @views.route('/notification')

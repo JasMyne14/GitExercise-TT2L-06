@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, BooleanField, TextAreaField, PasswordField, SelectField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import UserMixin, login_user,LoginManager, login_required, logout_user, current_user
 
 class SignUpForm(FlaskForm):
     fullname = StringField('Full Name',validators=[DataRequired(),Length(min=2,max=50)])
@@ -27,8 +28,8 @@ class SignUpForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email Address', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2,max=20)])
+    password1 = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 class PostForm(FlaskForm):
