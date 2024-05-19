@@ -62,7 +62,7 @@ def login():
 def logout():
     logout_user()
     flash('Logged out successfully!', 'info')
-    return redirect(url_for('views.login'))
+    return redirect(url_for('views.first'))
 
 @views.route('/notification')
 def notification():
