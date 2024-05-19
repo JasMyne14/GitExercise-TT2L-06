@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
 from .forms import PostForm,SignUpForm,LoginForm
-from .models import Post, User, RegisterCat
-from flask_bcrypt import Bcrypt
+from .models import Post, User, RegisterCat, db
+import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, current_user, logout_user, login_required
 
 views = Blueprint('views',__name__)
 
@@ -23,6 +25,16 @@ def mainpage():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password1.data)
+        user = User(fullname=form.fullname.data,
+                    email=form.email.data,
+                    username=form.username.data,
+                    password1=hashed_password,
+                    password2=hashed_password,
+                    state=form.selected_option.data,
+                    phonenumber=form.phonenumber.data)
+        db.session.add(user)
+        db.session.commit()
         selected_option = form.selected_option.data
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
@@ -30,15 +42,25 @@ def signup():
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('views.mainpage'))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and Bcrypt.check_password_hash(user.password, form.password.data):
+        if user and check_password_hash(user.password1, form.password1.data):            
+            login_user(user)
             flash('You have been logged in!', 'success')
             return redirect(url_for('views.mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
     return render_template('login.html', form=form)
+
+@views.route('/logout')
+def logout():
+    logout_user()
+    flash('logged out successfully!', 'info')
+    return redirect(url_for('views.firstpage'))
 
 @views.route('/notification')
 def notification():

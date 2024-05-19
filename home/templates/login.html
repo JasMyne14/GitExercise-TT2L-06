@@ -7,48 +7,46 @@
 </head>
 <body>
     <div class="login-container">
-    <form methods="POST" class="login-form">
-        {{ form.hidden_tag( )}}
-        <h1 class="logintitle">Login</h1>
-        <div class="login-box">
-            <label for="username">Username :</label>
-            <input 
-                type="username" 
-                class="form-control" 
-                id="username" 
-                name="username"
-                placeholder="Enter username" required >
-            {% if form.username.errors %}
+        <form method="POST" class="login-form">
+            {{ form.hidden_tag() }}
+            <h1 class="logintitle">Login</h1>
+            <div class="login-box">
+                <label for="username">Username :</label>
+                <input 
+                    type="username" 
+                    class="form-control" 
+                    id="username" 
+                    name="username"
+                    placeholder="Enter username" required >
+                {% if form.username.errors %}
+                        <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="login-box">
+                <label for="password1">Password :</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="password1" 
+                    name="password1"
+                    placeholder="Enter password" required >
+                {% if form.password1.errors %}
                     <div class="invalid-feedback">
-                    {% for error in form.username.errors %}
-                        <span>{{error}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-        <div class="login-box">
-            <label for="password">Password :</label>
-            <input 
-                type="password" 
-                class="form-control" 
-                id="password" 
-                name="password"
-                placeholder="Enter password" required >
-            {% if form.password.errors %}
-                <div class="invalid-feedback">
-                    {% for error in form.password.errors %}
-                        <span>{{error}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-        <button type="submit" class="loginbutton">Log In</button>
-        <div class="login-options">
-            <a href="#" class="forgot-password">Forgot Password?</a>
-            <span class="separator">|</span>
-            <a href="/signup" class="create-account">Don't have an account yet?</a>
-        </div>
-    </form>
+                        {% for error in form.password1.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <button type="submit" class="loginbutton">Log In</button>
+            <div class="login-options">
+                <a href="/signup" class="create-account">Don't have an account yet?</a>
+            </div>
+        </form>   
     </div>
 </body>
 </html>

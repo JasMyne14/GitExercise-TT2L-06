@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint,render_template
+from flask import Flask,Blueprint
 
 signup = Blueprint('signup',__name__)
 
