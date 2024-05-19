@@ -678,8 +678,8 @@ input[type="submit"]:hover {
   background-color: #705b33;
   border-radius: 20px;
   color:#ddc7ab;
-  margin-top: 20px;
-  padding: 30px 40px;
+  margin-top: 10px;
+  padding: 8px 15px;
   float: right;
 }
 
