@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory
+from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
@@ -12,6 +12,7 @@ views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
+
 
 @views.route('/')
 def first():
@@ -57,10 +58,11 @@ def login():
     return render_template('login.html', form=form)
 
 @views.route('/logout')
+@login_required
 def logout():
     logout_user()
-    flash('logged out successfully!', 'info')
-    return redirect(url_for('views.firstpage'))
+    flash('Logged out successfully!', 'info')
+    return redirect(url_for('views.first'))
 
 @views.route('/notification')
 def notification():
