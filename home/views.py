@@ -1,11 +1,11 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory,session
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_user, UserMixin, logout_user
+from home import create_app
 from .forms import PostForm,SignUpForm,LoginForm
 from .models import Post, User, RegisterCat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, current_user, logout_user, login_required, generate_password_hash,check_password_hash
+from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 import os
 from . import db
@@ -15,7 +15,6 @@ views = Blueprint('views',__name__)
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
 app.config['UPLOAD_FOLDER'] = 'static/files'
-bcrypt = Bcrypt()
 
 @views.route('/')
 def first():
@@ -23,12 +22,22 @@ def first():
 
 @views.route('/mainpage')
 def mainpage():
-    return render_template('mainpage.html', mainpage='mainpage', posts=posts)
+    return render_template('mainpage.html', mainpage='mainpage')
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password1.data)
+        user = User(fullname=form.fullname.data,
+                    email=form.email.data,
+                    username=form.username.data,
+                    password1=hashed_password,
+                    password2=hashed_password,
+                    state=form.selected_option.data,
+                    phonenumber=form.phonenumber.data)
+        db.session.add(user)
+        db.session.commit()
         selected_option = form.selected_option.data
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.mainpage'))
@@ -36,10 +45,14 @@ def signup():
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('views.mainpage'))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and Bcrypt.check_password_hash(user.password, form.password.data):
+        if user and check_password_hash(user.password1, form.password1.data):
+            login_user(user)
             flash('You have been logged in!', 'success')
             return redirect(url_for('views.mainpage'))
         else:
@@ -47,10 +60,11 @@ def login():
     return render_template('login.html', form=form)
 
 @views.route('/logout')
+@login_required
 def logout():
     logout_user()
     flash('logged out successfully!', 'info')
-    return redirect(url_for('views.firstpage'))
+    return redirect(url_for('views.first'))
 
 @views.route('/notification')
 def notification():
@@ -62,15 +76,19 @@ def notification():
 
 @views.route('/post')
 def post():
-    return render_template('post.html', posts=posts)
+    return render_template('post.html')
 
 @views.route('/createpost', methods=['GET','POST'])
 def createpost():
     form = PostForm()
     if form.validate_on_submit():
         file = form.file.data
-        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename)))
-        flash('Your post has been created!','success')
+        if file:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+            flash('Your post has been created!','success')
+        else:
+            flash('your post has been created (no file selected)','success')
         return redirect(url_for('views.mainpage'))
     return render_template('createpost.html', title='New Post', form=form,)
     

@@ -7,14 +7,7 @@
 </head>
 <body>
     <div class="signup-container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}. Go to <a href="{{ url_for('views.login') }}"
-            </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" class="signup-form" action="/signup">
+        <form method="POST" class="signup-form" action="">
             {{ form.hidden_tag() }}
             <h1 class="signuptitle">Sign Up</h1>
             <div class="user-details">
@@ -64,20 +57,35 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="password">Password :</label>
+                    <label class="details" for="password1">Password :</label>
                     <input 
                         type="password" 
                         placeholder="Enter Password" 
-                        id="password" 
-                        name="password" required>
-                    {% if form.password.errors %}
+                        id="password1" 
+                        name="password1" required>
+                    {% if form.password1.errors %}
                         <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
+                            {% for error in form.password1.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% endif %}
                 </div>
+                <div class="input-box">
+                    <label class="details" for="password2">Password (Confirm) :</label>
+                    <input 
+                        type="password" 
+                        placeholder="Confirm Password" 
+                        id="password2" 
+                        name="password2" required>
+                    {% if form.password2.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.password2.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div
                 <div class="input-box">
                     <label class="details" for="select_field">State :</label>
                     <select id="select_field" name="selected_option">
