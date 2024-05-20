@@ -44,7 +44,7 @@
     <br />
     <div class="main">
         <ul>
-            <h1>Home Feed</h1>
+            <h1>Post(id)</h1>
         </ul>
         <div class="row">
             <div class="col-md-8">
@@ -67,7 +67,7 @@
                 <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                 {% if post.author == current_user %}
                     <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('views.update_post', post_id=post.id) }}">Update</a>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('views.update_post', post_id=post.id) }}">Edit</a>
                         <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             Delete
                         </button>
@@ -76,6 +76,9 @@
             </div>
             <h2><a class="article-title">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
+            {% if file_path %}
+            <img src="{{ url_for('static', filename=post.file)}}" alt="Uploaded file">
+            {% endif %}
             </div>
         </article>
         <!-- Modal -->

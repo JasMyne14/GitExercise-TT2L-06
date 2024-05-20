@@ -77,29 +77,30 @@ def notification():
 
 @views.route('/user_posts')
 def user_posts():
-    return render_template('user_posts.html')
+    user_posts = Post.query.filter_by(author=current_user).all()
+    return render_template('user_posts.html', posts=user_posts)
 
 @views.route('/createpost', methods=['GET','POST'])
 @login_required
 def createpost():
     form = PostForm()
+    file_path = None
     if form.validate_on_submit():
         file = form.file.data
         if file:
             filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__),app.config['UPLOAD_FOLDER'],filename))
             file.save(file_path)
+            flash('Your post has been created!','success')
         else:
             file_path = None
         post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_path)
+        flash('your post has been created (no file selected)','success')
+
         db.session.add(post)
         db.session.commit()
-        if file:
-            flash('Your post has been created!','success')
-        else:
-            flash('your post has been created (no file selected)','success')
         return redirect(url_for('views.mainpage'))
-    return render_template('createpost.html', title='New Post', form=form, legend='New Post')
+    return render_template('createpost.html', title='New Post', form=form, legend='New Post', file_path=file_path, filename=filename)
     
 @views.route('/<int:post_id>')
 def post(post_id):
