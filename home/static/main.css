@@ -52,6 +52,11 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
+a.article-title:visited {
+  color: #47301a;
+  text-decoration: none;
+}
+
 a.article-title:hover {
   color: #428bca;
   text-decoration: none;
@@ -71,6 +76,11 @@ a.article-title:hover {
   padding-bottom: 1px;
   margin-bottom: 4px;
   border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:visited {
+  color: #428bca;
+  text-decoration: none;
 }
 
 .article-metadata a:hover {

@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory,session
+from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory,session, abort
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .forms import PostForm,SignUpForm,LoginForm
@@ -22,7 +22,8 @@ def first():
 
 @views.route('/mainpage')
 def mainpage():
-    return render_template('mainpage.html', mainpage='mainpage', user=current_user)
+    posts = Post.query.all()
+    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts)
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():
@@ -74,9 +75,9 @@ def notification():
     }    
     return render_template('notification.html', notification='Notification', users=users) 
 
-@views.route('/post')
-def post():
-    return render_template('post.html')
+@views.route('/user_posts')
+def user_posts():
+    return render_template('user_posts.html')
 
 @views.route('/createpost', methods=['GET','POST'])
 @login_required
@@ -98,8 +99,43 @@ def createpost():
         else:
             flash('your post has been created (no file selected)','success')
         return redirect(url_for('views.mainpage'))
-    return render_template('createpost.html', title='New Post', form=form,)
+    return render_template('createpost.html', title='New Post', form=form, legend='New Post')
     
+@views.route('/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.title, post=post)
+
+@views.route('/<int:post_id>/update',methods=['GET','POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('Post has been updated','success')
+        return redirect(url_for('views.post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('createpost.html', title='Update Post', form=form, legend='Update Post')
+
+@views.route('/<int:post_id>/delete',methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post has been deleted','success')
+    return redirect(url_for('views.mainpage'))
+
+
 def adopt():
     return '<h2>Adoption page</h2>'
 

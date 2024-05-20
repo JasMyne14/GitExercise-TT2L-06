@@ -36,7 +36,7 @@ def create_app():
     from .donation import donation
     from .notification import notification
     from .views import views
-    from .post import post
+    from .user_posts import user_posts
     from .createpost import createpost
     from .signup import signup
     from .login import login
@@ -49,7 +49,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
     app.register_blueprint(donation, url_prefix='/donation')
-    app.register_blueprint(post, url_prefix='/post')
+    app.register_blueprint(user_posts, url_prefix='/user_posts')
     app.register_blueprint(createpost, url_prefix='/createpost')
     app.register_blueprint(login, url_prefix='/login')
     app.register_blueprint(signup, url_prefix='/signup')

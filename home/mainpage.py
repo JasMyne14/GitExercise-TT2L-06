@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint
 from flask_socketio import SocketIO, emit
-from .post import *
+from .user_posts import *
 
 mainpage = Blueprint('mainpage',__name__)
 
