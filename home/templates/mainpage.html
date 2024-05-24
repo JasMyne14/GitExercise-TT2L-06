@@ -69,11 +69,6 @@
                 </div>
                 <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.content }}</p>
-                {% if post.file %}
-                  {% if post.file.endswith(('.png','.jpg','.jpeg','.gif')) %}
-                    <img src="{{ url_for('static', filename=post.file) }}" alt="uploaded image">
-                  {% endif %}
-                {% endif %}
               </div>
             </article>
         {% endfor %}

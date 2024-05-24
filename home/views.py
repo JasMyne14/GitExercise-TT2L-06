@@ -100,7 +100,7 @@ def createpost():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
-    return render_template('createpost.html', title='New Post', form=form, legend='New Post', file_path=file_path, filename=filename)
+    return render_template('createpost.html', title='New Post', form=form, legend='New Post', file_path=file_path)
     
 @views.route('/<int:post_id>')
 def post(post_id):
