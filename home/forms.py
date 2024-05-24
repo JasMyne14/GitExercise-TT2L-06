@@ -36,5 +36,5 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('Tite', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
-    file= FileField('File', validators=[FileAllowed(['jpg','png','pdf'])])
+    file= FileField('File', validators=[FileAllowed(['jpg','jpeg','png','pdf','gif','mov','mp4'])])
     submit = SubmitField('Post')

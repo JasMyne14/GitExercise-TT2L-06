@@ -85,24 +85,27 @@ def user_posts():
 @login_required
 def createpost():
     form = PostForm()
-    file_path = None
     if form.validate_on_submit():
         file = form.file.data
         if file:
             filename = secure_filename(file.filename)
-            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__),app.config['UPLOAD_FOLDER'],filename))
+            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],filename)
             file.save(file_path)
             flash('Your post has been created!','success')
         else:
             file_path = None
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_path)
-        flash('your post has been created (no file selected)','success')
+            flash('your post has been created (no file selected)','success')
 
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_path)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
-    return render_template('createpost.html', title='New Post', form=form, legend='New Post', file_path=file_path)
-    
+    return render_template('createpost.html', title='New Post', form=form, legend='New Post')
+
+@views.route('/display/<filename>')
+def display_image(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 @views.route('/<int:post_id>')
 def post(post_id):
     post = Post.query.get_or_404(post_id)

@@ -88,10 +88,15 @@
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
+            <div>
+                {% if file_path %}
+                    <img src="{{ url_for('views.display_image', filename=filename) }}" alt="uploaded image">
+                {% endif %}
+            </div>
         </form>
     </div>
     <div class="backbtn">
-        <a href="/post"><button>Back</button></a>
+        <a href="{{ url_for('views.user_posts') }}"><button>Back</button></a>
     </div>
 
 </html>
