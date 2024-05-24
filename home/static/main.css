@@ -606,7 +606,6 @@ input[type="submit"]:hover {
   margin: 0;
   padding-top: 80px; 
   color: #553b29;
-  text-align: center; 
 }
 
 .profileheader {
@@ -662,7 +661,7 @@ input[type="submit"]:hover {
   padding: 20px;
   flex: 1;
   width: 600px;
-  height: 350px;
+  height: 280px;
   box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
   margin: 0 20px;
   text-align: left;
@@ -678,18 +677,17 @@ input[type="submit"]:hover {
 }
 
 .cat_info p {
-  margin: 5px 0;
+  margin: 8px 0;
   text-align: left;
-}
-
-.catowner_info {
-  margin-top: 15px;
 }
 
 .editcatprofile {
   background-color: #705b33;
   border-radius: 20px;
   color:#ddc7ab;
+  margin-top: 10px;
+  padding: 8px 15px;
+  float: right;
 }
 
 .addcat_button_container {

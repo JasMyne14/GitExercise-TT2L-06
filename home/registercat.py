@@ -1,7 +1,6 @@
-from flask import Blueprint, request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for,flash
 from .models import db, RegisterCat
 from werkzeug.utils import secure_filename
-from flask import flash
 import os
 
 registercat = Blueprint('registercat', __name__)
@@ -26,9 +25,6 @@ def register_cat_form():
     cat_vaccine = request.form['cat_vaccine']
     cat_special_needs = request.form['cat_special_needs']
     cat_about_me = request.form['cat_about_me']
-    owner_name = request.form['owner_name']
-    owner_email = request.form['owner_email']
-    owner_contact = request.form['owner_contact']
 
     if 'cat_photo' in request.files: #to check if cat photo included in form
         catfile = request.files['cat_photo']
@@ -57,10 +53,7 @@ def register_cat_form():
                      cat_neutered=cat_neutered, 
                      cat_vaccine=cat_vaccine, 
                      cat_special_needs=cat_special_needs, 
-                     cat_about_me=cat_about_me, 
-                     owner_name=owner_name, 
-                     owner_email=owner_email, 
-                     owner_contact=owner_contact)
+                     cat_about_me=cat_about_me)
 
     db.session.add(formcat)
     db.session.commit()

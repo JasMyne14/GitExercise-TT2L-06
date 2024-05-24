@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory,session, abort
+from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session,session, abort
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .forms import PostForm,SignUpForm,LoginForm
@@ -15,6 +15,7 @@ views = Blueprint('views',__name__)
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
 app.config['UPLOAD_FOLDER'] = 'static/files'
+
 
 @views.route('/')
 def first():
@@ -64,7 +65,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('logged out successfully!', 'info')
+    flash('Logged out successfully!', 'info')
     return redirect(url_for('views.first'))
 
 @views.route('/notification')

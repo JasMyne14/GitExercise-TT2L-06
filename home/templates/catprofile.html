@@ -38,8 +38,18 @@
         </script>
         <br />
 
-        <p class="profileheader"><b><u>Cat Profile</u></b></p>
+        {% with message = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
+        <p class="profileheader"><b><u>Cat Profile</u></b></p>
+   
         <div class="catprofile_container">
             {% for cat in formcat %}
             <div class="catprofile catprofile{{ loop.index }}">
@@ -57,12 +67,6 @@
                     <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }} </p>
                     <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }} </p>
                     <p><strong>About Me:</strong> {{ cat.cat_about_me }} </p>
-
-                    <div class="catowner_info">
-                    <p><strong>Owner's Name:</strong> {{ cat.owner_name }} </p>
-                    <p><strong>Owner's Email:</strong> {{ cat.owner_email }} </p>
-                    <p><strong>Owner's Contact:</strong> {{ cat.owner_contact }} </p>
-                    </div>
                     
                     <button class="editcatprofile">Edit</button>
                 </div>
