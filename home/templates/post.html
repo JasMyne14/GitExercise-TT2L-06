@@ -62,28 +62,28 @@
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ url_for('static', filename='' )}}">
             <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="#">{{ post.author.username }}</a>
-                <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
-                {% if post.author == current_user %}
-                    <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('views.update_post', post_id=post.id) }}">Edit</a>
-                        <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            Delete
-                        </button>
-                    </div>
-                {% endif %}
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
+                    {% if post.author == current_user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('views.update_post', post_id=post.id) }}">Edit</a>
+                            <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Delete
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <h2><a class="article-title">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content }}</p>
+                <div>
+                    {% if post.file %}
+                        <img src="{{ url_for('views.display_image', filename=post.file)}}" alt="Uploaded image">
+                    {% endif %}
+                </div>    
+
             </div>
-
-            <h2><a class="article-title">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
-
-            <div>
-                {% if file_path %}
-                    <img src="{{ url_for('display_image', filename=filename)}}" alt="Uploaded image">
-                {% endif %}
-            </div>
-
         </article>
         <!-- Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

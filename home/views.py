@@ -119,6 +119,13 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        file = form.file.data 
+        if file:
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],filename)
+            file.save(file_path)
+            post.file=file_path
+
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()

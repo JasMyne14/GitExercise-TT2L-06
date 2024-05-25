@@ -68,13 +68,13 @@
                   <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                 </div>
                 <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content }}</p>      
+                <p class="article-content">{{ post.content }}</p>
+                <div>
+                  {% if post.file %}
+                      <img src="{{ url_for('views.display_image', filename=post.file) }}" alt="uploaded image">
+                  {% endif %}
+                </div>          
               </div>
-              <div>
-                {% if post.file %}
-                    <img src="{{ url_for('views.display_image', filename=post.file) }}" alt="uploaded image">
-                {% endif %}
-              </div>  
             </article>
         {% endfor %}
     </div>
