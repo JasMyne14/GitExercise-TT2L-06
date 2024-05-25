@@ -611,6 +611,11 @@ input[type="submit"]:hover {
   left: 7%; 
 }
 
+.username {
+  padding-left: 20px;
+  font-size: 25px;
+}
+
 .catprofile_container {
   display: block;
   flex-wrap: wrap;
@@ -694,7 +699,7 @@ input[type="submit"]:hover {
 .addcat_button {
   background-color: #FFC0CB;
   color: #be6f6f;
-  padding: 10px 20px;
+  padding: 10px 40px;
   text-decoration: none;
   border-radius: 20px;
   border: #e17e8e solid 2px;
@@ -702,7 +707,7 @@ input[type="submit"]:hover {
   margin-top: 20px; 
   width: 70px;
   box-shadow: 0 0 20px rgba(60, 9, 23, 0.1);
-  align-items: center;
+  justify-items: center;
 }
 
 .addcat_button:hover {

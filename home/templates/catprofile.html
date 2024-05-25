@@ -20,8 +20,8 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="/user">User</a>
             <a href="/notification">Notification</a>
-            <a href="/registercat">Register Cat</a>
             <a href="/profile_page">Cat Profile</a>
+            <a href="/registercat">Register Cat</a>
             <a href="/">Log out</a>
           </div>
 
@@ -38,20 +38,12 @@
         </script>
         <br />
 
-        {% with message = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
         <p class="profileheader"><b><u>Cat Profile</u></b></p>
+
+        <p class = "username">Hello, {{ current_user.username }}!</p>
    
         <div class="catprofile_container">
-            {% for cat in formcat %}
+            {% for cat in current_user.cats %}
             <div class="catprofile catprofile{{ loop.index }}">
 
                 <div class="cat_pfp">
@@ -68,7 +60,9 @@
                     <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }} </p>
                     <p><strong>About Me:</strong> {{ cat.cat_about_me }} </p>
                     
+                {% if current_user.id == cat.owner.id %}    
                     <button class="editcatprofile">Edit</button>
+                {% endif %}    
                 </div>
 
             </div>
