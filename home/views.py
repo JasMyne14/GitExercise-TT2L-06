@@ -7,11 +7,13 @@ from .models import Post, User, Cat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
+from .registercat import upload_folder
 
 views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
+app.config['upload_folder'] = upload_folder
 
 
 @views.route('/')
@@ -61,6 +63,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session.pop('username', None)
     flash('Logged out successfully!', 'info')
     return redirect(url_for('views.login'))
 

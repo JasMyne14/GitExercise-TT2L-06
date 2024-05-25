@@ -6,8 +6,9 @@ import os
 
 registercat = Blueprint('registercat', __name__)
 
-upload_folder = 'home/static/catregisterupload'
+upload_folder = 'home/static/uploads'
 allowed_extensions = {'png','jpg', 'jpeg'}
+
 
 def allowed_catfile(filename):
     return '.' in filename and \

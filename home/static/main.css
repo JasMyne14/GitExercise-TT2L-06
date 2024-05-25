@@ -133,6 +133,7 @@ a.article-title:hover {
   background-color: #705b33; 
   padding: 10px 15px; 
   border-radius: 10px; 
+  z-index: 1;
 }
 
 .menu-button:hover {
@@ -535,7 +536,7 @@ body .login-container {
   align-items: center; 
   height: 170vh; 
   margin: 0;
-  padding-top: 80px; 
+  padding-top: 30px; 
   color: #553b29; 
 }
 
@@ -546,7 +547,6 @@ body .login-container {
   padding: 20px;
   width: 60%; 
   box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
-  margin-top: 40px;
   margin-bottom: 40px;
 }
 
