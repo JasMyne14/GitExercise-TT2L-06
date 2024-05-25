@@ -23,7 +23,7 @@ def first():
 
 @views.route('/mainpage')
 def mainpage():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.date.desc()).all()
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts)
 
 @views.route('/signup', methods=['GET','POST'])
