@@ -63,7 +63,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    session.pop('username', None)
+    session.clear()
     flash('Logged out successfully!', 'info')
     return redirect(url_for('views.login'))
 

@@ -97,7 +97,7 @@ a.article-title:hover {
   position: fixed; 
   width: 100%; 
   top: 0; 
-  z-index: 1;
+  z-index: 2;
 }
   
 .topnav a {
@@ -144,7 +144,7 @@ a.article-title:hover {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   background-color: #62442f;
