@@ -37,3 +37,27 @@ class PostForm(FlaskForm):
     title = StringField('Tite', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+class UpdateAccountForm(FlaskForm):
+    fullname = StringField('Full Name',validators=[DataRequired(),Length(min=2,max=50)])
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
+    selected_option = SelectField('Select your state', choices=[
+        ('selangor', 'Selangor'),
+        ('kelantan', 'Kelantan'),
+        ('terengganu', 'Terengganu'),
+        ('perlis', 'Perlis'),
+        ('negerisembilan', 'Negeri Sembilan'),
+        ('pulaupinang', 'Pulau Pinang'),
+        ('perak', 'Perak'),
+        ('pahang', 'Pahang'),
+        ('johor', 'Johor'),
+        ('kedah', 'Kedah'),
+        ('melaka', 'Melaka'),
+        ('wilayahkl', 'Wilayah Persekutuan Kuala Lumpur'),
+        ('wilayahputrajaya', 'Wilayah Persekutuan Putrajaya'),
+    ])
+    phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed('jpg', 'png')])
+    submit = SubmitField('Update')
+

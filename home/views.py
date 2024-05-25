@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .post import posts
-from .forms import PostForm,SignUpForm,LoginForm
+from .forms import PostForm,SignUpForm,LoginForm, UpdateAccountForm
 from .models import Post, User, RegisterCat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -104,9 +104,20 @@ def profile_page():
     formcat = RegisterCat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
-@views.route('/user')
+@views.route('/user', methods=['GET','POST'])
 def user():
-    return render_template('user.html')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('views.user'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email 
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('user.html', image_file=image_file, form=form)
 
 @views.route('/adoptmeow')
 def adoptmeow():
