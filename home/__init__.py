@@ -27,7 +27,7 @@ def create_app():
     login_manager.login_view = 'views.login'
     login_manager.login_message_category = 'info'
     
-    from .models import User
+    from .models import User, Post, Comment
 
     @login_manager.user_loader
     def load_user(user_id):

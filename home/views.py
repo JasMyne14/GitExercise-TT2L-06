@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session,session, abort
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .forms import PostForm,SignUpForm,LoginForm
-from .models import Post, User, RegisterCat, db
+from .forms import PostForm,SignUpForm,LoginForm, CommentForm
+from .models import Post, User, RegisterCat, Comment, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -147,6 +147,19 @@ def delete_post(post_id):
     flash('Post has been deleted','success')
     return redirect(url_for('views.mainpage'))
 
+@views.route('/create-comment/<int:post_id>', methods=['POST'])
+@login_required
+def create_comment(post_id):
+    post = Post.query.filter_by(id=post_id)
+ 
+    if post:
+        comment = Comment(comment=comment, author=current_user.id, post_id=post.id)
+        db.session.add(comment)
+        db.session.commit()
+    else:
+        flash('Post does not exists','error')
+
+    return redirect(url_for('views.mainpage'))
 
 def adopt():
     return '<h2>Adoption page</h2>'

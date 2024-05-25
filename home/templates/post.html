@@ -82,7 +82,15 @@
                         <img src="{{ url_for('views.display_image', filename=post.file)}}" alt="Uploaded image">
                     {% endif %}
                 </div>    
-
+                <div class="comment-container">
+                    {% for comment in post.comments %}
+                        {{ comment.comment }}
+                    {% endfor %}
+                    <form class="input-group mb-3" method="POST" action="/create-comment/{{post.id}}">
+                        <input type="text" id="text" name="text" class="form-control" placeholder="Write your comment here"/>
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </form>
+                </div>
             </div>
         </article>
         <!-- Modal -->
