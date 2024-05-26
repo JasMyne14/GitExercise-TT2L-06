@@ -63,3 +63,46 @@ def register_cat_form():
 
     return render_template('catregister.html')
 
+@registercat.route('/edit/<int:cat_id>', methods=['GET', 'POST'])
+@login_required
+def edit_cat(cat_id):
+    cat = Cat.query.get_or_404(cat_id)
+
+    if cat.user_id != current_user.id: # ensure the current user is the owner of the cat
+        return redirect(url_for('views.profile_page'))
+
+    if request.method == 'POST':
+        cat.cat_name = request.form['cat_name']
+        cat.cat_breed = ', '.join(request.form.getlist('cat_breed[]'))
+        cat.cat_age = request.form['cat_age']
+        cat.cat_gender = request.form['cat_gender']
+        cat.cat_neutered = request.form['cat_neutered']
+        cat.cat_vaccine = request.form['cat_vaccine']
+        cat.cat_special_needs = request.form['cat_special_needs']
+        cat.cat_about_me = request.form['cat_about_me']
+
+        if 'cat_photo' in request.files:
+            catfile = request.files['cat_photo']
+            if catfile.filename != '' and allowed_catfile(catfile.filename):
+                filename = secure_filename(catfile.filename)
+                file_path = os.path.join(upload_folder, filename)
+                catfile.save(file_path)
+                cat_photo = url_for('static', filename=f'uploads/{filename}')
+
+        db.session.commit()
+        return redirect(url_for('views.profile_page'))
+
+    return render_template('catedit.html', cat=cat)    
+
+@registercat.route('/deletecat/<int:cat_id>', methods=['POST'])
+@login_required
+def delete_cat(cat_id):
+    cat = Cat.query.get_or_404(cat_id)
+
+    if cat.owner != current_user:
+        return redirect(url_for('views.profile_page'))
+
+    db.session.delete(cat)
+    db.session.commit()
+
+    return redirect(url_for('views.profile_page'))    
