@@ -63,11 +63,24 @@
                     
                 {% if current_user.id == cat.owner.id %}    
                     <a href="{{ url_for('registercat.edit_cat', cat_id=cat.id) }}" class="editcatprofile">Edit</a>
+                
+                    <form action="{{ url_for('registercat.delete_cat', cat_id=cat.id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+
+                        <button type="submit" class="deletecatprofile">Delete</button>
+                    </form>
+
                 {% endif %}    
                 </div>
 
             </div>
             {% endfor %}
+
+            <script>
+                function confirmDelete() {
+                    return confirm("Are you sure you want to delete this cat profile?");
+                }
+            </script>
+
         </div>
 
             <div class="addcat_button_container">

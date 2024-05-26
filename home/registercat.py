@@ -94,3 +94,15 @@ def edit_cat(cat_id):
 
     return render_template('catedit.html', cat=cat)    
 
+@registercat.route('/deletecat/<int:cat_id>', methods=['POST'])
+@login_required
+def delete_cat(cat_id):
+    cat = Cat.query.get_or_404(cat_id)
+
+    if cat.owner != current_user:
+        return redirect(url_for('views.profile_page'))
+
+    db.session.delete(cat)
+    db.session.commit()
+
+    return redirect(url_for('views.profile_page'))    
