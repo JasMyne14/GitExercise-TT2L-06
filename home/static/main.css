@@ -193,6 +193,16 @@ a.article-title:hover {
   .sidenav a {font-size: 18px;}
 }
 
+
+/*Post page*/
+a.delete-comment:hover{
+  color: #62442f;
+}
+
+a.delete-comment:visited{
+  color: #333;
+}
+
 /*Donation page*/
 .donate {
   margin-left: 30px;
