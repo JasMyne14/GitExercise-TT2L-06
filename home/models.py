@@ -50,6 +50,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date}')"
+    
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     text = db.Column(db.String(200), nullable=False)
