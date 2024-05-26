@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session,session, abort
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .forms import PostForm, SignUpForm, LoginForm, CommentForm
+from .forms import PostForm, SignUpForm, LoginForm, CommentForm, EditProfileForm
 from .models import Post, User, Comment, Cat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -188,8 +188,32 @@ def profile_page():
 
 @views.route('/user', methods=['GET','POST'])
 def user():
-    return render_template('user.html')
+    form = User.query.all()
+    return render_template("user.html")
 
+@views.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.fullname = form.fullname.data
+        current_user.email = form.email.data
+        current_user.username = form.username.data
+        current_user.state = form.selected_option.data
+        current_user.phonenumber = form.phonenumber.data
+        db.session.commit()
+        flash('Your profile has been updated !', 'success')
+        return redirect(url_for('views.user'))
+    elif request.method == 'GET':
+        form.fullname.data = current_user.fullname
+        form.email.data = current_user.email
+        form.username.data = current_user.username
+        form.selected_option.data = current_user.state
+        form.phonenumber.data = current_user.phonenumber
+    
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+      
+   
 @views.route('/adoptmeow')
 def adoptmeow():
     return render_template('adoptmeow.html')

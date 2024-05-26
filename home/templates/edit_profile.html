@@ -2,16 +2,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Edit Profile</title>
     <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-
 </head>
 <body>
-    <div class="signup-container">
-        <form method="POST" class="signup-form" action="">
+    <div class="edituser-container">
+        <form method="POST" class="edituser-form" action="{{ url_for('views.edit_profile') }}">
             {{ form.hidden_tag() }}
-            <h1 class="signuptitle">Sign Up</h1>
+            <h1 class="editusertitle">Edit Profile</h1>
             <div class="user-details">
                 <div class="input-box">
                     <label class="details" for="fullname">Full Name :</label>
@@ -59,36 +58,6 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="password1">Password :</label>
-                    <input 
-                        type="password" 
-                        placeholder="Enter Password" 
-                        id="password1" 
-                        name="password1" required>
-                    {% if form.password1.errors %}
-                        <div class="invalid-feedback">
-                            {% for error in form.password1.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="input-box">
-                    <label class="details" for="password2">Password (Confirm) :</label>
-                    <input 
-                        type="password" 
-                        placeholder="Confirm Password" 
-                        id="password2" 
-                        name="password2" required>
-                    {% if form.password2.errors %}
-                        <div class="invalid-feedback">
-                            {% for error in form.password2.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div
-                <div class="input-box">
                     <label class="details" for="select_field">State :</label>
                     <select id="select_field" name="selected_option">
                         <option value="state">Select your state</option>
@@ -130,11 +99,7 @@
                     {% endif %}
                 </div>
             </div>
-            <button type="submit" class="submitbutton">Submit</button>
+            <button type="submit" class="edituserbttn">Update</button>
         </form>    
-        <div class="signin-options">
-            <a href="/login" class="have-account">Already have an account?</a>
-        </div>
     </div>
 </body>
-</html>

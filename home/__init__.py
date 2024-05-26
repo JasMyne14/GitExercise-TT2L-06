@@ -45,6 +45,7 @@ def create_app():
     from .registercat import registercat
     from .user import user
     from .adoptmeow import adoptmeow
+    from .edit_profile import edit_profile
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
@@ -58,7 +59,7 @@ def create_app():
     app.register_blueprint(registercat, url_prefix='/registercat')
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(adoptmeow, url_prefix='/adoptmeow')
-
+    app.register_blueprint(edit_profile, url_prefix='/edit_profile')
 
 
     return app

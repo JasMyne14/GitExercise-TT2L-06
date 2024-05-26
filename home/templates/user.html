@@ -2,16 +2,56 @@
 <html>
 <head>
    <meta charset="UTF-8">
+   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>User Profile</title>
    <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+   <div class="topnav">
+      <a class="active" href="/mainpage">Main</a>
+      <a href="/user_posts">Post</a>
+      <a href="/adoptmeow">Adopt meow</a>
+      <a href="/donation">About</a>
+  </div>
+
+  <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/user">User</a>
+      <a href="/notification">Notification</a>
+      <a href="/profile_page">Cat Profile</a>
+      <a href="/registercat">Register Cat</a>
+      <a href="/logout">Log out</a>
+  </div>
+</br></br></br></br></br></br></br>
 </head>
 <body>
-   <h1>{{ current_user.username }}</h1>
-   <p>Full Name : {{ current_user.fullname }}</p>
-   <p>Email : {{ current_user.email }}</p>
-   <p>State : {{ current_user.state }}</p>
-   <p>Phone Number : {{ current_user.phonenumber }}</p>
-   <a href="{{ url_for('views.logout')}}">logout</a>
+   <div class="userpage_container">
+   <span class='menu-button' onclick="openNav()">&#9776; Menu</span>
+
+   <script>
+   function openNav() {
+       document.getElementById("mySidenav").style.width = "250px";
+   }
+
+   function closeNav() {
+       document.getElementById("mySidenav").style.width = "0";
+   }
+   </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <br />
+
+   <h1>Welcome, {{ current_user.username }} ! </h1>
+   <div class="userprofile">
+      <strong>Full Name : </strong>{{ current_user.fullname }}</br></br>
+      <strong>Email : </strong>{{ current_user.email }}</br></br>
+      <strong>State : </strong>{{ current_user.state }}</br></br>
+      <stong>Phone Number : </stong>{{ current_user.phonenumber }}</br></br>
+   </div>
+   <div class="userpage_bttn">
+   <button type="logout" class="edituserprofile" onclick="location.href='/edit_profile'">Edit Profile</button>
+   <button type="logout" class="logoutbttn" onclick="location.href='/logout'">Logout</button>
+   </div>
+   </div>
 </body>
 </html>
