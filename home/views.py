@@ -6,7 +6,7 @@ from .models import Post, User, Comment, Cat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
-from .registercat import upload_folder
+from .registercat import upload_folder, allowed_extensions
 from werkzeug.utils import secure_filename
 import os
 from . import db
@@ -60,6 +60,7 @@ def login():
             return redirect(url_for('views.mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
+            return redirect(url_for('views.login'))
     return render_template('login.html', form=form)
 
 @views.route('/logout')
@@ -83,30 +84,33 @@ def user_posts():
     user_posts = Post.query.filter_by(author=current_user).all()
     return render_template('user_posts.html', posts=user_posts)
 
+@views.route('/display/<filename>')
+def display_image(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in allowed_extensions
+
 @views.route('/createpost', methods=['GET','POST'])
 @login_required
 def createpost():
     form = PostForm()
     if form.validate_on_submit():
         file = form.file.data
-        if file:
+
+        if file and display_image(file.filename):
             filename = secure_filename(file.filename)
-            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],filename)
+            file_path = os.path.join(upload_folder, filename)
             file.save(file_path)
+            file = url_for('static', filename=f'uploads/{filename}')
             flash('Your post has been created!','success')
         else:
-            file_path = None
+            file_photo = None
             flash('your post has been created (no file selected)','success')
 
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_path)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
     return render_template('createpost.html', title='New Post', form=form, legend='New Post')
-
-@views.route('/display/<filename>')
-def display_image(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @views.route('/<int:post_id>')
 def post(post_id):
@@ -125,9 +129,9 @@ def update_post(post_id):
         file = form.file.data 
         if file:
             filename = secure_filename(file.filename)
-            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],filename)
+            file_path = os.path.join(upload_folder, filename)
             file.save(file_path)
-            post.file=file_path
+            file = url_for('static', filename=f'uploads/{filename}')
 
         post.title = form.title.data
         post.content = form.content.data
@@ -137,15 +141,19 @@ def update_post(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+        form.file.data = post.file
     return render_template('createpost.html', title='Update Post', form=form, legend='Update Post')
 
 @views.route('/<int:post_id>/delete',methods=['POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
+    comment = Comment.query.first()
+
     if post.author != current_user:
         abort(403)
     db.session.delete(post)
+    db.session.delete(comment)
     db.session.commit()
     flash('Post has been deleted','success')
     return redirect(url_for('views.mainpage'))
