@@ -42,13 +42,13 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <br />
+    
+    <h2>Home Feed</h2>
+    <ul>
+      <p class = "username">Hello, {{ current_user.username }}!</p>
+    </ul>
+
     <div class="main">
-        <ul>
-            <h1>Home Feed</h1>
-        </ul>
-
-        <p class = "username">Hello, {{ current_user.username }}!</p>
-
         <div class="row">
             <div class="col-md-8">
               {% with messages = get_flashed_messages(with_categories=true) %}
@@ -72,9 +72,9 @@
                 </div>
                 <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.content }}</p>
-                <div>
+                <div class="post-image">
                   {% if post.file %}
-                      <img src="{{ url_for('views.display_image', filename=post.file) }}" alt="uploaded image">
+                      <img src="{{ post.file }}" alt="uploaded image">
                   {% endif %}
                 </div>          
               </div>
