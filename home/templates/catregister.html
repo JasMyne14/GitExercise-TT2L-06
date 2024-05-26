@@ -3,6 +3,7 @@
     <head>
         <title>Cat Registration</title>
         <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src='main.js'></script>    
     </head>
@@ -20,6 +21,7 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="/user">User</a>
             <a href="/notification">Notification</a>
+            <a href="/profile_page">Cat Profile</a>
             <a href="/registercat">Register Cat</a>
             <a href="/profile_page">Cat Profile</a>
             <a href="/logout">Log out</a>
@@ -37,6 +39,7 @@
         }
         </script>
         <br />
+        <p class="profileheader"><b><u>Cat Register</u></b></p>
         
             <div class="container_catform">
                 <h1 class="register_cat_title">Register Your Cat Here!</h1>

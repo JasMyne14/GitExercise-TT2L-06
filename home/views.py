@@ -1,11 +1,12 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session,session, abort
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .forms import PostForm,SignUpForm,LoginForm, CommentForm
-from .models import Post, User, RegisterCat, Comment, db
+from .forms import PostForm, SignUpForm, LoginForm, CommentForm
+from .models import Post, User, RegisterCat, Comment, Cat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
+from .registercat import upload_folder
 from werkzeug.utils import secure_filename
 import os
 from . import db
@@ -14,7 +15,7 @@ views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
-app.config['UPLOAD_FOLDER'] = 'static/files'
+app.config['upload_folder'] = upload_folder
 
 
 @views.route('/')
@@ -42,7 +43,7 @@ def signup():
         db.session.commit()
         selected_option = form.selected_option.data
         flash(f'Account created for {form.username.data}!','success')
-        return redirect(url_for('views.mainpage'))
+        return redirect(url_for('views.login'))
     return render_template('signup.html', form=form)
 
 @views.route('/login', methods=['GET', 'POST'])
@@ -65,8 +66,9 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session.clear()
     flash('Logged out successfully!', 'info')
-    return redirect(url_for('views.first'))
+    return redirect(url_for('views.login'))
 
 @views.route('/notification')
 def notification():
@@ -182,7 +184,7 @@ def registercat():
 
 @views.route('/profile_page')
 def profile_page():
-    formcat = RegisterCat.query.all()
+    formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
 @views.route('/user')

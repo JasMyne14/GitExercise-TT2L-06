@@ -22,8 +22,8 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/user">User</a>
         <a href="/notification">Notification</a>
-        <a href="/registercat">Register Cat</a>
         <a href="/profile_page">Cat Profile</a>
+        <a href="/registercat">Register Cat</a>
         <a href="/logout">Log out</a>
     </div>
 
@@ -46,6 +46,9 @@
         <ul>
             <h1>Home Feed</h1>
         </ul>
+
+        <p class = "username">Hello, {{ current_user.username }}!</p>
+
         <div class="row">
             <div class="col-md-8">
               {% with messages = get_flashed_messages(with_categories=true) %}
