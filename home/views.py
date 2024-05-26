@@ -1,12 +1,12 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session,session, abort
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .forms import PostForm, SignUpForm, LoginForm, CommentForm, EditProfileForm
+from .forms import PostForm, SignUpForm, LoginForm, CommentForm
 from .models import Post, User, Comment, Cat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
-from .registercat import upload_folder
+from .registercat import upload_folder, allowed_extensions
 from werkzeug.utils import secure_filename
 import os
 from . import db
@@ -60,6 +60,7 @@ def login():
             return redirect(url_for('views.mainpage'))
         else:
             flash('Login Unsuccessful. Please check your username and password', 'danger')
+            return redirect(url_for('views.login'))
     return render_template('login.html', form=form)
 
 @views.route('/logout')
@@ -82,30 +83,33 @@ def user_posts():
     user_posts = Post.query.filter_by(author=current_user).all()
     return render_template('user_posts.html', posts=user_posts)
 
+@views.route('/display/<filename>')
+def display_image(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in allowed_extensions
+
 @views.route('/createpost', methods=['GET','POST'])
 @login_required
 def createpost():
     form = PostForm()
     if form.validate_on_submit():
         file = form.file.data
-        if file:
+
+        if file and display_image(file.filename):
             filename = secure_filename(file.filename)
-            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],filename)
+            file_path = os.path.join(upload_folder, filename)
             file.save(file_path)
+            file = url_for('static', filename=f'uploads/{filename}')
             flash('Your post has been created!','success')
         else:
-            file_path = None
+            file_photo = None
             flash('your post has been created (no file selected)','success')
 
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_path)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
     return render_template('createpost.html', title='New Post', form=form, legend='New Post')
-
-@views.route('/display/<filename>')
-def display_image(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @views.route('/<int:post_id>')
 def post(post_id):
@@ -124,9 +128,9 @@ def update_post(post_id):
         file = form.file.data 
         if file:
             filename = secure_filename(file.filename)
-            file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],filename)
+            file_path = os.path.join(upload_folder, filename)
             file.save(file_path)
-            post.file=file_path
+            file = url_for('static', filename=f'uploads/{filename}')
 
         post.title = form.title.data
         post.content = form.content.data
@@ -136,35 +140,56 @@ def update_post(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+        form.file.data = post.file
     return render_template('createpost.html', title='Update Post', form=form, legend='Update Post')
 
 @views.route('/<int:post_id>/delete',methods=['POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
+    comment = Comment.query.first()
+
     if post.author != current_user:
         abort(403)
     db.session.delete(post)
+    db.session.delete(comment)
     db.session.commit()
     flash('Post has been deleted','success')
     return redirect(url_for('views.mainpage'))
 
-@views.route('/create-comment/<post_id>', methods=['GET','POST'])
+@views.route('/create-comment/<int:post_id>', methods=['GET','POST'])
 @login_required
 def create_comment(post_id):
-    form = CommentForm(request.form)
-    post = Post.query.filter_by(id=post_id).first()
-
+    form = CommentForm()
+    post = Post.query.get_or_404(post_id)
     if form.validate_on_submit():
-        comment = Comment(text=form.text.data, user_id=current_user.id, post_id=post_id)
+        comment = Comment(text=form.text.data, author=current_user, post=post)
         db.session.add(comment)
         db.session.commit()
         flash('Comment added!','success')
-        return redirect(url_for('views.post', post_id=post_id))
+        return render_template('post.html', post=post, form=form, post_id=post_id)
     else:
         flash('Failed to add comment','error')
+    return redirect(url_for('views.mainpage', post_id=post_id))
 
-    return render_template('post.html', post=post, form=form)
+@views.route('/delete-comment/<comment_id>')
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first()
+
+    if not comment:
+        flash('Comment does not exists','error')
+
+    elif current_user != comment.author and current_user != comment.post.author:
+        flash('Permission denied','error')
+
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+        flash('Comment deleted','success')
+
+    return redirect(url_for('views.mainpage'))
+
 
 def adopt():
     return '<h2>Adoption page</h2>'
@@ -186,33 +211,28 @@ def profile_page():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
-@views.route('/user', methods=['GET','POST'])
-def user():
+@views.route('/userprofile', methods=['GET','POST'])
+def userprofile():
     form = User.query.all()
-    return render_template("user.html")
+    return render_template("userprofile.html")
 
-@views.route('/edit_profile', methods=['GET', 'POST'])
-def edit_profile():
-    form = EditProfileForm()
+@views.route('/user_edit', methods=['GET', 'POST'])
+def user_edit():  
+    user = User.query.get(current_user.id)
+    form = SignUpForm(obj=user)
+
     if form.validate_on_submit():
-        current_user.fullname = form.fullname.data
-        current_user.email = form.email.data
-        current_user.username = form.username.data
-        current_user.state = form.selected_option.data
-        current_user.phonenumber = form.phonenumber.data
+        user.fullname = form.fullname.data
+        user.email = form.email.data
+        user.username = form.username.data
+        user.state = form.selected_option.data
+        user.phonenumber = form.phonenumber.data
         db.session.commit()
         flash('Your profile has been updated !', 'success')
-        return redirect(url_for('views.user'))
-    elif request.method == 'GET':
-        form.fullname.data = current_user.fullname
-        form.email.data = current_user.email
-        form.username.data = current_user.username
-        form.selected_option.data = current_user.state
-        form.phonenumber.data = current_user.phonenumber
+        return redirect(url_for('views.userprofile'))
     
-    return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('user_edit.html', user=user, form=form)
 
-      
    
 @views.route('/adoptmeow')
 def adoptmeow():

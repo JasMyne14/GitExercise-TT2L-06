@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Cat Registration</title>
+        <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src='main.js'></script>    
+    </head>
+        
+    <body class="catformpage">
+
+        <div class="topnav">
+            <a class="active" href="/mainpage">Main</a>
+            <a href="/post">Post</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">About</a>
+          </div>
+    
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/userprofile">User</a>
+            <a href="/notification">Notification</a>
+            <a href="/profile_page">Cat Profile</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
+          </div>
+
+        <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
+
+        <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        </script>
+        <br />
+        <p class="profileheader"><b><u>Edit Cat Profile</u></b></p>
+        
+            <div class="container_catform">
+                <h1 class="register_cat_title">Register Your Cat Here!</h1>
+                <p class="register_cat_title">Please fill up this form to register an account for your cat.</p>
+                <hr>
+
+                <form class="catform" action="{{ url_for('registercat.edit_cat', cat_id=cat.id) }}" method="POST" enctype="multipart/form-data">  
+                <h3 class="register_cat_title"><u>Cat's Details</u></h3>
+                <section class ="cat_name">
+                <label for ="cat_name"><b>Cat's Name:</b></label>
+                <input type ="text" placeholder="Enter cat name" name="cat_name" id="cat_name" required maxlength="50" value="{{ cat.cat_name }}">
+                </section>
+
+                <section class ="cat_photo">
+                <label for="cat_photo"><b>Cat's Photo:</b></label>
+                <input type="file" name="cat_photo" id="cat_photo" accept="image/*">
+                {% if cat.cat_photo %}
+                    <p>Current Photo: <img src="{{ url_for('static', filename=cat.cat_photo.split('static/', 1)[-1]) }}" alt="Cat Photo" width="100"></p>
+                {% endif %}
+            </section>
+
+                <section class ="cat_age">
+                    <label for ="cat_age"><b>Cat's Age:</b></label>
+                    <select name="cat_age" id="cat_age">
+                        <option value="0-2" {% if cat.cat_age == '0-2' %}selected{% endif %}>0-2 years old</option>
+                        <option value="2-4" {% if cat.cat_age == '2-4' %}selected{% endif %}>2-4 years old</option>
+                        <option value="4-6" {% if cat.cat_age == '4-6' %}selected{% endif %}>4-6 years old</option>
+                        <option value="6-8" {% if cat.cat_age == '6-8' %}selected{% endif %}>6-8 years old</option>
+                        <option value="8-10" {% if cat.cat_age == '8-10' %}selected{% endif %}>8-10 years old</option>
+                        <option value="10-12" {% if cat.cat_age == '10-12' %}selected{% endif %}>10-12 years old</option>
+                        <option value="12-14" {% if cat.cat_age == '12-14' %}selected{% endif %}>12-14 years old</option>
+                        <option value="14-16" {% if cat.cat_age == '14-16' %}selected{% endif %}>14-16 years old</option>
+                        <option value="16-18" {% if cat.cat_age == '16-18' %}selected{% endif %}>16-18 years old</option>
+                        <option value="18-20" {% if cat.cat_age == '18-20' %}selected{% endif %}>18-20 years old</option>
+                        <option value="20-22" {% if cat.cat_age == '20-22' %}selected{% endif %}>20-22 years old</option>
+                        <option value="22-24" {% if cat.cat_age == '22-24' %}selected{% endif %}>22-24 years old</option>
+                        <option value="24-26" {% if cat.cat_age == '24-26' %}selected{% endif %}>24-26 years old</option>
+                        <option value="26-28" {% if cat.cat_age == '26-28' %}selected{% endif %}>26-28 years old</option>
+                    </select>
+                </section>
+                
+                <section class ="cat_breed">
+                    <label for ="breed"><b>Cat's Breed:</b></label>
+                        <input type="checkbox" name="cat_breed[]" id="Siamese" value="Siamese" {% if 'Siamese' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Siamese">Siamese</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Persian" value="Persian" {% if 'Persian' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Persian">Persian</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Maine Coon" value="Maine Coon" {% if 'Maine Coon' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Maine Coon">Maine Coon</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="British Shorthair" value="British Shorthair" {% if 'British Shorthair' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Britsh Shorthair">British Shorthair</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Ragdoll" value="Ragdoll" {% if 'Ragdoll' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Ragdoll">Ragdoll</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Siberian" value="Siberian" {% if 'Siberian' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Siberian">Siberian</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="American Shorthair" value="American Shorthair" {% if 'American Shorthair' in cat.cat_breed %}checked{% endif %}>
+                        <label for="American Shorthair">American Shorthair</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Bengal" value="Bengal" {% if 'Bengal' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Bengal">Bengal</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Sphynx" value="Sphynx" {% if 'Sphynx' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Sphynx">Sphynx</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Russian Blue" value="Russian Blue" {% if 'Russian Blue' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Russian Blue">Russian Blue</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Exotic" value="Exotic" {% if 'Exotic' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Exotic">Exotic</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Munchkin" value="Munchkin" {% if 'Munchkin' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Munchkin">Munchkin</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Domestic Shorthair" value="Domestic Shorthair" {% if 'Domestic Shorthair' in cat.cat_breed %}checked{% endif %}>
+                        <label for="Domestic Shorthair">Domestic Shorthair</label>
+
+                        <input type="checkbox" name="cat_breed[]" id="Other" value="Other">
+                        <label for="Other">Others</label>  
+                </section>
+
+                <section class="cat_gender">
+                    <label for="cat_gender"><b>Cat's Gender:</b></label>
+                    <input type="radio" name="cat_gender" id="gender_male" value="Male" required {% if cat.cat_gender == 'Male' %}checked{% endif %}> Male
+                    <input type="radio" name="cat_gender" id="gender_female" value="Female" required {% if cat.cat_gender == 'Female' %}checked{% endif %}> Female
+                </section>
+
+                <section class="cat_neutered">
+                    <label for="neutered"><b>Neutered Status:</b></label>
+                    <input type="radio" name="cat_neutered" id="yesneutered" value="Neutered" required  {% if cat.cat_neutered == 'Neutered' %}checked{% endif %}>Neutered
+                    <input type="radio" name="cat_neutered" id="notneutered" value="Not Neutered" required  {% if cat.cat_neutered == 'Not Neutered' %}checked{% endif %}>Not Neutered
+                </section>
+
+                <section class="cat_vaccinated">
+                    <label for="vaccine"><b>Vaccine Status:</b></label>
+                    <input type="radio" name="cat_vaccine" id="yesvaccinated" value="Vaccinated" required {% if cat.cat_vaccine == 'Vaccinated' %}checked{% endif %}>Vaccinated
+                    <input type="radio" name="cat_vaccine" id="notvaccinated" value="Not Vaccinated" required {% if cat.cat_vaccine == 'Not Vaccinated' %}checked{% endif %}>Not Vaccinated
+                </section>
+
+                <section class="cat_special_needs">
+                    <label for="special_needs"><b>Special Needs:</b></label>
+                    <input type="text" placeholder="Enter special needs" name="cat_special_needs" id="special_needs" required maxlength="50" value="{{ cat.cat_special_needs }}">
+                </section>
+
+                <section class="cat_about_me">
+                    <label for="about_me" style="display:block;"><b>About Meow :3</b></label>
+                    <textarea placeholder="What is your baby like?" name="cat_about_me" id="about_me" rows="5" cols="121" style="border-radius: 8px;">{{ cat.cat_about_me }}</textarea>
+                </section>
+                <hr>
+
+                <section class="submission">
+                    <input type="submit" value="Update Cat">
+                </section>
+
+                </form>
+            </div>    
+         
+    </body>
+</html>

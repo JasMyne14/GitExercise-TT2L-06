@@ -17,7 +17,7 @@
 
   <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="/user">User</a>
+      <a href="/userprofile">User</a>
       <a href="/notification">Notification</a>
       <a href="/profile_page">Cat Profile</a>
       <a href="/registercat">Register Cat</a>
@@ -45,11 +45,12 @@
    <div class="userprofile">
       <strong>Full Name : </strong>{{ current_user.fullname }}</br></br>
       <strong>Email : </strong>{{ current_user.email }}</br></br>
+      <strong>Username : </strong>{{ current_user.username }}</br></br>
       <strong>State : </strong>{{ current_user.state }}</br></br>
-      <stong>Phone Number : </stong>{{ current_user.phonenumber }}</br></br>
+      <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
    </div>
    <div class="userpage_bttn">
-   <button type="logout" class="edituserprofile" onclick="location.href='/edit_profile'">Edit Profile</button>
+   <button  class="edituserprofile" onclick="location.href='/user_edit'">Edit Profile</button>
    <button type="logout" class="logoutbttn" onclick="location.href='/logout'">Logout</button>
    </div>
    </div>

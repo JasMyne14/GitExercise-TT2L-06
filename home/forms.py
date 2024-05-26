@@ -33,28 +33,6 @@ class LoginForm(FlaskForm):
     password1 = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
-class EditProfileForm(FlaskForm):
-    fullname = StringField('Full Name',validators=[DataRequired(),Length(min=2,max=50)])
-    email = StringField('Email Address', validators=[DataRequired(), Email()])
-    username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
-    selected_option = SelectField('Select your state', choices=[
-        ('Selangor', 'Selangor'),
-        ('Kelantan', 'Kelantan'),
-        ('Terengganu', 'Terengganu'),
-        ('Perlis', 'Perlis'),
-        ('Negeri Sembilan', 'Negeri Sembilan'),
-        ('Pulau Pinang', 'Pulau Pinang'),
-        ('Perak', 'Perak'),
-        ('Pahang', 'Pahang'),
-        ('Johor', 'Johor'),
-        ('Kedah', 'Kedah'),
-        ('Melaka', 'Melaka'),
-        ('Wilayah Persekutuan Kuala Lumpur', 'Wilayah Persekutuan Kuala Lumpur'),
-        ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya'),
-    ])
-    phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
-    submit = SubmitField('Edit Profile')
-
 class PostForm(FlaskForm):
     title = StringField('Tite', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])

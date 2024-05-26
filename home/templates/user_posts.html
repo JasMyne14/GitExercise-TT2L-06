@@ -19,7 +19,7 @@
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/user">User</a>
+        <a href="/userprofile">User</a>
         <a href="/notification">Notification</a>
         <a href="/registercat">Register Cat</a>
         <a href="/profile_page">Cat Profile</a>
@@ -43,14 +43,10 @@
 
     <title>Add Post</title>
     <div class="mypost-content">
-        <h1>My Post</h1>
+        <h1>{{current_user.username}}'s Post</h1>
         <div class="newpost">
             <a href="/createpost"><button class="addpostbtn">Add new post</button></a>
-        </div>
-        
-        <div class="user_posts">
-            <h5>Display {{current_user.username}}'s posts</h5>
-        </div>
+        </div>  
     </div>
     <div class="post-content">
         {% for post in posts %}
@@ -63,9 +59,9 @@
             </div>
             <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
-            <div>
+            <div class="post-image">
               {% if post.file %}
-                  <img src="{{ url_for('views.display_image', filename=post.file)}}" alt="Uploaded image">
+                  <img src="{{ post.file }}" alt="uploaded image">
               {% endif %}
             </div>    
   
