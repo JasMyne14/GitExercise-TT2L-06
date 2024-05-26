@@ -6,16 +6,6 @@ from flask import current_app
 from home import db 
 from .forms import SignUpForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String(255), nullable =False)
-    content = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
     
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,8 +16,9 @@ class User(db.Model, UserMixin):
     password2 = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(120), nullable=False)
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
+    posts = db.relationship('Post', backref='author', lazy=True)
+    comments = db.relationship('Comment', backref='author', lazy=True)
     cats = db.relationship('Cat', backref='owner', lazy=True)
-    #posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"
@@ -47,3 +38,26 @@ class Cat(db.Model):
 
     def __repr__(self):
         return f"Cat('{self.cat_name}','{self.cat_photo}', '{self.cat_age}','{self.cat_breed}','{self.cat_gender}','{self.cat_neutered}','{self.cat_vaccine}','{self.cat_special_needs}','{self.cat_about_me}')"
+    
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(255), nullable =False)
+    content = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    file = db.Column(db.String(255), nullable=True)
+    comments = db.relationship('Comment', backref='post_rel', lazy=True)
+
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.date}')"
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    text = db.Column(db.String(255), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user = db.relationship('User', backref='user_comments')
+    post = db.relationship('Post', backref='post_comments')
+
+    def __repr__(self):
+        return f"Comment('{self.text}', '{self.date}')"
