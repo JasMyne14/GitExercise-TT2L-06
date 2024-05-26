@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm
-from .models import Post, User, RegisterCat, Comment, Cat, db
+from .models import Post, User, Comment, Cat, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
