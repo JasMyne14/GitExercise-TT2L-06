@@ -62,7 +62,7 @@
                     <p><strong>About Me:</strong> {{ cat.cat_about_me }} </p>
                     
                 {% if current_user.id == cat.owner.id %}    
-                    <button class="editcatprofile">Edit</button>
+                    <a href="{{ url_for('registercat.edit_cat', cat_id=cat.id) }}" class="editcatprofile">Edit</a>
                 {% endif %}    
                 </div>
 
