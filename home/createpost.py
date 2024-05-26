@@ -1,11 +1,10 @@
 from flask import Flask,Blueprint,render_template,redirect,request, url_for, jsonify,flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField,TextAreaField,SubmitField
+from wtforms import StringField,TextAreaField,SubmitField, FileField
 from wtforms.validators import DataRequired,Length
 from .__init__ import *
 from .models import Post
-
 
 createpost = Blueprint('createpost',__name__)
 
