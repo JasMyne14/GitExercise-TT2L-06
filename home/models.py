@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     password2 = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(120), nullable=False)
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    #image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     #posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
