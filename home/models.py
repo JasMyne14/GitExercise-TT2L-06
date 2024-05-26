@@ -44,16 +44,18 @@ class Post(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     file = db.Column(db.String(255), nullable=True)
-    comments = db.relationship('Comment', backref='post', lazy=True)
+    comments = db.relationship('Comment', backref='post_rel', lazy=True)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Post('{self.title}', '{self.date}')"
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    comment = db.Column(db.String(200), nullable=False)
+    text = db.Column(db.String(255), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user = db.relationship('User', backref='user_comments')
+    post = db.relationship('Post', backref='post_comments')
 
     def __repr__(self):
-        return f"Post('{self.comment}', '{self.date_posted}')"
+        return f"Comment('{self.text}', '{self.date}')"

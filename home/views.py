@@ -108,8 +108,9 @@ def display_image(filename):
 
 @views.route('/<int:post_id>')
 def post(post_id):
+    form = CommentForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    return render_template('post.html', title=post.title, post=post, form=form)
 
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
@@ -147,19 +148,22 @@ def delete_post(post_id):
     flash('Post has been deleted','success')
     return redirect(url_for('views.mainpage'))
 
-@views.route('/create-comment/<int:post_id>', methods=['POST'])
+@views.route('/create-comment/<post_id>', methods=['GET','POST'])
 @login_required
 def create_comment(post_id):
-    post = Post.query.filter_by(id=post_id)
- 
-    if post:
-        comment = Comment(comment=comment, author=current_user.id, post_id=post.id)
+    form = CommentForm(request.form)
+    post = Post.query.filter_by(id=post_id).first()
+
+    if form.validate_on_submit():
+        comment = Comment(text=form.text.data, user_id=current_user.id, post_id=post_id)
         db.session.add(comment)
         db.session.commit()
+        flash('Comment added!','success')
+        return redirect(url_for('views.post', post_id=post_id))
     else:
-        flash('Post does not exists','error')
+        flash('Failed to add comment','error')
 
-    return redirect(url_for('views.mainpage'))
+    return render_template('post.html', post=post, form=form)
 
 def adopt():
     return '<h2>Adoption page</h2>'

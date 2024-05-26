@@ -81,15 +81,52 @@
                     {% if post.file %}
                         <img src="{{ url_for('views.display_image', filename=post.file)}}" alt="Uploaded image">
                     {% endif %}
-                </div>    
+                </div>
+                <div class="collapse" id="comments-{{post.id}}">
+                    <div class="card">
+                        <div class="card-body" id="comments-expanded-{{post.id}}">
+                            {% for comment in post.comments %}
+                            <div class="d-flex justify-content-between align-item-center">
+                                <div>
+                                    <p>{{comment.author.username}} :</p>             
+                                    <p>{{comment.text}}</p>
+                                </div>
+                                <div>
+                                    <small class="text-muted">{{comment.date}}</small>
+                                </div>    
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <p class="card-text">
+                    {% if post.comment|length > 0 %}
+                    <a data-bs-toggle="collapse" href="comments-{{post.id}}" role="button">
+                        <small>View {{post.comments|length}} comments </small>
+                    </a>
+                    {% else %}
+                    <small class="text-muted">No comments</small>
+                    {% endif %}
+                </p>
                 <div class="comment-container">
-                    {% for comment in post.comments %}
-                        {{ comment.comment }}
-                    {% endfor %}
-                    <form class="input-group mb-3" method="POST" action="/create-comment/{{post.id}}">
-                        <input type="text" id="text" name="text" class="form-control" placeholder="Write your comment here"/>
-                        <button type="submit" class="btn btn-primary">Comment</button>
-                    </form>
+                    <div class="form-group">
+                        {{ form.text.label(class="form-control-label") }}
+                        {% if form.text.errors %}
+                            {{ form.text(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.text.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.text(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+    
                 </div>
             </div>
         </article>
