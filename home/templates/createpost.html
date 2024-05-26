@@ -12,7 +12,7 @@
 
     <div class="topnav">
         <a href="/mainpage">Main</a>
-        <a class="active" href="/post">Post</a>
+        <a class="active" href="/user_posts">Post</a>
         <a href="/adoptmeow">Adopt meow</a>
         <a href="/donation">About</a>
     </div>
@@ -21,14 +21,15 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/user">User</a>
         <a href="/notification">Notification</a>
+        <a href="/profile_page">Cat Profile</a>
         <a href="/registercat">Register Cat</a>
         <a href="/profile_page">Cat Profile</a>
-        <a href="/">Log out</a>
+        <a href="/logout">Log out</a>
     </div>
 
 </head>
 <body>
-    <span class='menu-button' style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+    <span class='menu-button' onclick="openNav()">&#9776; Menu</span>
 
     <script>
     function openNav() {
@@ -41,7 +42,7 @@
     </script>
     <br />
     <div class="content-section">
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
@@ -71,14 +72,32 @@
                         {{ form.content(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <div class="form-group">
+                    {{ form.file.label(class="form-control-label") }}
+                    {% if form.file.errors %}
+                        {{ form.file(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.file.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.file(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
+            <div>
+                {% if file_path %}
+                    <img src="{{ url_for('views.display_image', filename=post.file) }}" alt="uploaded image">
+                {% endif %}
+            </div>
         </form>
     </div>
     <div class="backbtn">
-        <a href="/post"><button>Back</button></a>
+        <a href="{{ url_for('views.user_posts') }}"><button>Back</button></a>
     </div>
 
 </html>

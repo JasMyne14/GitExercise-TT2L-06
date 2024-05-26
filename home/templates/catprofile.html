@@ -3,6 +3,7 @@
     <head>
         <title>Cat Profile</title>
         <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src='main.js'></script>    
     </head>
@@ -11,7 +12,7 @@
 
         <div class="topnav">
             <a class="active" href="/mainpage">Main</a>
-            <a href="/post">Post</a>
+            <a href="/user_posts">Post</a>
             <a href="/adoptmeow">Adopt Meow</a>
             <a href="/donation">About</a>
           </div>
@@ -20,9 +21,9 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="/user">User</a>
             <a href="/notification">Notification</a>
-            <a href="/registercat">Register Cat</a>
             <a href="/profile_page">Cat Profile</a>
-            <a href="/">Log out</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
           </div>
 
         <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
@@ -40,8 +41,10 @@
 
         <p class="profileheader"><b><u>Cat Profile</u></b></p>
 
+        <p class = "username">Hello, {{ current_user.username }}!</p>
+   
         <div class="catprofile_container">
-            {% for cat in formcat %}
+            {% for cat in current_user.cats %}
             <div class="catprofile catprofile{{ loop.index }}">
 
                 <div class="cat_pfp">
@@ -57,14 +60,10 @@
                     <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }} </p>
                     <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }} </p>
                     <p><strong>About Me:</strong> {{ cat.cat_about_me }} </p>
-
-                    <div class="catowner_info">
-                    <p><strong>Owner's Name:</strong> {{ cat.owner_name }} </p>
-                    <p><strong>Owner's Email:</strong> {{ cat.owner_email }} </p>
-                    <p><strong>Owner's Contact:</strong> {{ cat.owner_contact }} </p>
-                    </div>
                     
+                {% if current_user.id == cat.owner.id %}    
                     <button class="editcatprofile">Edit</button>
+                {% endif %}    
                 </div>
 
             </div>

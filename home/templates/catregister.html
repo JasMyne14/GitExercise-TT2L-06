@@ -3,6 +3,7 @@
     <head>
         <title>Cat Registration</title>
         <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src='main.js'></script>    
     </head>
@@ -11,7 +12,7 @@
 
         <div class="topnav">
             <a class="active" href="/mainpage">Main</a>
-            <a href="/post">Post</a>
+            <a href="/user_posts">Post</a>
             <a href="/adoptmeow">Adopt Meow</a>
             <a href="/donation">About</a>
           </div>
@@ -20,9 +21,10 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="/user">User</a>
             <a href="/notification">Notification</a>
+            <a href="/profile_page">Cat Profile</a>
             <a href="/registercat">Register Cat</a>
             <a href="/profile_page">Cat Profile</a>
-            <a href="#">Log out</a>
+            <a href="/logout">Log out</a>
           </div>
 
         <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
@@ -37,6 +39,7 @@
         }
         </script>
         <br />
+        <p class="profileheader"><b><u>Cat Register</u></b></p>
         
             <div class="container_catform">
                 <h1 class="register_cat_title">Register Your Cat Here!</h1>
@@ -131,25 +134,6 @@
                     <textarea placeholder="What is your baby like?" name="cat_about_me" id="about_me" rows="5" cols="121" style="border-radius: 8px;"></textarea>
                 </section>
                 <hr>
-
-                <div class="Owner's Details">
-                    <h3 class="register_cat_title"><u>Owner's Details</u></h3>
-                    <section class="owner_name">
-                    <label for="owner_name"><b>Owner's Name:</b></label>
-                    <input type="text" placeholder="Enter owner name" name="owner_name" id="owner_name" required>
-                    </section>
-
-                    <section class = "owner_email">
-                    <label for="owner_email"><b>Owner's Email:</b></label>
-                    <input type="email" placeholder="Enter owner email" name="owner_email" id="owner_email" required>
-                    </section>
-
-                    <section class="owner_contact">
-                    <label for="owner_contact"><b>Owner's Contact:</b></label>
-                    <input type="text" placeholder="Enter owner contact" name="owner_contact" id="owner_contact" required>
-                    </section>
-
-                </div>
 
                 <section class="submission">
                     <input type="submit" value="Register Cat">
