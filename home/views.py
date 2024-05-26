@@ -150,22 +150,39 @@ def delete_post(post_id):
     flash('Post has been deleted','success')
     return redirect(url_for('views.mainpage'))
 
-@views.route('/create-comment/<post_id>', methods=['GET','POST'])
+@views.route('/create-comment/<int:post_id>', methods=['GET','POST'])
 @login_required
 def create_comment(post_id):
-    form = CommentForm(request.form)
-    post = Post.query.filter_by(id=post_id).first()
-
+    form = CommentForm()
+    post = Post.query.get_or_404(post_id)
     if form.validate_on_submit():
-        comment = Comment(text=form.text.data, user_id=current_user.id, post_id=post_id)
+        comment = Comment(text=form.text.data, author=current_user, post=post)
         db.session.add(comment)
         db.session.commit()
         flash('Comment added!','success')
-        return redirect(url_for('views.post', post_id=post_id))
+        return render_template('post.html', post=post, form=form, post_id=post_id)
     else:
         flash('Failed to add comment','error')
+    return redirect(url_for('views.mainpage', post_id=post_id))
 
-    return render_template('post.html', post=post, form=form)
+@views.route('/delete-comment/<comment_id>')
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first()
+
+    if not comment:
+        flash('Comment does not exists','error')
+
+    elif current_user != comment.author and current_user != comment.post.author:
+        flash('Permission denied','error')
+
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+        flash('Comment deleted','success')
+
+    return redirect(url_for('views.mainpage'))
+
 
 def adopt():
     return '<h2>Adoption page</h2>'
