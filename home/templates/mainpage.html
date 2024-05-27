@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
     <script src='main.js'></script>
 
@@ -76,6 +76,9 @@
                   {% if post.file %}
                       <img src="{{ post.file }}" alt="uploaded image">
                   {% endif %}
+                </div>
+                <div>
+                  <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart"></i></a>    
                 </div>          
               </div>
             </article>

@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy=True)
+    likes = db.relationship('Like', backref='author', lazy=True)
     cats = db.relationship('Cat', backref='owner', lazy=True)
 
     def __repr__(self):
@@ -47,6 +48,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     file = db.Column(db.String(255), nullable=True)
     comments = db.relationship('Comment', backref='post', lazy=True)
+    likes = db.relationship('Like', backref='post', lazy=True)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date}')"
@@ -61,3 +63,10 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f"Comment('{self.text}', '{self.date}')"
+
+class Like(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    date = db.Column(db.DateTime, nullable=False, default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    
