@@ -733,22 +733,40 @@ input[type="submit"]:hover {
 .editcatprofile {
   background-color: #705b33;
   border-radius: 20px;
-  color:#ddc7ab;
+  color:#e8e8e8;
   margin-top: 10px;
+  margin-left: 10px;
+  padding: 8px 15px;
+  float: right;
+  text-decoration: none;
+  border-color: #553b29;
+}
+
+.rehome_button {
+  background-color: #826f48;
+  border-radius: 20px;
+  color:#f0f0f0;
+  margin-top: 10px;
+  margin-right: 10px;
   padding: 8px 15px;
   float: left;
   text-decoration: none;
+  font-size: 14.5px;
+  border-color: #705B33;
+  cursor: pointer;
 }
 
 .deletecatprofile {
   background-color: #ac5757;
   border-radius: 20px;
-  color:#ddc7ab;
+  color:#e8e8e8;
   margin-top: 10px;
   padding: 8px 15px;
   float: right;
   text-decoration: none;
   font-size: 14.5px;
+  border-color: #854747;
+  cursor: pointer;
 }
 
 .addcat_button_container {
