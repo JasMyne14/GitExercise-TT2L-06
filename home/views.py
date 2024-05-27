@@ -64,7 +64,6 @@ def login():
     return render_template('login.html', form=form)
 
 @views.route('/logout')
-@login_required
 def logout():
     logout_user()
     session.clear()
@@ -230,10 +229,29 @@ def profile_page():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
-@views.route('/user')
-def user():
-    return render_template('user.html')
+@views.route('/userprofile', methods=['GET','POST'])
+def userprofile():
+    form = User.query.all()
+    return render_template("userprofile.html")
 
+@views.route('/user_edit', methods=['GET', 'POST'])
+def user_edit():  
+    user = User.query.get(current_user.id)
+    form = SignUpForm(obj=user)
+
+    if form.validate_on_submit():
+        user.fullname = form.fullname.data
+        user.email = form.email.data
+        user.username = form.username.data
+        user.state = form.selected_option.data
+        user.phonenumber = form.phonenumber.data
+        db.session.commit()
+        flash('Your profile has been updated !', 'success')
+        return redirect(url_for('views.userprofile'))
+    
+    return render_template('user_edit.html', user=user, form=form)
+
+   
 @views.route('/adoptmeow')
 def adoptmeow():
     return render_template('adoptmeow.html')
