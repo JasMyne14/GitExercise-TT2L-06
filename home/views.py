@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm
-from .models import Post, User, Comment, Cat, db
+from .models import Post, User, Comment, Cat, Like, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -64,7 +64,6 @@ def login():
     return render_template('login.html', form=form)
 
 @views.route('/logout')
-@login_required
 def logout():
     logout_user()
     session.clear()
@@ -176,6 +175,8 @@ def create_comment(post_id):
 @views.route('/delete-comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
+    form = CommentForm()
+
     comment = Comment.query.filter_by(id=comment_id).first()
 
     if not comment:
@@ -191,6 +192,22 @@ def delete_comment(comment_id):
 
     return redirect(url_for('views.mainpage'))
 
+@views.route('/like-post/<int:post_id>')
+@login_required
+def like(post_id):
+    post = Post.query.filter_by(post_id)
+    like = Like.query.filter_by(author=current_user, post_id=post_id)
+
+    if not post:
+        flash('Post does not exists','error')
+    elif like:
+        db.session.delete(like)
+        db.session.commit()
+    else:
+        like = Like(author=current_user, post_id=post_id)
+        db.session.add(like)
+        db.session.commit()
+    return redirect(url_for('views.like'))
 
 def adopt():
     return '<h2>Adoption page</h2>'
@@ -212,10 +229,29 @@ def profile_page():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
-@views.route('/user')
-def user():
-    return render_template('user.html')
+@views.route('/userprofile', methods=['GET','POST'])
+def userprofile():
+    form = User.query.all()
+    return render_template("userprofile.html")
 
+@views.route('/user_edit', methods=['GET', 'POST'])
+def user_edit():  
+    user = User.query.get(current_user.id)
+    form = SignUpForm(obj=user)
+
+    if form.validate_on_submit():
+        user.fullname = form.fullname.data
+        user.email = form.email.data
+        user.username = form.username.data
+        user.state = form.selected_option.data
+        user.phonenumber = form.phonenumber.data
+        db.session.commit()
+        flash('Your profile has been updated !', 'success')
+        return redirect(url_for('views.userprofile'))
+    
+    return render_template('user_edit.html', user=user, form=form)
+
+   
 @views.route('/adoptmeow')
 def adoptmeow():
     return render_template('adoptmeow.html')

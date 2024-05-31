@@ -43,8 +43,9 @@ def create_app():
     from .mainpage import mainpage
     from .profile_page import profile_page
     from .registercat import registercat
-    from .user import user
+    from .userprofile import userprofile
     from .adoptmeow import adoptmeow
+    from .user_edit import user_edit
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
@@ -56,9 +57,9 @@ def create_app():
     app.register_blueprint(mainpage, url_prefix='/mainpage')
     app.register_blueprint(profile_page, url_prefix='/profile_page')
     app.register_blueprint(registercat, url_prefix='/registercat')
-    app.register_blueprint(user, url_prefix='/user')
+    app.register_blueprint(userprofile, url_prefix='/userprofile')
     app.register_blueprint(adoptmeow, url_prefix='/adoptmeow')
-
+    app.register_blueprint(user_edit, url_prefix='/user_edit')
 
 
     return app

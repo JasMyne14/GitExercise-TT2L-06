@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
     <script src='main.js'></script>
 
@@ -20,7 +20,7 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/user">User</a>
+        <a href="/userprofile">User</a>
         <a href="/notification">Notification</a>
         <a href="/profile_page">Cat Profile</a>
         <a href="/registercat">Register Cat</a>
@@ -67,7 +67,7 @@
                     <a class="mr-2" href="#">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                     {% if post.author == current_user %}
-                        <div>
+                        <div class="btn-group">
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('views.update_post', post_id=post.id) }}">Edit</a>
                             <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                 Delete
@@ -82,6 +82,9 @@
                 {% if post.file %}
                     <img src="{{ post.file }}" alt="uploaded image">
                 {% endif %}
+                </div>
+                <div>
+                    <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart"></i></a>    
                 </div>
                 <div class="text-body">
                     <div class="card-text">{{post.text}}</div>

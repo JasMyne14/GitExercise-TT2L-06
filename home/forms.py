@@ -11,19 +11,19 @@ class SignUpForm(FlaskForm):
     password1 = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Password (Confirm)', validators=[DataRequired(), EqualTo('password1', message='Passwword must match')])
     selected_option = SelectField('Select your state', choices=[
-        ('selangor', 'Selangor'),
-        ('kelantan', 'Kelantan'),
-        ('terengganu', 'Terengganu'),
-        ('perlis', 'Perlis'),
-        ('negerisembilan', 'Negeri Sembilan'),
-        ('pulaupinang', 'Pulau Pinang'),
-        ('perak', 'Perak'),
-        ('pahang', 'Pahang'),
-        ('johor', 'Johor'),
-        ('kedah', 'Kedah'),
-        ('melaka', 'Melaka'),
-        ('wilayahkl', 'Wilayah Persekutuan Kuala Lumpur'),
-        ('wilayahputrajaya', 'Wilayah Persekutuan Putrajaya'),
+        ('Selangor', 'Selangor'),
+        ('Kelantan', 'Kelantan'),
+        ('Terengganu', 'Terengganu'),
+        ('Perlis', 'Perlis'),
+        ('Negeri Sembilan', 'Negeri Sembilan'),
+        ('Pulau Pinang', 'Pulau Pinang'),
+        ('Perak', 'Perak'),
+        ('Pahang', 'Pahang'),
+        ('Johor', 'Johor'),
+        ('Kedah', 'Kedah'),
+        ('Melaka', 'Melaka'),
+        ('Wilayah Persekutuan Kuala Lumpur', 'Wilayah Persekutuan Kuala Lumpur'),
+        ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya'),
     ])
     phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
     submit = SubmitField('Submit')
