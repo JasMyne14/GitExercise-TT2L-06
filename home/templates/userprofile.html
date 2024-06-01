@@ -43,11 +43,16 @@
 
    <h1>Welcome, {{ current_user.username }} ! </h1>
    <div class="userprofile">
-      <strong>Full Name : </strong>{{ current_user.fullname }}</br></br>
-      <strong>Email : </strong>{{ current_user.email }}</br></br>
-      <strong>Username : </strong>{{ current_user.username }}</br></br>
-      <strong>State : </strong>{{ current_user.state }}</br></br>
-      <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
+    {% if current_user.profile_pic %}
+        <img src="{{ url_for('static', filename=current_user.profile_pic) }}" alt="Profile Picture" width="150" height="150">
+    {% else %}
+        <strong>Profile Picture: </strong>No picture uploaded<br><br>
+    {% endif %}
+    <strong>Full Name : </strong>{{ current_user.fullname }}</br></br>
+    <strong>Email : </strong>{{ current_user.email }}</br></br>
+    <strong>Username : </strong>{{ current_user.username }}</br></br>
+    <strong>State : </strong>{{ current_user.state }}</br></br>
+    <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
    </div>
    <div class="userpage_bttn">
    <button  class="edituserprofile" onclick="location.href='/user_edit'">Edit Profile</button>

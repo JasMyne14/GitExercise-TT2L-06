@@ -222,6 +222,13 @@ def user_edit():
     form = SignUpForm(obj=user)
 
     if form.validate_on_submit():
+        if form.profile_pic.data:
+            pic_file = save_picture(form.profile_pic.data)
+            user.profile_pic = pic_file
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(upload_folder, filename)
+            file.save(file_path)
+            file = url_for('static', filename=f'uploads/{filename}')
         user.fullname = form.fullname.data
         user.email = form.email.data
         user.username = form.username.data
@@ -233,6 +240,13 @@ def user_edit():
     
     return render_template('user_edit.html', user=user, form=form)
 
+def save_picture(form_picture):
+    random_hex = os.urandom(8).hex()
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.config['upload_folder'], picture_fn)
+    form_picture.save(picture_path)
+    return picture_fn
    
 @views.route('/adoptmeow')
 def adoptmeow():
