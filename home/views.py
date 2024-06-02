@@ -26,7 +26,9 @@ def first():
 @views.route('/mainpage')
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
-    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts)
+    profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
+    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():

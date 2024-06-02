@@ -785,3 +785,11 @@ body, .userpage_container {
 .userprofile {
   margin-left: 30%;
 }
+
+/*Profile pic*/
+.profilepic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
