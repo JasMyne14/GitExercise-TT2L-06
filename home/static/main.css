@@ -795,3 +795,11 @@ input[type="submit"]:hover {
   background-color: #e17e8e;
   color: #ecdddf;
 }
+
+/*User Profile Page*/
+body, .userpagecontainer {
+  background-color: #dab185;
+}
+.userprofile {
+  margin-left: 30%;
+}
