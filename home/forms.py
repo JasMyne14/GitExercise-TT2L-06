@@ -26,7 +26,7 @@ class SignUpForm(FlaskForm):
         ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya'),
     ])
     phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
-    profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg','png'])])
+    profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg','png','jpeg','JPG'])])
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
