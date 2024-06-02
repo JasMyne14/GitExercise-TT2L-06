@@ -50,33 +50,44 @@
                 </div>
 
                 <div class="adopt_cat_info">
-                  <h2>Cat's Name: {{ cat.cat_name }}</h2>
-                  <p><strong>Age:</strong> {{ cat.cat_age }} yeaars old</p>
-                  <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
-                  <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
-                  <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }}</p>
-                  <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
-                  <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
-                  <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
-                  <hr>
-                  <h2>Contact Information:</h2>
-                  <p><strong>State:</strong> {{ state }}</p>
-                  <p><strong>Email:</strong> {{ email }}</p>
-                  <p><strong>Phone Number:</strong> {{ phonenumber }}</p>
+                    <h2>Cat's Name: {{ cat.cat_name }}</h2>
+                    <p><strong>Age:</strong> {{ cat.cat_age }} yeaars old</p>
+                    <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
+                    <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
+                    <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }}</p>
+                    <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
+                    <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
+                    <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
+                    <hr>
+                    <h2>Contact Information:</h2>
+                    <p><strong>State:</strong> {{ state }}</p>
+                    <p><strong>Email:</strong> {{ email }}</p>
+                    <p><strong>Phone Number:</strong> {{ phonenumber }}</p>
 
-                  <form action="{{ url_for('adoptmeow.adopt_cat', cat_id=cat.id) }}" method="POST" onsubmit="return confirmAdopt();" >
-                    <button type="submit" class="adopt_button">Adopt Me!</button>
-                  </form>
-
+                    {% if cat.user_id == current_user.id %}
+                        <form action="{{ url_for('adoptmeow.remove_adopt_cat', cat_id=cat.id) }}" method="POST" onsubmit="return confirmRemoveAdopt();" >
+                            <button type="submit" class="remove_adopt_button">Remove from Adoption</button>
+                        </form>
+                    {% else %}
+                        <form action="{{ url_for('adoptmeow.adopt_cat', cat_id=cat.id) }}" method="POST" onsubmit="return confirmAdopt();" >
+                            <button type="submit" class="adopt_button">Adopt Me!</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
           {% endfor %}
 
-          <script>
-            function confirmAdopt() {
-                return confirm("Are you sure you want to adopt this cat?");
-            }
-        </script>
+            <script>
+                function confirmAdopt() {
+                    return confirm("Are you sure you want to adopt this cat?");
+                }
+            </script>
+
+            <script>
+                function confirmRemoveAdopt() {
+                    return confirm("Are you sure you want to remove this cat from adoption?");
+                }
+            </script>
 
         </div>
       {% else %}
