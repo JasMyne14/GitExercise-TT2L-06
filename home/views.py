@@ -255,5 +255,5 @@ def user_edit():
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():
-    cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
+    cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).order_by(Cat.id.desc()).all()
     return render_template('adoptmeow.html', cats=cats)

@@ -873,3 +873,30 @@ body, .userpagecontainer {
   border-color: #854747;
   cursor: pointer;
 }
+
+.flash-messages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert {
+  padding: 8px 100px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  text-align: center;
+  display: inline-block;
+  margin: 10px auto;
+}
+
+.alert-success {
+  color: #558855;
+  background-color: #dff0d8;
+  border-color: #93a783;
+}
+
+.alert-danger {
+  color: #995a59;
+  background-color: #f2dede;
+  border-color: #b58c93;
+}

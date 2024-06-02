@@ -35,8 +35,7 @@ def adopt_cat(cat_id):
         flash('This cat is no longer available for adoption.', 'danger')
         return redirect(url_for('adoptmeow.adoptmeow'))
 
-    # Update cat ownership to current user
-    cat.user_id = current_user.id
+    cat.user_id = current_user.id # update cat ownership to current user
     cat.available_for_adoption = False
     db.session.commit()
 
@@ -50,7 +49,7 @@ def remove_adopt_cat(cat_id):
     if cat.user_id == current_user.id:
         cat.available_for_adoption = False
         db.session.commit()
-        flash('Your cat has been removed from adoption.', 'success')
+        flash(f'Your cat, {cat.cat_name}  has been removed from adoption.', 'success')
     else:
-        flash('You can only remove your own cat from adoption.', 'error')
+        flash('You can only remove your own cat from adoption.', 'danger')
     return redirect(url_for('views.catprofile'))

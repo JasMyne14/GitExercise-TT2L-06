@@ -40,6 +40,19 @@
         <br />
 
         <p class="profileheader"><b><u>Adopt Meow</u></b></p>
+
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
         {% if cats %}
         <div class="catprofile_container">
           {% for cat, state, email, phonenumber in cats %}

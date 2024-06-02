@@ -30,7 +30,7 @@ def register_cat_form():
             catfile = request.files['cat_photo']
 
             if catfile.filename =='':
-                flash('No selected file')
+                flash('No selected file','danger')
                 return redirect(request.url)
 
             if catfile and allowed_catfile(catfile.filename): #check if the file is allowed
@@ -39,7 +39,7 @@ def register_cat_form():
                 catfile.save(file_path)
                 cat_photo = url_for('static', filename=f'uploads/{filename}') #setting cat photo to saved file path
             else:
-                flash('Invalid file format. Please upload an image file.')
+                flash('Invalid file format. Please upload an image file.', 'danger')
                 return redirect(request.url)
 
         else:
@@ -59,6 +59,7 @@ def register_cat_form():
         db.session.add(formcat)
         db.session.commit()
 
+        flash('Cat registered successfully!', 'success')
         return redirect(url_for('views.catprofile'))
 
     return render_template('catregister.html')
@@ -69,6 +70,7 @@ def edit_cat(cat_id):
     cat = Cat.query.get_or_404(cat_id)
 
     if cat.user_id != current_user.id: # ensure the current user is the owner of the cat
+        flash('You do not have permission to edit this cat.', 'danger')
         return redirect(url_for('views.catprofile'))
 
     if request.method == 'POST':
@@ -90,6 +92,7 @@ def edit_cat(cat_id):
                 cat_photo = url_for('static', filename=f'uploads/{filename}')
 
         db.session.commit()
+        flash(f'{cat.cat_name} updated successfully!', 'success')
         return redirect(url_for('views.catprofile'))
 
     return render_template('catedit.html', cat=cat)    
@@ -104,5 +107,5 @@ def delete_cat(cat_id):
 
     db.session.delete(cat)
     db.session.commit()
-
+    flash(f'{cat.cat_name} deleted successfully.', 'success')
     return redirect(url_for('views.catprofile'))    
