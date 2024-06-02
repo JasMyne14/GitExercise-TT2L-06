@@ -12,37 +12,34 @@
     <script src='main.js'></script>
 
     <div class="topnav">
-        <a class="active" href="/mainpage">Home</a>
+        <a href="/mainpage">Home</a>
         <a href="/user_posts">Post</a>
         <a href="/adoptmeow">Adopt meow</a>
         <a href="/donation">About</a>
-        <a href="/userprofile">
-          <img src="{{ profile_pic }}" class="profilepic">{{ current_user.username }}
-        </a>
+        <div class="dropdown">
+          <a class="dropbutton" onclick="toggleDropdown()">
+            <img src="{{ profile_pic }}" class="profilepic">{{ current_user.username }}
+          </a>
+          <div class="dropdown-content" id="dropdownContent">
+            <a href="/userprofile">My Profile</a>
+            <a href="/notification">Notification</a>
+            <a href="/profile_page">Cat Profile</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
+          </div>
+        </div>
     </div>
-
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/userprofile">User</a>
-        <a href="/notification">Notification</a>
-        <a href="/profile_page">Cat Profile</a>
-        <a href="/registercat">Register Cat</a>
-        <a href="/logout">Log out</a>
-    </div>
+  </div>
 
 </head>
 <body>
-    <span class='menu-button' onclick="openNav()">&#9776; Menu</span>
-
     <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
+    function toggleDropdown() {
+      var dropdownContent = document.getElementById("dropdownContent");
+      dropdownContent.style.display === "none" ? dropdownContent.style.display = "block" : dropdownContent.style.display = "none";
+      }
     </script>
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <br />
     
