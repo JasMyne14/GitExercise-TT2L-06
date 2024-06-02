@@ -84,7 +84,40 @@
                   {% else %}
                   <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
                   {% endif %}
-              </div>          
+                </div>
+              
+                <div class="text-body">
+                  <div class="card-text">{{post.text}}</div>
+                  <div class="" id="comments-{{post.id}}">
+                      <div class="card-body" id="comments-expanded-{{post.id}}">
+                          {% for comment in post.comments %}
+                          <div class="d-flex justify-content-between align-item-center">
+                              <div>
+                                  <p>{{comment.author.username}} :           
+                                  {{comment.text}}</p>
+                              </div>
+                              <div>
+                                  <small class="text-muted">{{comment.date}}</small>
+                                  {% if current_user == comment.author or current_user == post.author %}
+                                  <div class="btn-group">
+                                      <ul>
+                                          <a class="delete-comment" href="/delete-comment/{{comment.id}}">Delete</a>
+                                      </ul>
+                                  </div>
+                                  {% endif %}
+                              </div>    
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>     
+                </div>       
+                <p class="card-text">
+                  {% if post.comments|length > 5 %}
+                      <a class="view_comment" data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button">
+                      <small>View comments </small>
+                      </a>
+                  {% endif %}
+                </p>
               </div>
             </article>
         {% endfor %}
