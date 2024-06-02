@@ -1,76 +1,90 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Adopt Meow</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<html lang="en">
+    <head>
+        <title>Cat Profile</title>
+        <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src='main.js'></script>    
+    </head>
+
+    <body class="catprofilepage">
+
+        <div class="topnav">
+            <a class="active" href="/mainpage">Main</a>
+            <a href="/user_posts">Post</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">About</a>
+          </div>
     
-    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
-    <script src='main.js'></script>
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/userprofile">User</a>
+            <a href="/notification">Notification</a>
+            <a href="/catprofile">Cat Profile</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
+          </div>
 
-    <div class="topnav">
-        <a href="/mainpage">Main</a>
-        <a href="/user_posts">Post</a>
-        <a class='active' href="/adoptmeow">Adopt meow</a>
-        <a href="/donation">About</a>
-    </div>
+        <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/user">User</a>
-        <a href="/notification">Notification</a>
-        <a href="/profile_page">Cat Profile</a>
-        <a href="/registercat">Register Cat</a>
-        <a href="/logout">Log out</a>
-    </div>
+        <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        </script>
+        <br />
 
-</head>
-<body>
-    <span class='menu-button' onclick="openNav()">&#9776; Menu</span>
+        <p class="profileheader"><b><u>Adopt Meow</u></b></p>
+        {% if cats %}
+        <div class="catprofile_container">
+          {% for cat, state, email, phonenumber in cats %}
+            <div class="catprofile">
 
-    <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-    </script>
-    <br />
-    <div class="main">
-        <ul>
-          <p class="profileheader"><b><u>Adopt Meow</u></b></p>
-        </ul>
-        <div class="row">
-            <div class="col-md-8">
-              {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                  {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                      {{ message }}
-                    </div>
-                  {% endfor %}
-                {% endif %}
-              {% endwith %}
-            </div>
-        </div>
-        {% for post in posts %}
-            <article class="media content-section">
-              <img class="rounded-circle article-img" src="{{ url_for('static', filename='neko.jpg' )}}">
-              <div class="media-body">
-                <div class="article-metadata">
-                  <a class="mr-2" href="#">{{ post.author }}</a>
-                  <small class="text-muted">{{ post.date }}</small>
+                <div class="cat_pfp">
+                    <img src="{{ cat.cat_photo }}" alt="Cat Photo">
                 </div>
-                <h2><a class="article-title">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content }}</p>
-              </div>
-            </article>
-        {% endfor %}
+
+                <div class="adopt_cat_info">
+                  <h2>Cat's Name: {{ cat.cat_name }}</h2>
+                  <p><strong>Age:</strong> {{ cat.cat_age }} yeaars old</p>
+                  <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
+                  <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
+                  <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }}</p>
+                  <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
+                  <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
+                  <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
+                  <hr>
+                  <h2>Contact Information:</h2>
+                  <p><strong>State:</strong> {{ state }}</p>
+                  <p><strong>Email:</strong> {{ email }}</p>
+                  <p><strong>Phone Number:</strong> {{ phonenumber }}</p>
+
+                  <form action="{{ url_for('adoptmeow.adopt_cat', cat_id=cat.id) }}" method="POST" onsubmit="return confirmAdopt();" >
+                    <button type="submit" class="adopt_button">Adopt Me!</button>
+                  </form>
+
+                </div>
+            </div>
+          {% endfor %}
+
+          <script>
+            function confirmAdopt() {
+                return confirm("Are you sure you want to adopt this cat?");
+            }
+        </script>
+
+        </div>
+      {% else %}
+        <div class="no_cat_fadopt">
+            No cats are currently available for adoption.
+        </div>      
+      {% endif %}
     </div>
+        
 </body>
 </html>
