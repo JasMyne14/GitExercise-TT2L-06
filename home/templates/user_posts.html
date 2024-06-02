@@ -61,6 +61,7 @@
             <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
             <div>
+              {{ post.likes|length }}
               <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart"></i></a>    
             </div>
             <div class="post-image">

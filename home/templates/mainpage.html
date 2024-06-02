@@ -77,9 +77,14 @@
                       <img src="{{ post.file }}" alt="uploaded image">
                   {% endif %}
                 </div>
-                <div>
-                  <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart"></i></a>    
-                </div>          
+                <div class="like-btn">
+                  {{ post.likes|length }}
+                  {% if current_user in post.likes|map(attribute="author")|list %}
+                  <a href="/like-post/{{post.id}}"><i class="fa-solid fa-heart" style="color: #ff330f;"></i></a>    
+                  {% else %}
+                  <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
+                  {% endif %}
+              </div>          
               </div>
             </article>
         {% endfor %}

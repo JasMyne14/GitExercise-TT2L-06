@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #ffffff;
+  background: #fbcb98;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -190,7 +190,7 @@ a.article-title:hover {
   transition: 0.3s;
 }
 
-.sidenav a:hover {
+a.sidenav:hover {
   color: #fafdcb
 }
 
@@ -206,7 +206,6 @@ a.article-title:hover {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-
 
 /*Post page*/
 a.delete-comment:hover{
