@@ -25,6 +25,7 @@ def first():
 @views.route('/mainpage')
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
+    comments = Comment.query.all()
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts)
 
 @views.route('/signup', methods=['GET','POST'])
@@ -105,7 +106,7 @@ def createpost():
             file_photo = None
             flash('your post has been created (no file selected)','success')
 
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_photo)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
@@ -115,7 +116,8 @@ def createpost():
 def post(post_id):
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post, form=form)
+    comments = Comment.query.all()
+    return render_template('post.html', title=post.title, post=post, form=form, comments=comments)
 
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
@@ -167,6 +169,7 @@ def create_comment(post_id):
         db.session.add(comment)
         db.session.commit()
         flash('Comment added!','success')
+        form.text.data = ""
         return render_template('post.html', post=post, form=form, post_id=post_id)
     else:
         flash('Failed to add comment','error')
@@ -192,11 +195,11 @@ def delete_comment(comment_id):
 
     return redirect(url_for('views.mainpage'))
 
-@views.route('/like-post/<int:post_id>')
+@views.route('/like-post/<int:post_id>',methods=['GET','POST'])
 @login_required
 def like(post_id):
-    post = Post.query.filter_by(post_id)
-    like = Like.query.filter_by(author=current_user, post_id=post_id)
+    post = Post.query.get_or_404(post_id)
+    like = Like.query.filter_by(author=current_user, post_id=post_id).first()
 
     if not post:
         flash('Post does not exists','error')
@@ -207,10 +210,8 @@ def like(post_id):
         like = Like(author=current_user, post_id=post_id)
         db.session.add(like)
         db.session.commit()
-    return redirect(url_for('views.like'))
 
-def adopt():
-    return '<h2>Adoption page</h2>'
+    return redirect(url_for('views.mainpage'))
 
 @views.route('/donation')
 def donation():
