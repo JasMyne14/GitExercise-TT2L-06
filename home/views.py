@@ -284,3 +284,14 @@ def save_picture(form_picture):
 def adoptmeow():
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
     return render_template('adoptmeow.html', cats=cats)
+
+@views.route('/profiledisplay')
+@login_required
+def profiledisplay(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    profile_pic = None
+    
+    if user.profile_pic:
+        profile_pic = url_for('static', filename='profile_pics/' + user.profile_pic)
+
+    return render_template('profiledisplay.html', user=user, profile_pic=profile_pic)

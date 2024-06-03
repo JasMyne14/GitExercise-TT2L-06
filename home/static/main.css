@@ -114,6 +114,7 @@ a.article-title:hover {
   top: 0px;
   margin: 0px;
   background-color: #705b33;
+  width: 100%;
 }
 .topnav {
   overflow: hidden;
@@ -193,6 +194,19 @@ a.article-title:hover {
 
 .dropdown:hover .dropbtn {
   background-color: #dba76d;
+}
+@media screen and (max-width: 768px) {
+  .topnav {
+    width: 80%;
+  }
+
+  .topnav a {
+    padding: 14px 10px;
+  }
+
+  .dropbtn {
+    padding: 14px 10px;
+  }
 }
 
 /*Post page*/

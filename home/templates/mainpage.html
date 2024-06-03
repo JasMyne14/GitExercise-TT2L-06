@@ -13,7 +13,7 @@
 
   <div class="navigation">
     <div class="topnav">
-      <a class="active" href="/mainpage">Main</a>
+      <a href="/mainpage">Home</a>
       <a href="/createpost">Post</a>
       <a href="/adoptmeow">Adopt meow</a>
       <a href="/donation">About</a>
@@ -26,7 +26,7 @@
       <div class="dropdown-content" id="dropdownContent">
         <a href="/userprofile">My Profile</a>
         <a href="/notification">Notification</a>
-        <a href="/profile_page">Cat Profile</a>
+        <a href="/catprofile">Cat Profile</a>
         <a href="/registercat">Register Cat</a>
         <a href="/logout">Log out</a>
       </div>
@@ -63,7 +63,7 @@
               <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.profile_pic) }}">
               <div class="media-body">
                 <div class="article-metadata">
-                  <a class="mr-2" href="#">{{ post.author.username }}</a>
+                  <a class="mr-2" href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
                   <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                 </div>
                 <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
