@@ -25,6 +25,7 @@ def first():
 @views.route('/mainpage')
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
+    comments = Comment.query.all()
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts)
 
 @views.route('/signup', methods=['GET','POST'])
@@ -115,7 +116,8 @@ def createpost():
 def post(post_id):
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post, form=form)
+    comments = Comment.query.all()
+    return render_template('post.html', title=post.title, post=post, form=form, comments=comments)
 
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
