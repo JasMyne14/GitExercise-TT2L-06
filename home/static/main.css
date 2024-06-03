@@ -4,23 +4,11 @@ body {
   padding: 0;
   overflow-x: hidden;
   background-color: #ffdc9c;
+  /*background-image: url('photos/catformbg.png'); 
+  background-size: 100%;*/ 
   margin-top: 100px;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-  /*background: pink;
-  background-size: cover;
-  min-height: 100vh;
-  width: 90%;
-  background: #fad369;
-  color: #333333;
-  margin-top: 5rem;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #444444;
-  margin-top: 15px;
-}*/
 
 .row {
   text-align: center;
@@ -37,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #ffffff;
+  background: #fbcb98;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -119,29 +107,41 @@ a.article-title:hover {
 }
 
 /* Nav Bar */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  position: fixed;
+  top: 0px;
+  margin: 0px;
+  background-color: #705b33;
+}
 .topnav {
   overflow: hidden;
   background-color: #705b33;
-  position: fixed; 
   width: 100%; 
   top: 0; 
-  z-index: 2;
+  /*z-index: 2;*/
+  margin: 0;
+  padding: 0;
 }
   
 .topnav a {
   float: left;
   color: #f6e5cb;
+  display: block;
   text-align: center;
-  padding: 14px 0;;
+  padding: 23px 117px;
   text-decoration: none;
-  font-size: 17px;
-  width: 25%;
+  font-size: 20px;
+  /*width: 25%;*/
 }
   
 .topnav a:hover, a.active {
   background-color: #dba76d;
   color: #62442f;
-  font-size: 17px;
+  /*font-size: 17px;*/
 }
 
 .topnav::after {
@@ -150,63 +150,52 @@ a.article-title:hover {
   clear: both;
 }
 
-  /*sidebar*/
-.menu-button {
-  position: absolute;
-  top: 60px; 
-  left: 8px; 
-  font-size: 20px;
+/*Dropdown*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+  background-color: #705b33;
+}
+
+.dropbtn {
+  display: inline-block;
+  background-color: #705b33;
+  color: pink;
+  padding: 10px 122px;
+  font-size: 18px;
+  border: none;
   cursor: pointer;
-  color: #f6e5cb; 
-  background-color: #705b33; 
-  padding: 10px 15px; 
-  border-radius: 10px; 
+  text-decoration: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0px);
+  right: 0;
+  background-color: #dba76d;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-
-.menu-button:hover {
-  background-color:#c29045
-}
-
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 3;
-  top: 0;
-  left: 0;
-  background-color: #62442f;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidenav a {
-  padding: 8px 8px 8px 32px;
+.dropdown-content a {
+  color: black;
+  padding: 14px 70px;
   text-decoration: none;
-  font-size: 25px;
-  color: #ddc7ab;
   display: block;
-  transition: 0.3s;
 }
 
-.sidenav a:hover {
-  color: #fafdcb
+.dropdown-content a:hover {
+  background-color: #4b3318;
 }
 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
-@media screen and (max-height: 500px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.dropdown:hover .dropbtn {
+  background-color: #dba76d;
 }
-
 
 /*Post page*/
 a.delete-comment:hover{
@@ -797,13 +786,22 @@ input[type="submit"]:hover {
 }
 
 /*User Profile Page*/
-body, .userpagecontainer {
-  background-color: #ffdc9c;
+body, .userpage_container {
+  background-color: #dab185;
 }
 .userprofile {
   margin-left: 30%;
 }
 
+/*Profile pic*/
+.profilepic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/*dropdown menu*/
 /*Adopt Meow Page*/
 .no_cat_fadopt {
   background-color: #f0a2a2;

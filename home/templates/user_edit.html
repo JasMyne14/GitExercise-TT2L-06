@@ -8,33 +8,29 @@
 </head>
 <body class="userformpage">
 
-    <div class="topnav">
-        <a class="active" href="/mainpage">Main</a>
-        <a href="/user_posts">Post</a>
-        <a href="/adoptmeow">Adopt meow</a>
-        <a href="/donation">About</a>
+    <div class="navigation">
+        <div class="topnav">
+          <a class="" href="/mainpage">Main</a>
+          <a href="/createpost">Post</a>
+          <a href="/adoptmeow">Adopt meow</a>
+          <a href="/donation">About</a>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <img src="{{ profile_pic }}" class="profilepic">
+            {{ current_user.username }}
+          </button>
+          <div class="dropdown-content" id="dropdownContent">
+            <a href="/userprofile">My Profile</a>
+            <a href="/notification">Notifications</a>
+            <a href="/user_posts">My Posts</a>
+            <a href="/catprofile">My Cats</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
+          </div>
+        </div>  
     </div>
-  
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/userprofile">User</a>
-        <a href="/notification">Notification</a>
-        <a href="/catprofile">Cat Profile</a>
-        <a href="/registercat">Register Cat</a>
-        <a href="/logout">Log out</a>
-    </div>
-
-    <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
-
-    <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-    </script>
+    
     <br />
 
 <div class="edituser-container">
@@ -43,15 +39,29 @@
         <h1 class="editusertitle">Edit Profile</h1>
         <div class="user-details">
             <div class="input-box">
-                <label class="details" for="fullname">Full Name :</label>
-                <input type="text" placeholder="Enter Full Name" id="fullname" name="fullname" value="{{ user.fullname }}" required>
-                {% if form.fullname.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.fullname.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <label class="details" for="profile_pic">Profile Picture :</label>
+                <input type="file" id="profile_pic" name="profile_pic">
+                    {% if profile_pic %}
+                        <img src="{{ profile_pic }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                    {% endif %}
+                    {% if form.profile_pic.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.profile_pic.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label class="details" for="fullname">Full Name :</label>
+                    <input type="text" placeholder="Enter Full Name" id="fullname" name="fullname" value="{{ user.fullname }}" required>
+                    {% if form.fullname.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.fullname.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
             </div>
             <div class="input-box">
                 <label class="details" for="email">Email :</label>

@@ -9,24 +9,31 @@
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
    <script src='main.js'></script>
 
-</head>
-<body>
-    
-  <div class="topnav">
-    <a class="active" href="/">Main</a>
-    <a href="/user_posts">Post</a>
-    <a href="/adoptmeow">Adopt Meow</a>
-    <a href="/donation">About</a>
+   <div class="navigation">
+    <div class="topnav">
+      <a class="active" href="/mainpage">Main</a>
+      <a href="/createpost">Post</a>
+      <a href="/adoptmeow">Adopt meow</a>
+      <a href="/donation">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <img src="{{ profile_pic }}" class="profilepic">
+        {{ current_user.username }}
+      </button>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="/userprofile">My Profile</a>
+        <a href="/notification">Notifications</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/logout">Log out</a>
+  </div>
+    </div>  
   </div>
 
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/userprofile">User</a>
-    <a href="/notification">Notification</a>
-    <a href="/catprofile">Cat Profile</a>
-    <a href="/registercat">Register Cat</a>
-    <a href="/logout">Log out</a>
-  </div>
+</head>
+<body>
 
   <span class="menu-button" onclick="openNav()">&#9776; Menu</span>
 

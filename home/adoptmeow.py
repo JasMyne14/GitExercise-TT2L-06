@@ -29,11 +29,11 @@ def adopt_cat(cat_id):
 
     if cat.user_id == current_user.id:
         flash('You cannot adopt your own cat.', 'danger')
-        return redirect(url_for('adoptmeow.adoptmeow'))
+        return redirect(url_for('views.adoptmeow'))
 
     if not cat.available_for_adoption:
         flash('This cat is no longer available for adoption.', 'danger')
-        return redirect(url_for('adoptmeow.adoptmeow'))
+        return redirect(url_for('views.adoptmeow'))
 
     cat.user_id = current_user.id # update cat ownership to current user
     cat.available_for_adoption = False

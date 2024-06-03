@@ -8,51 +8,52 @@
    <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-   <div class="topnav">
-      <a class="active" href="/mainpage">Main</a>
-      <a href="/user_posts">Post</a>
+   <div class="navigation">
+    <div class="topnav">
+      <a class="" href="/mainpage">Main</a>
+      <a href="/createpost">Post</a>
       <a href="/adoptmeow">Adopt meow</a>
       <a href="/donation">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <img src="{{ profile_pic }}" class="profilepic">
+        {{ current_user.username }}
+      </button>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="/userprofile">My Profile</a>
+        <a href="/notification">Notifications</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/logout">Log out</a>
   </div>
-
-  <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="/userprofile">User</a>
-      <a href="/notification">Notification</a>
-      <a href="/catprofile">Cat Profile</a>
-      <a href="/registercat">Register Cat</a>
-      <a href="/logout">Log out</a>
+    </div>  
   </div>
 </br></br></br></br></br></br></br>
 </head>
+<div class="userpage_container">
 <body>
-   <div class="userpage_container">
-   <span class='menu-button' onclick="openNav()">&#9776; Menu</span>
-
-   <script>
-   function openNav() {
-       document.getElementById("mySidenav").style.width = "250px";
-   }
-
-   function closeNav() {
-       document.getElementById("mySidenav").style.width = "0";
-   }
-   </script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    <br />
 
    <h1>Welcome, {{ current_user.username }} ! </h1>
    <div class="userprofile">
-      <strong>Full Name : </strong>{{ current_user.fullname }}</br></br>
-      <strong>Email : </strong>{{ current_user.email }}</br></br>
-      <strong>Username : </strong>{{ current_user.username }}</br></br>
-      <strong>State : </strong>{{ current_user.state }}</br></br>
-      <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
-   </div>
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ profile_pic }}" style="max-width: 200px; max-height: 200px;">
+        <div class="media-body">
+            <strong>Full Name : </strong>{{ current_user.fullname }}</br></br>
+            <strong>Email : </strong>{{ current_user.email }}</br></br>
+            <strong>Username : </strong>{{ current_user.username }}</br></br>
+            <strong>State : </strong>{{ current_user.state }}</br></br>
+            <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
+        </div>
+    </div>
    <div class="userpage_bttn">
    <button  class="edituserprofile" onclick="location.href='/user_edit'">Edit Profile</button>
    <button type="logout" class="logoutbttn" onclick="location.href='/logout'">Logout</button>
    </div>
    </div>
 </body>
+</div>
 </html>
