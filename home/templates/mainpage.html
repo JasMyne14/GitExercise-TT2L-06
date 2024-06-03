@@ -102,13 +102,6 @@
                               </div>
                               <div>
                                   <small class="text-muted">{{comment.date}}</small>
-                                  {% if current_user == comment.author or current_user == post.author %}
-                                  <div class="btn-group">
-                                      <ul>
-                                          <a class="delete-comment" href="/delete-comment/{{comment.id}}">Delete</a>
-                                      </ul>
-                                  </div>
-                                  {% endif %}
                               </div>    
                           </div>
                           {% endfor %}
