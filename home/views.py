@@ -79,16 +79,26 @@ def logout():
 
 @views.route('/notification')
 def notification():
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     users = {
         'user1': {'username': 'user1', 'notifications': []},
         'user2': {'username': 'user2', 'notifications': []}
     }    
-    return render_template('notification.html', notification='Notification', users=users) 
+    return render_template('notification.html', notification='Notification', users=users, profile_pic=profile_pic) 
 
 @views.route('/user_posts')
 def user_posts():
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     user_posts = Post.query.filter_by(author=current_user).all()
-    return render_template('user_posts.html', posts=user_posts)
+    return render_template('user_posts.html', posts=user_posts, profile_pic=profile_pic)
 
 @views.route('/display/<filename>')
 def display_image(filename):
@@ -99,6 +109,11 @@ def display_image(filename):
 @login_required
 def createpost():
     form = PostForm()
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     if form.validate_on_submit():
         file = form.file.data
 
@@ -116,18 +131,29 @@ def createpost():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
-    return render_template('createpost.html', title='New Post', form=form, legend='New Post')
+    return render_template('createpost.html', title='New Post', form=form, legend='New Post', profile_pic=profile_pic)
 
 @views.route('/<int:post_id>')
 def post(post_id):
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
     comments = Comment.query.all()
-    return render_template('post.html', title=post.title, post=post, form=form, comments=comments)
+
+    return render_template('post.html', title=post.title, post=post, form=form, comments=comments, profile_pic=profile_pic)
 
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
 def update_post(post_id):
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
@@ -149,11 +175,16 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
         form.file.data = post.file
-    return render_template('createpost.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('createpost.html', title='Update Post', form=form, legend='Update Post', profile_pic=profile_pic)
 
 @views.route('/<int:post_id>/delete',methods=['POST'])
 @login_required
 def delete_post(post_id):
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     post = Post.query.get_or_404(post_id)
     comment = Comment.query.first()
 
@@ -163,11 +194,16 @@ def delete_post(post_id):
     db.session.delete(comment)
     db.session.commit()
     flash('Post has been deleted','success')
-    return redirect(url_for('views.mainpage'))
+    return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
 @views.route('/create-comment/<int:post_id>', methods=['GET','POST'])
 @login_required
 def create_comment(post_id):
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
     if form.validate_on_submit():
@@ -179,11 +215,16 @@ def create_comment(post_id):
         return render_template('post.html', post=post, form=form, post_id=post_id)
     else:
         flash('Failed to add comment','error')
-    return redirect(url_for('views.mainpage', post_id=post_id))
+    return redirect(url_for('views.mainpage', post_id=post_id, profile_pic=profile_pic))
 
 @views.route('/delete-comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     form = CommentForm()
 
     comment = Comment.query.filter_by(id=comment_id).first()
@@ -199,7 +240,7 @@ def delete_comment(comment_id):
         db.session.commit()
         flash('Comment deleted','success')
 
-    return redirect(url_for('views.mainpage'))
+    return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
 @views.route('/like-post/<int:post_id>',methods=['GET','POST'])
 @login_required
@@ -221,20 +262,35 @@ def like(post_id):
 
 @views.route('/donation')
 def donation():
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     links= [{'url':"https://www.paws.org.my/donate", "text":"donate1"},
             {'url':"https://mnawf.org.my/donate/", "text":"donate2"},
             {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
     ]
-    return render_template('donation.html', donation='donation', links=links)
+    return render_template('donation.html', donation='donation', links=links, profile_pic=profile_pic)
 
 @views.route('/registercat')
 def registercat():
-    return render_template('catregister.html') 
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
+    return render_template('catregister.html', profile_pic=profile_pic) 
 
 @views.route('/catprofile')
 def catprofile():
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     formcat = Cat.query.all()
-    return render_template('catprofile.html', formcat=formcat)
+    return render_template('catprofile.html', formcat=formcat, profile_pic=profile_pic)
 
 @views.route('/userprofile', methods=['GET','POST'])
 def userprofile():
@@ -282,5 +338,10 @@ def save_picture(form_picture):
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
-    return render_template('adoptmeow.html', cats=cats)
+    return render_template('adoptmeow.html', cats=cats, profile_pic=profile_pic)
