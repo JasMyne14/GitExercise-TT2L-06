@@ -140,13 +140,18 @@ a.article-title:hover {
 }
 
 /*Dropdown*/
-.dropbutton {
+.dropbtn {
   color: pink;
   padding: 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
   text-decoration: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
@@ -170,6 +175,10 @@ a.article-title:hover {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #428bca;
 }
 
 /*Post page*/
