@@ -212,7 +212,7 @@ def create_comment(post_id):
         db.session.commit()
         flash('Comment added!','success')
         form.text.data = ""
-        return render_template('post.html', post=post, form=form, post_id=post_id)
+        return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
     else:
         flash('Failed to add comment','error')
     return redirect(url_for('views.mainpage', post_id=post_id, profile_pic=profile_pic))
