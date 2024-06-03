@@ -43,15 +43,29 @@
         <h1 class="editusertitle">Edit Profile</h1>
         <div class="user-details">
             <div class="input-box">
-                <label class="details" for="fullname">Full Name :</label>
-                <input type="text" placeholder="Enter Full Name" id="fullname" name="fullname" value="{{ user.fullname }}" required>
-                {% if form.fullname.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.fullname.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <label class="details" for="profile_pic">Profile Picture :</label>
+                <input type="file" id="profile_pic" name="profile_pic">
+                    {% if profile_pic %}
+                        <img src="{{ profile_pic }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                    {% endif %}
+                    {% if form.profile_pic.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.profile_pic.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label class="details" for="fullname">Full Name :</label>
+                    <input type="text" placeholder="Enter Full Name" id="fullname" name="fullname" value="{{ user.fullname }}" required>
+                    {% if form.fullname.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.fullname.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
             </div>
             <div class="input-box">
                 <label class="details" for="email">Email :</label>

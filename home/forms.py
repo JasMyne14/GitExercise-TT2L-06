@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, SubmitField, BooleanField, TextAreaField, PasswordField, SelectField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import UserMixin, login_user,LoginManager, login_required, logout_user, current_user
@@ -26,6 +26,7 @@ class SignUpForm(FlaskForm):
         ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya'),
     ])
     phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
+    profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg','png','jpeg','JPG'])])
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
