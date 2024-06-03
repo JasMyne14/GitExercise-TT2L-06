@@ -798,13 +798,46 @@ input[type="submit"]:hover {
 }
 
 /*User Profile Page*/
-body, .userpage_container {
+.userpage_container {
   background-color: #dab185;
 }
 .userprofile {
-  margin-left: 30%;
+  margin-left: 10%;
 }
 
+.catpfp, .userpfp{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: #705b33 solid 2px;
+  overflow: hidden;
+  margin-right: 40px;
+  flex: 0 0 250px;
+  display: inline-block;
+  margin-bottom: 10%;
+}
+
+.ownercat {
+  display: flex;
+}
+.catpfp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: inline-block; 
+  vertical-align: middle; 
+}
+
+.catinfo a {
+  color: #47301a;
+  text-align: center;
+  white-space: normal;
+  align-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: larger;
+  font-weight: bold;
+}
 /*Profile pic*/
 .profilepic {
   width: 30px;
