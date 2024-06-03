@@ -41,7 +41,7 @@ def create_app():
     from .signup import signup
     from .login import login
     from .mainpage import mainpage
-    from .profile_page import profile_page
+    from .catprofile import catprofile
     from .registercat import registercat
     from .userprofile import userprofile
     from .adoptmeow import adoptmeow
@@ -55,7 +55,7 @@ def create_app():
     app.register_blueprint(login, url_prefix='/login')
     app.register_blueprint(signup, url_prefix='/signup')
     app.register_blueprint(mainpage, url_prefix='/mainpage')
-    app.register_blueprint(profile_page, url_prefix='/profile_page')
+    app.register_blueprint(catprofile, url_prefix='/catprofile')
     app.register_blueprint(registercat, url_prefix='/registercat')
     app.register_blueprint(userprofile, url_prefix='/userprofile')
     app.register_blueprint(adoptmeow, url_prefix='/adoptmeow')

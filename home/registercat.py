@@ -59,7 +59,7 @@ def register_cat_form():
         db.session.add(formcat)
         db.session.commit()
 
-        return redirect(url_for('views.profile_page'))
+        return redirect(url_for('views.catprofile'))
 
     return render_template('catregister.html')
 
@@ -69,7 +69,7 @@ def edit_cat(cat_id):
     cat = Cat.query.get_or_404(cat_id)
 
     if cat.user_id != current_user.id: # ensure the current user is the owner of the cat
-        return redirect(url_for('views.profile_page'))
+        return redirect(url_for('views.catprofile'))
 
     if request.method == 'POST':
         cat.cat_name = request.form['cat_name']
@@ -90,7 +90,7 @@ def edit_cat(cat_id):
                 cat_photo = url_for('static', filename=f'uploads/{filename}')
 
         db.session.commit()
-        return redirect(url_for('views.profile_page'))
+        return redirect(url_for('views.catprofile'))
 
     return render_template('catedit.html', cat=cat)    
 
@@ -99,10 +99,10 @@ def edit_cat(cat_id):
 def delete_cat(cat_id):
     cat = Cat.query.get_or_404(cat_id)
 
-    if cat.owner != current_user:
-        return redirect(url_for('views.profile_page'))
+    if cat.user_id != current_user.id:
+        return redirect(url_for('views.catprofile'))
 
     db.session.delete(cat)
     db.session.commit()
 
-    return redirect(url_for('views.profile_page'))    
+    return redirect(url_for('views.catprofile'))    

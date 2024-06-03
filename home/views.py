@@ -225,8 +225,8 @@ def donation():
 def registercat():
     return render_template('catregister.html') 
 
-@views.route('/profile_page')
-def profile_page():
+@views.route('/catprofile')
+def catprofile():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
@@ -254,5 +254,7 @@ def user_edit():
 
    
 @views.route('/adoptmeow')
+@login_required
 def adoptmeow():
-    return render_template('adoptmeow.html')
+    cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
+    return render_template('adoptmeow.html', cats=cats)

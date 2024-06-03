@@ -705,7 +705,7 @@ input[type="submit"]:hover {
 .cat_info {
   background-color: #f6e5cb;
   border-radius: 20px;
-  border: 1px solid #705b33;
+  border: 2px solid #705b33;
   padding: 20px;
   flex: 1;
   width: 600px;
@@ -730,24 +730,42 @@ input[type="submit"]:hover {
 }
 
 .editcatprofile {
-  background-color: #705b33;
+  background-color: #758248;
   border-radius: 20px;
-  color:#ddc7ab;
+  color:#e8e8e8;
   margin-top: 10px;
+  margin-left: 10px;
+  padding: 8px 15px;
+  float: right;
+  text-decoration: none;
+  border: #44693b solid 2px;
+}
+
+.put_adopt_button {
+  background-color: #d48e58;
+  border-radius: 20px;
+  color:#f0f0f0;
+  margin-top: 10px;
+  margin-right: 10px;
   padding: 8px 15px;
   float: left;
   text-decoration: none;
+  font-size: 14.5px;
+  border-color: #a1694f;
+  cursor: pointer;
 }
 
 .deletecatprofile {
   background-color: #ac5757;
   border-radius: 20px;
-  color:#ddc7ab;
+  color:#e8e8e8;
   margin-top: 10px;
   padding: 8px 15px;
   float: right;
   text-decoration: none;
   font-size: 14.5px;
+  border-color: #854747;
+  cursor: pointer;
 }
 
 .addcat_button_container {
@@ -779,8 +797,65 @@ input[type="submit"]:hover {
 
 /*User Profile Page*/
 body, .userpagecontainer {
-  background-color: #dab185;
+  background-color: #ffdc9c;
 }
 .userprofile {
   margin-left: 30%;
+}
+
+/*Adopt Meow Page*/
+.no_cat_fadopt {
+  background-color: #f0a2a2;
+  color: #fcf2ea;
+  text-align: center;
+  width: 500px;
+  border-radius: 20px;
+  border: #b67373 solid 2px;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.adopt_cat_info {
+  background-color: #f6e5cb;
+  border-radius: 20px;
+  border: 2px solid #705b33;
+  padding: 20px;
+  flex: 1;
+  width: 600px;
+  height: 400px;
+  box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
+  margin: 0 20px;
+  text-align: left;
+  white-space: normal;
+  align-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.adopt_cat_info h2 {
+  margin-top: 0;
+  text-align: left;
+}
+
+.adopt_cat_info p {
+  margin: 8px 0;
+  text-align: left;
+}
+
+.adopt_button {
+  background-color: #758248;
+  border-radius: 20px;
+  color:#f0f0f0;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 8px 15px;
+  float: right;
+  text-decoration: none;
+  font-size: 14.5px;
+  border: #44693b solid 2px;
+  cursor: pointer;
 }
