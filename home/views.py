@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect,url_for, 
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm
-from .models import Post, User, Comment, Cat, db
+from .models import Post, User, Comment, Cat, Like, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -26,6 +26,7 @@ def first():
 @views.route('/mainpage')
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
+    comments = Comment.query.all()
     profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
@@ -108,7 +109,7 @@ def createpost():
             file_photo = None
             flash('your post has been created (no file selected)','success')
 
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_photo)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
@@ -118,7 +119,8 @@ def createpost():
 def post(post_id):
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post, form=form)
+    comments = Comment.query.all()
+    return render_template('post.html', title=post.title, post=post, form=form, comments=comments)
 
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
@@ -170,6 +172,7 @@ def create_comment(post_id):
         db.session.add(comment)
         db.session.commit()
         flash('Comment added!','success')
+        form.text.data = ""
         return render_template('post.html', post=post, form=form, post_id=post_id)
     else:
         flash('Failed to add comment','error')
@@ -178,6 +181,8 @@ def create_comment(post_id):
 @views.route('/delete-comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
+    form = CommentForm()
+
     comment = Comment.query.filter_by(id=comment_id).first()
 
     if not comment:
@@ -193,9 +198,23 @@ def delete_comment(comment_id):
 
     return redirect(url_for('views.mainpage'))
 
+@views.route('/like-post/<int:post_id>',methods=['GET','POST'])
+@login_required
+def like(post_id):
+    post = Post.query.get_or_404(post_id)
+    like = Like.query.filter_by(author=current_user, post_id=post_id).first()
 
-def adopt():
-    return '<h2>Adoption page</h2>'
+    if not post:
+        flash('Post does not exists','error')
+    elif like:
+        db.session.delete(like)
+        db.session.commit()
+    else:
+        like = Like(author=current_user, post_id=post_id)
+        db.session.add(like)
+        db.session.commit()
+
+    return redirect(url_for('views.mainpage'))
 
 @views.route('/donation')
 def donation():
@@ -209,8 +228,8 @@ def donation():
 def registercat():
     return render_template('catregister.html') 
 
-@views.route('/profile_page')
-def profile_page():
+@views.route('/catprofile')
+def catprofile():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat)
 
@@ -251,5 +270,7 @@ def save_picture(form_picture):
     return picture_fn
    
 @views.route('/adoptmeow')
+@login_required
 def adoptmeow():
-    return render_template('adoptmeow.html')
+    cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
+    return render_template('adoptmeow.html', cats=cats)

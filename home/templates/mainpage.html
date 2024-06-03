@@ -7,13 +7,13 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
     <script src='main.js'></script>
 
     <div class="topnav">
-        <a href="/mainpage">Home</a>
-        <a href="/user_posts">Post</a>
+        <a class="active" href="/mainpage">Main</a>
+        <a href="/createpost">Post</a>
         <a href="/adoptmeow">Adopt meow</a>
         <a href="/donation">About</a>
         <div class="dropdown">
@@ -76,7 +76,52 @@
                   {% if post.file %}
                       <img src="{{ post.file }}" alt="uploaded image">
                   {% endif %}
-                </div>          
+                </div>
+                <div class="icons-btn">
+                  {{ post.likes|length }}
+                  {% if current_user in post.likes|map(attribute="author")|list %}
+                  <a href="/like-post/{{post.id}}"><i class="fa-solid fa-heart" style="color: #ff330f;"></i></a>    
+                  {% else %}
+                  <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
+                  {% endif %}
+                  <span />
+                  {{ post.comments|length }}
+                  <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #000000;"></i></a>    
+
+                </div>
+              
+                <div class="text-body">
+                  <div class="card-text">{{post.text}}</div>
+                  <div class="" id="comments-{{post.id}}">
+                      <div class="card-body" id="comments-expanded-{{post.id}}">
+                          {% for comment in post.comments[:5] %}
+                          <div class="d-flex justify-content-between align-item-center">
+                              <div>
+                                  <p>{{comment.author.username}} :           
+                                  {{comment.text}}</p>
+                              </div>
+                              <div>
+                                  <small class="text-muted">{{comment.date}}</small>
+                                  {% if current_user == comment.author or current_user == post.author %}
+                                  <div class="btn-group">
+                                      <ul>
+                                          <a class="delete-comment" href="/delete-comment/{{comment.id}}">Delete</a>
+                                      </ul>
+                                  </div>
+                                  {% endif %}
+                              </div>    
+                          </div>
+                          {% endfor %}
+                          {%if post.comments|length > 5 %}
+                          <div>
+                            <a class="view_comment" href="/{{post.id}}" role="button">
+                              <small>View all comments ({{ post.comments|length }})</small>
+                            </a>
+                          </div>
+                          {% endif %}
+                      </div>
+                  </div>     
+                </div>       
               </div>
             </article>
         {% endfor %}

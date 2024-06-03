@@ -7,13 +7,13 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
     <script src='main.js'></script>
 
     <div class="topnav">
         <a href="/mainpage">Main</a>
-        <a class="active" href="/user_posts">Post</a>
+        <a class="active" href="/createpost">Post</a>
         <a href="/adoptmeow">Adopt meow</a>
         <a href="/donation">About</a>
     </div>
@@ -22,9 +22,9 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/userprofile">User</a>
         <a href="/notification">Notification</a>
-        <a href="/profile_page">Cat Profile</a>
+        <a href="/catprofile">Cat Profile</a>
         <a href="/registercat">Register Cat</a>
-        <a href="/profile_page">Cat Profile</a>
+        <a href="/catprofile">Cat Profile</a>
         <a href="/logout">Log out</a>
     </div>
 
@@ -67,7 +67,7 @@
                     <a class="mr-2" href="#">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                     {% if post.author == current_user %}
-                        <div>
+                        <div class="btn-group">
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('views.update_post', post_id=post.id) }}">Edit</a>
                             <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                 Delete
@@ -83,9 +83,21 @@
                     <img src="{{ post.file }}" alt="uploaded image">
                 {% endif %}
                 </div>
+                <div>
+                    {{ post.likes|length }}
+                    {% if current_user in post.likes|map(attribute="author")|list %}
+                    <a href="/like-post/{{post.id}}"><i class="fa-solid fa-heart" style="color: #ff330f;"></i></a>    
+                    {% else %}
+                    <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
+                    {% endif %}
+                    <span />
+                    {{ post.comments|length }}
+                    <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #000000;"></i></a>    
+                </div>
+
                 <div class="text-body">
                     <div class="card-text">{{post.text}}</div>
-                    <div class="collapse" id="comments-{{post.id}}">
+                    <div class="" id="comments-{{post.id}}">
                         <div class="card-body" id="comments-expanded-{{post.id}}">
                             {% for comment in post.comments %}
                             <div class="d-flex justify-content-between align-item-center">
@@ -108,15 +120,6 @@
                         </div>
                     </div>     
                 </div>       
-                <p class="card-text">
-                    {% if post.comments|length > 0 %}
-                        <a class="view_comment" data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button">
-                        <small>View {{post.comments|length}} comments </small>
-                        </a>
-                    {% else %}
-                        <small class="text-muted">No comments</small>
-                    {% endif %}
-                </p>
                 <form method="POST" action="/create-comment/{{post.id}}">
                     {{ form.hidden_tag() }}        
                     <fieldset class="form-group">
@@ -130,7 +133,7 @@
                                     {% endfor %}
                                 </div>
                             {% else %}
-                                {{ form.text(class="form-control form-control-lg") }}
+                                {{ form.text(class="form-control form-control-lg", placeholder="Write here!") }}
                             {% endif %}
                         </div>
                     </fieldset>
