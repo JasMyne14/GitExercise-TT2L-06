@@ -10,6 +10,7 @@ from .registercat import upload_folder, allowed_extensions
 from werkzeug.utils import secure_filename
 import os
 from . import db
+import secrets
 
 views = Blueprint('views',__name__)
 
@@ -26,7 +27,12 @@ def first():
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
     comments = Comment.query.all()
-    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts)
+    profile_pic= None
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
+    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():
@@ -103,10 +109,10 @@ def createpost():
             file = url_for('static', filename=f'uploads/{filename}')
             flash('Your post has been created!','success')
         else:
-            file_photo = None
+            file = None
             flash('your post has been created (no file selected)','success')
 
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file_photo)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
@@ -233,14 +239,26 @@ def catprofile():
 @views.route('/userprofile', methods=['GET','POST'])
 def userprofile():
     form = User.query.all()
-    return render_template("userprofile.html")
+    profile_pic= None
+    
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
+    return render_template("userprofile.html", form=form, profile_pic=profile_pic)
 
 @views.route('/user_edit', methods=['GET', 'POST'])
 def user_edit():  
     user = User.query.get(current_user.id)
     form = SignUpForm(obj=user)
+    profile_pic= None
+    
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     if form.validate_on_submit():
+        if form.profile_pic.data:
+            picture_file = save_picture(form.profile_pic.data)
+            user.profile_pic = picture_file
         user.fullname = form.fullname.data
         user.email = form.email.data
         user.username = form.username.data
@@ -250,8 +268,16 @@ def user_edit():
         flash('Your profile has been updated !', 'success')
         return redirect(url_for('views.userprofile'))
     
-    return render_template('user_edit.html', user=user, form=form)
+    return render_template('user_edit.html', user=user, form=form, profile_pic=profile_pic)
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    form_picture.save(picture_path)
+
+    return picture_fn
    
 @views.route('/adoptmeow')
 @login_required
