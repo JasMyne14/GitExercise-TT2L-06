@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     password2 = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(120), nullable=False)
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
-    profile_pic = db.Column(db.String(), nullable=True)
+    profile_pic = db.Column(db.String(255), nullable=True)
     posts = db.relationship('Post', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy=True)
     likes = db.relationship('Like', backref='author', lazy=True)

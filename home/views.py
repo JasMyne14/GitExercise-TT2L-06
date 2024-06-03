@@ -27,7 +27,10 @@ def first():
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
     comments = Comment.query.all()
-    profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+    profile_pic= None
+    
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
 
