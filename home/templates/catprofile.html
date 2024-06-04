@@ -38,6 +38,18 @@
         <p class="profileheader"><b><u>Cat Profile</u></b></p>
 
         <p class = "username">Hello, {{ current_user.username }}!</p>
+
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
    
         <div class="catprofile_container">
             {% for cat in current_user.cats %}
