@@ -16,8 +16,10 @@
           </div>
           <div class="dropdown">
             <button class="dropbtn">
-              <img src="{{ profile_pic }}" class="profilepic">
-              {{ current_user.username }}
+                <div class="profile-container">
+                    <img src="{{ profile_pic }}" class="profilepic">
+                    <span>{{ current_user.username }}</span>
+                  </div>
             </button>
             <div class="dropdown-content" id="dropdownContent">
               <a href="/userprofile">My Profile</a>

@@ -89,7 +89,7 @@ def edit_cat(cat_id):
                 filename = secure_filename(catfile.filename)
                 file_path = os.path.join(upload_folder, filename)
                 catfile.save(file_path)
-                cat_photo = url_for('static', filename=f'uploads/{filename}')
+                cat.cat_photo = url_for('static', filename=f'uploads/{filename}')
 
         db.session.commit()
         flash(f'{cat.cat_name} updated successfully!', 'success')

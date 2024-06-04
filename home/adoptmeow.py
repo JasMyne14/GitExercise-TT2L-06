@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 from .registercat import upload_folder, allowed_extensions
 import os
+from datetime import datetime
 
 adoptmeow = Blueprint('adoptmeow',__name__)
 
@@ -16,6 +17,7 @@ def put_adopt_cat(cat_id):
         flash('You do not have permission to put this cat up for adoption.', 'danger')
         return redirect(url_for('views.catprofile'))
 
+    cat.date_put_for_adoption = datetime.utcnow()
     cat.available_for_adoption = True
     db.session.commit()
 

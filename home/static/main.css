@@ -114,28 +114,24 @@ a.article-title:hover {
   padding: 0px;
   position: fixed;
   top: 0px;
-  margin: 0px;
+  width: 100%;
   background-color: #705b33;
+  z-index: 1;
 }
+
 .topnav {
-  overflow: hidden;
+  display: flex;
   background-color: #705b33;
-  width: 100%; 
-  top: 0; 
-  /*z-index: 2;*/
-  margin: 0;
-  padding: 0;
+  flex-grow: 1;
+  justify-content: flex-start;
 }
   
 .topnav a {
-  float: left;
   color: #f6e5cb;
-  display: block;
   text-align: center;
-  padding: 23px 117px;
+  padding: 10px 130px; /* Adjust padding as needed */
   text-decoration: none;
   font-size: 20px;
-  /*width: 25%;*/
 }
   
 .topnav a:hover, a.active {
@@ -153,16 +149,16 @@ a.article-title:hover {
 /*Dropdown*/
 .dropdown {
   position: relative;
-  display: inline-block;
   background-color: #705b33;
 }
 
 .dropbtn {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   background-color: #705b33;
   color: pink;
-  padding: 10px 122px;
-  font-size: 18px;
+  padding: 10px 35px;
+  font-size: 20px;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -173,20 +169,20 @@ a.article-title:hover {
   position: absolute;
   top: calc(100% + 0px);
   right: 0;
-  background-color: #dba76d;
+  background-color: #705B33;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
+
 .dropdown-content a {
   color: black;
-  padding: 14px 70px;
+  padding: 14px 16px;
   text-decoration: none;
   display: block;
 }
 
 .dropdown-content a:hover {
-  background-color: #4b3318;
+  background-color: #dba76d;
 }
 
 .dropdown:hover .dropdown-content {
@@ -195,6 +191,11 @@ a.article-title:hover {
 
 .dropdown:hover .dropbtn {
   background-color: #dba76d;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
 }
 
 /*Post page*/
@@ -786,7 +787,7 @@ input[type="submit"]:hover {
 }
 
 /*User Profile Page*/
-body, .userpage_container {
+.userpage_container {
   background-color: #dab185;
 }
 .userprofile {
