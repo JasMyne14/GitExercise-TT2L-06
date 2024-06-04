@@ -319,7 +319,8 @@ def catprofile():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat, profile_pic=profile_pic)
 
-@views.route('/userprofile', methods=['GET','POST'])
+@views.route('/userprofile', methods=['GET'])
+@login_required
 def userprofile():
     form = User.query.all()
     profile_pic= url_for('static', filename='default.jpg')
@@ -327,7 +328,8 @@ def userprofile():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
-    return render_template("userprofile.html", form=form, profile_pic=profile_pic)
+    cats = Cat.query.filter(Cat.owner.has(id=current_user.id)).all()
+    return render_template("userprofile.html", profile_pic=profile_pic, cats=cats)
 
 @views.route('/user_edit', methods=['GET', 'POST'])
 def user_edit():  
@@ -371,4 +373,17 @@ def adoptmeow():
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
-    return render_template('adoptmeow.html', cats=cats, profile_pic=profile_pic)
+    return render_template('adoptmeow.html', cats=cats)
+
+@views.route('/profiledisplay<username>')
+@login_required
+def profiledisplay(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    profile_pic = None
+
+    if user.profile_pic:
+        profile_pic = url_for('static', filename='profile_pics/' + user.profile_pic)
+
+    cats = Cat.query.filter(Cat.owner.has(id=user.id)).all()
+
+    return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats)
