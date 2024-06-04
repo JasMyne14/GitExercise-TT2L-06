@@ -1,8 +1,8 @@
-from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session,session, abort
+from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session, abort, logging
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm
-from .models import Post, User, Comment, Cat, Like, db
+from .models import Post, User, Comment, Cat, Like, Notification, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -27,7 +27,7 @@ def first():
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
     comments = Comment.query.all()
-    profile_pic= None
+    profile_pic= url_for('static', filename='default.jpg')
 
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
@@ -77,18 +77,55 @@ def logout():
     flash('Logged out successfully!', 'info')
     return redirect(url_for('views.login'))
 
-@views.route('/notification')
-def notification():
-    users = {
-        'user1': {'username': 'user1', 'notifications': []},
-        'user2': {'username': 'user2', 'notifications': []}
-    }    
-    return render_template('notification.html', notification='Notification', users=users) 
+@views.route('/like-noti/<int:post_id>')
+def like_noti(post_id):
+    post = Post.query.get_or_404(post_id)
+    notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='like')
+    db.session.add(notification)
+    db.session.commit()
+    return redirect(url_for('views.mainpage'))
+
+@views.route('/comment-noti/<int:post_id>')
+def comment_noti(post_id):
+    post = Post.query.get_or_404(post_id)
+    notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment')
+    db.session.add(notification)
+    db.session.commit()
+    return redirect(url_for('views.mainpage'))
+
+
+@views.route('/unread')
+def unread_noti(user_id):
+    notification = Notification.query.filter_by(user_id=user_id, read=False).all()
+    return render_template('notification.html', notifications=notification)
+
+@views.route('/read')
+def mark_as_read_noti(user_id):
+    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
+    for notification in notifications:
+        notification.read = True
+    db.session.commit()
+    return redirect(url_for('views.display_noti'))
+
+@views.route("/notification")
+def display_noti():
+    print('execute display_noti route')
+    profile_pic= url_for('static', filename='default.jpg')
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+    user_id = current_user.id
+    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
+    return render_template('notification.html', notifications=notifications, profile_pic=profile_pic)
 
 @views.route('/user_posts')
 def user_posts():
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     user_posts = Post.query.filter_by(author=current_user).all()
-    return render_template('user_posts.html', posts=user_posts)
+    return render_template('user_posts.html', posts=user_posts, profile_pic=profile_pic)
 
 @views.route('/display/<filename>')
 def display_image(filename):
@@ -99,6 +136,11 @@ def display_image(filename):
 @login_required
 def createpost():
     form = PostForm()
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     if form.validate_on_submit():
         file = form.file.data
 
@@ -116,18 +158,29 @@ def createpost():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
-    return render_template('createpost.html', title='New Post', form=form, legend='New Post')
+    return render_template('createpost.html', title='New Post', form=form, legend='New Post', profile_pic=profile_pic)
 
 @views.route('/<int:post_id>')
 def post(post_id):
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
     comments = Comment.query.all()
-    return render_template('post.html', title=post.title, post=post, form=form, comments=comments)
+
+    return render_template('post.html', title=post.title, post=post, form=form, comments=comments, profile_pic=profile_pic)
 
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
 def update_post(post_id):
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
@@ -149,11 +202,16 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
         form.file.data = post.file
-    return render_template('createpost.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('createpost.html', title='Update Post', form=form, legend='Update Post', profile_pic=profile_pic)
 
 @views.route('/<int:post_id>/delete',methods=['POST'])
 @login_required
 def delete_post(post_id):
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     post = Post.query.get_or_404(post_id)
     comment = Comment.query.first()
 
@@ -163,11 +221,16 @@ def delete_post(post_id):
     db.session.delete(comment)
     db.session.commit()
     flash('Post has been deleted','success')
-    return redirect(url_for('views.mainpage'))
+    return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
 @views.route('/create-comment/<int:post_id>', methods=['GET','POST'])
 @login_required
 def create_comment(post_id):
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
     if form.validate_on_submit():
@@ -176,14 +239,19 @@ def create_comment(post_id):
         db.session.commit()
         flash('Comment added!','success')
         form.text.data = ""
-        return render_template('post.html', post=post, form=form, post_id=post_id)
+        return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
     else:
         flash('Failed to add comment','error')
-    return redirect(url_for('views.mainpage', post_id=post_id))
+    return redirect(url_for('views.mainpage', post_id=post_id, profile_pic=profile_pic))
 
 @views.route('/delete-comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     form = CommentForm()
 
     comment = Comment.query.filter_by(id=comment_id).first()
@@ -199,7 +267,7 @@ def delete_comment(comment_id):
         db.session.commit()
         flash('Comment deleted','success')
 
-    return redirect(url_for('views.mainpage'))
+    return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
 @views.route('/like-post/<int:post_id>',methods=['GET','POST'])
 @login_required
@@ -221,26 +289,43 @@ def like(post_id):
 
 @views.route('/donation')
 def donation():
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     links= [{'url':"https://www.paws.org.my/donate", "text":"donate1"},
             {'url':"https://mnawf.org.my/donate/", "text":"donate2"},
             {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
     ]
-    return render_template('donation.html', donation='donation', links=links)
+    return render_template('donation.html', donation='donation', links=links, profile_pic=profile_pic)
 
 @views.route('/registercat')
 def registercat():
-    return render_template('catregister.html') 
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
+    return render_template('catregister.html', profile_pic=profile_pic) 
 
 @views.route('/catprofile')
 def catprofile():
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     formcat = Cat.query.all()
-    return render_template('catprofile.html', formcat=formcat)
+    return render_template('catprofile.html', formcat=formcat, profile_pic=profile_pic)
 
 @views.route('/userprofile', methods=['GET'])
 @login_required
 def userprofile():
-    profile_pic = None
-    if current_user.is_authenticated and current_user.profile_pic:
+    form = User.query.all()
+    profile_pic= url_for('static', filename='default.jpg')
+    
+    if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     cats = Cat.query.filter(Cat.owner.has(id=current_user.id)).all()
@@ -250,7 +335,7 @@ def userprofile():
 def user_edit():  
     user = User.query.get(current_user.id)
     form = SignUpForm(obj=user)
-    profile_pic= None
+    profile_pic= url_for('static', filename='default.jpg')
     
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
@@ -282,6 +367,11 @@ def save_picture(form_picture):
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
     return render_template('adoptmeow.html', cats=cats)
 

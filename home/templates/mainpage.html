@@ -25,8 +25,9 @@
       </button>
       <div class="dropdown-content" id="dropdownContent">
         <a href="/userprofile">My Profile</a>
-        <a href="/notification">Notification</a>
-        <a href="/catprofile">Cat Profile</a>
+        <a href="/notification">Notifications</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
         <a href="/registercat">Register Cat</a>
         <a href="/logout">Log out</a>
       </div>
@@ -60,7 +61,11 @@
         </div>
         {% for post in posts %}
             <article class="media content-section">
-              <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.profile_pic) }}">
+              {% if post.author.profile_pic %}
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+ post.author.profile_pic) }}">
+              {% else %}
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='default.jpg') }}">
+              {% endif %}
               <div class="media-body">
                 <div class="article-metadata">
                   <a class="mr-2" href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
@@ -90,7 +95,7 @@
                   <div class="card-text">{{post.text}}</div>
                   <div class="" id="comments-{{post.id}}">
                       <div class="card-body" id="comments-expanded-{{post.id}}">
-                          {% for comment in post.comments[:5] %}
+                          {% for comment in post.comments[-5:]|reverse %}
                           <div class="d-flex justify-content-between align-item-center">
                               <div>
                                   <p>{{comment.author.username}} :           
@@ -98,13 +103,6 @@
                               </div>
                               <div>
                                   <small class="text-muted">{{comment.date}}</small>
-                                  {% if current_user == comment.author or current_user == post.author %}
-                                  <div class="btn-group">
-                                      <ul>
-                                          <a class="delete-comment" href="/delete-comment/{{comment.id}}">Delete</a>
-                                      </ul>
-                                  </div>
-                                  {% endif %}
                               </div>    
                           </div>
                           {% endfor %}
