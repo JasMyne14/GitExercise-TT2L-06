@@ -29,7 +29,7 @@ def create_app():
     login_manager.login_view = 'views.login'
     login_manager.login_message_category = 'info'
     
-    from .models import User, Post, Comment
+    from .models import User, Post, Comment, Notification
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -48,6 +48,7 @@ def create_app():
     from .userprofile import userprofile
     from .adoptmeow import adoptmeow
     from .user_edit import user_edit
+    from .profiledisplay import profiledisplay
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
@@ -62,6 +63,8 @@ def create_app():
     app.register_blueprint(userprofile, url_prefix='/userprofile')
     app.register_blueprint(adoptmeow, url_prefix='/adoptmeow')
     app.register_blueprint(user_edit, url_prefix='/user_edit')
+    app.register_blueprint(profiledisplay, url_prefix='/profiledisplay')
+
 
 
     return app

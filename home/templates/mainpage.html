@@ -13,7 +13,7 @@
 
   <div class="navigation">
     <div class="topnav">
-      <a class="active" href="/mainpage">Main</a>
+      <a href="/mainpage">Home</a>
       <a href="/createpost">Post</a>
       <a href="/adoptmeow">Adopt meow</a>
       <a href="/donation">About</a>
@@ -61,10 +61,14 @@
         </div>
         {% for post in posts %}
             <article class="media content-section">
-              <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.profile_pic) }}">
+              {% if post.author.profile_pic %}
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+ post.author.profile_pic) }}">
+              {% else %}
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='default.jpg') }}">
+              {% endif %}
               <div class="media-body">
                 <div class="article-metadata">
-                  <a class="mr-2" href="#">{{ post.author.username }}</a>
+                  <a class="mr-2" href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
                   <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                 </div>
                 <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>

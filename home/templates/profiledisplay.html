@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>User Profile</title>
+   <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+   <div class="userpage_container">
+    <div class="navigation">
+        <div class="topnav">
+          <a href="/mainpage">Home</a>
+          <a href="/createpost">Post</a>
+          <a href="/adoptmeow">Adopt meow</a>
+          <a href="/donation">About</a>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <img src="{{ profile_pic }}" class="profilepic">
+            {{ current_user.username }}
+          </button>
+          <div class="dropdown-content" id="dropdownContent">
+            <a href="/userprofile">My Profile</a>
+            <a href="/notification">Notification</a>
+            <a href="/catprofile">Cat Profile</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
+          </div>
+        </div>  
+      </div>
+
+</br></br></br></br></br></br></br>
+</head>
+<body>
+   <span class='menu-button' onclick="openNav()">&#9776; Menu</span>
+
+   <script>
+   function openNav() {
+       document.getElementById("mySidenav").style.width = "250px";
+   }
+
+   function closeNav() {
+       document.getElementById("mySidenav").style.width = "0";
+   }
+   </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <br />
+
+   <h1>{{ user.username }} ! </h1>
+   <div class="userprofile">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ profile_pic }}" style="max-width: 200px; max-height: 200px;">
+        <div class="media-body">
+            <strong>Full Name : </strong>{{ user.fullname }}</br></br>
+            <strong>Email : </strong>{{ user.email }}</br></br>
+            <strong>Username : </strong>{{ user.username }}</br></br>
+            <strong>State : </strong>{{ user.state }}</br></br>
+            <strong>Phone Number : </strong>{{ user.phonenumber }}</br></br>
+        </div>
+    </div> 
+    <h1>{{ user.username}}'s Cat</h1>
+    {% for cat in cats %}
+    <div class="ownercat">
+     <div class="cat_pfp">
+         <img src="{{ cat.cat_photo }}" alt="Cat Photo">
+     </div>
+     <div class="cat_info">
+          <h2>Cat's Name: {{ cat.cat_name }}</h2>
+          <p><strong>Age:</strong> {{ cat.cat_age }} years old</p>
+          <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
+          <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
+          <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }}</p>
+          <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
+          <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
+          <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
+       </div>
+    </div>
+    {% endfor %}
+ </div>
+ 
+</div>
+</body>
+</div>
+</html>

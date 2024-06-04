@@ -56,8 +56,12 @@
             </div>
         </div>
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.profile_pic) }}">
-            <div class="media-body">
+            {% if post.author.profile_pic %}
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+ post.author.profile_pic) }}">
+            {% else %}
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='default.jpg') }}">
+            {% endif %}
+        <div class="media-body">
                 <div class="article-metadata">
                     <a class="mr-2" href="#">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>

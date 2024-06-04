@@ -116,7 +116,11 @@ a.article-title:hover {
   top: 0px;
   width: 100%;
   background-color: #705b33;
+<<<<<<< HEAD
   z-index: 1;
+=======
+  width: 100%;
+>>>>>>> main
 }
 
 .topnav {
@@ -191,6 +195,19 @@ a.article-title:hover {
 
 .dropdown:hover .dropbtn {
   background-color: #dba76d;
+}
+@media screen and (max-width: 768px) {
+  .topnav {
+    width: 80%;
+  }
+
+  .topnav a {
+    padding: 14px 10px;
+  }
+
+  .dropbtn {
+    padding: 14px 10px;
+  }
 }
 
 .profile-container {
@@ -791,9 +808,42 @@ input[type="submit"]:hover {
   background-color: #dab185;
 }
 .userprofile {
-  margin-left: 30%;
+  margin-left: 10%;
 }
 
+.catpfp, .userpfp{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: #705b33 solid 2px;
+  overflow: hidden;
+  margin-right: 40px;
+  flex: 0 0 250px;
+  display: inline-block;
+  margin-bottom: 10%;
+}
+
+.ownercat {
+  display: flex;
+}
+.catpfp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: inline-block; 
+  vertical-align: middle; 
+}
+
+.catinfo a {
+  color: #47301a;
+  text-align: center;
+  white-space: normal;
+  align-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: larger;
+  font-weight: bold;
+}
 /*Profile pic*/
 .profilepic {
   width: 30px;

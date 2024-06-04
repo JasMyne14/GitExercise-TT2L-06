@@ -74,3 +74,13 @@ class Like(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    notification_type = db.Column(db.String(20),nullable=False)
+    time = db.Column(db.DateTime, default=func.now())
+    read = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return f"<Notification {self.id}>"
