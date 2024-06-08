@@ -53,6 +53,11 @@ class UpdateProfileForm(FlaskForm):
     profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg', 'png', 'jpeg', 'JPG'])])
     submit = SubmitField('Update')
 
+    def __init__(self, *args, **kwargs):
+        super(UpdateProfileForm, self).__init__(*args, **kwargs)
+        if 'obj' in kwargs and kwargs['obj'] is not None:
+            self.selected_option.data = kwargs['obj'].state
+            
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2,max=20)])
     password1 = PasswordField('Password', validators=[DataRequired()])

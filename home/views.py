@@ -335,7 +335,7 @@ def userprofile():
 def user_edit():  
     user = User.query.get(current_user.id)
     form = UpdateProfileForm(obj=user)
-    profile_pic= url_for('static', filename='default.jpg')
+    profile_pic = url_for('static', filename='default.jpg')
     
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
@@ -350,7 +350,7 @@ def user_edit():
         user.state = form.selected_option.data
         user.phonenumber = form.phonenumber.data
         db.session.commit()
-        flash('Your profile has been updated !', 'success')
+        flash('Your profile has been updated!', 'success')
         return redirect(url_for('views.userprofile'))
     
     return render_template('user_edit.html', user=user, form=form, profile_pic=profile_pic)

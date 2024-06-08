@@ -374,17 +374,6 @@ body .signup-container {
 
 .signup-container {
   background-image: url('signupbg.jpg');
-  /*background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-between;*/
   top: 0;
   left: 0;
   width: 100%;
@@ -494,18 +483,6 @@ body .login-container {
 
 .login-container {
   background-image: url('loginbg.jpg');
-  /*background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-between;*/
   top: 0;
   left: 0;
   width: 100%;
@@ -913,7 +890,101 @@ input[type="submit"]:hover {
   margin-right: 8px;
 }
 
-/*Update User Page*/
+/*Edit User Page*/
+.pfpedit {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: #705b33 solid 2px;
+  overflow: hidden;
+  margin-right: 40px;
+  flex: 0 0 250px;
+  margin-bottom: 10%;
+}
+
+.editusertitle {
+  margin-left: 10%;
+}
+
+.edituserform {
+  background-color: #f6e5cb;
+  border-radius: 20px;
+  border: 2px solid #705b33;
+  padding: 20px;
+  flex: 1;
+  width: 70%;
+  height: 40%;
+  box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
+  margin: 5% 15%;
+  text-align: left;
+  white-space: normal;
+  align-content: center;
+}
+.pfpedit {
+  margin: 5% 40%;
+}
+
+.edituserpage {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
+.editdetails {
+  color: #47301a;
+  font-weight: bold;
+  font-size: large;
+}
+
+.updateuserbttn {
+  padding: 10px 30px;
+  font-size: 19px;
+  background-color: #62442F;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 100%; 
+  transition: background-color 0.3s;
+  margin-top: 30px;
+}
+
+.updateuserbttn:hover {
+  background-color: #8E7137;
+}
+
+/*Profile Display Page*/
+.profiledisplaypage {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
+.othersform {
+  background-color: #f6e5cb;
+  border-radius: 20px;
+  border: 2px solid #705b33;
+  padding: 20px;
+  flex: 1;
+  width: 70%;
+  height: 40%;
+  box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
+  margin: 5% 15%;
+  text-align: left;
+  white-space: normal;
+  align-content: center;
+}
+
+.otherstitle {
+  margin-left: 15%;
+}
 
 /*dropdown menu*/
 /*Adopt Meow Page*/
