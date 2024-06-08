@@ -46,7 +46,7 @@ body {
 }
 
 .addpostbtn{
-  background-color: #ebd2a4;
+  background-color: #f3e7d1;
   border-color: #dba76d;
 }
 
@@ -944,8 +944,7 @@ li.comment-noti .like-noti {
 .noti-content p{
   margin: 10px 40px;
   margin-right: 200px;
-  background-color: #ffcc5f;
+  background-color: #fff8e8;
   border-radius: 15px;
   padding: 10px;
-
 }
