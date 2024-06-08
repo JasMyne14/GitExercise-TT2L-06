@@ -937,10 +937,14 @@ a.noti-post {
   text-decoration: none;
 }
 
-.comment-noti .like-noti {
-  border:  #dddddd;
+li.comment-noti .like-noti {
+  border: 3px solid #dddddd;
 }
 
-.noti-content {
+.noti-content li{
   margin: 10px;
+  background-color: #ffcc5f;
+  border-radius: 15px;
+  padding: 10px;
+
 }
