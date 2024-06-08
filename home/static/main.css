@@ -472,26 +472,11 @@ a.have-account:hover {
 }
 
 /* Log In page */
-body .login-container {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.login-container {
+.loginpage {
   background-image: url('loginbg.jpg');
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  position: absolute;
-  z-index: -1;
 }
 
 .login-form {
