@@ -828,10 +828,9 @@ input[type="submit"]:hover {
   overflow-x: hidden;
 }
 
-.edituserbttn, .logoutbttn {
+.edituserbttn, .logoutbttn,.catnamebttn {
   padding: 10px 30px;
   font-size: 19px;
-  font-family: serif;
   background-color: #62442F;
   color: white;
   border: none;
@@ -842,13 +841,13 @@ input[type="submit"]:hover {
 }
 
 .edituserbttn {
-  margin-left: 25%;
+  margin-right: 30%;
 }
 
 .logoutbttn {
-  margin-left: 2%;
+  margin-left: 9%;
 }
-.edituserbttn:hover, .logoutbttn:hover {
+.edituserbttn:hover, .logoutbttn:hover, .catnamebttn:hover {
   background-color: #8E7137;
 }
 
@@ -879,6 +878,8 @@ input[type="submit"]:hover {
 .ownercat {
   margin-top: 7%;
   display: flex; 
+  flex-direction: column;
+  align-items: center;
 }
 
 .usercat {
@@ -893,24 +894,15 @@ input[type="submit"]:hover {
 }
 
 .catpfp {
-  margin-left: 3%;
   max-width: 200px;
   max-height: 200px;
+  margin-bottom: 15px;
 }
 
-.catinfo {
-  margin-top: 10%;
-  margin-left: 20px; 
-}
+.catnamebttn {
+  width: 100%;
+  margin: 5% 5% 15%;
 
-.catinfo a {
-  color: #47301a;
-  white-space: normal;
-  align-content: center;
-  overflow-y: auto;
-  overflow-x: hidden;
-  font-size: larger;
-  font-weight: bold;
 }
 
 /*Profile pic*/
@@ -920,6 +912,8 @@ input[type="submit"]:hover {
   border-radius: 50%;
   margin-right: 8px;
 }
+
+/*Update User Page*/
 
 /*dropdown menu*/
 /*Adopt Meow Page*/

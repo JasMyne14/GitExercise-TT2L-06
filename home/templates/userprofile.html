@@ -72,16 +72,17 @@
         </div>
       </div>
 
-        <h1 class="usercat">{{ current_user.username}}'s Cat</h1>
-          {% for cat in cats %}
+      <h1 class="usercat">{{ current_user.username}}'s Cat</h1>
+      {% for cat in cats %}
       <div class="ownercat">
-        <div class="catpfp">
-            <img src="{{ cat.cat_photo }}" alt="Cat Photo">
-        </div>
-        <div class="catinfo">
-            <a href="{{ url_for('views.catprofile') }}" >{{ cat.cat_name }}</a>
+          <div class="catpfp">
+              <img src="{{ cat.cat_photo }}" alt="Cat Photo">
+          </div>
+          <div class="catname">
+            <button class="catnamebttn" onclick="location.href='/catprofile'">{{ cat.cat_name }}</button>
+          </div>
       </div>
       {% endfor %}
-
+      
   </body>
 </html>
