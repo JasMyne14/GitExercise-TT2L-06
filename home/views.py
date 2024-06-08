@@ -381,8 +381,7 @@ def adoptmeow():
 @login_required
 def profiledisplay(username):
     user = User.query.filter_by(username=username).first_or_404()
-    profile_pic = None
-
+        
     if user.profile_pic:
         profile_pic = url_for('static', filename='profile_pics/' + user.profile_pic)
 
