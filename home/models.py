@@ -80,7 +80,12 @@ class Notification(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     notification_type = db.Column(db.String(20),nullable=False)
     time = db.Column(db.DateTime, default=func.now())
-    read = db.Column(db.Boolean, default=False)
+    #read = db.Column(db.Boolean, default=False)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    like_id = db.Column(db.Integer, db.ForeignKey('like.id'))
+    comments = db.relationship('Comment', backref='notification', lazy=True)
+    likes = db.relationship('Like', backref='notification', lazy=True)
+
 
     def __repr__(self):
         return f"<Notification {self.id}>"

@@ -77,16 +77,16 @@ def logout():
     flash('Logged out successfully!', 'info')
     return redirect(url_for('views.login'))
 
-@views.route('/like-noti/<int:post_id>')
-def like_noti(post_id):
+#@views.route('/like-noti/<int:post_id>')
+#def like_noti(post_id):
     post = Post.query.get_or_404(post_id)
     notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='like')
     db.session.add(notification)
     db.session.commit()
     return redirect(url_for('views.mainpage'))
 
-@views.route('/comment-noti/<int:post_id>')
-def comment_noti(post_id):
+#@views.route('/comment-noti/<int:post_id>')
+#def comment_noti(post_id):
     post = Post.query.get_or_404(post_id)
     notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment')
     db.session.add(notification)
@@ -94,13 +94,13 @@ def comment_noti(post_id):
     return redirect(url_for('views.mainpage'))
 
 
-@views.route('/unread')
-def unread_noti(user_id):
+#@views.route('/unread')
+#def unread_noti(user_id):
     notification = Notification.query.filter_by(user_id=user_id, read=False).all()
     return render_template('notification.html', notifications=notification)
 
-@views.route('/read')
-def mark_as_read_noti(user_id):
+#@views.route('/read')
+#def mark_as_read_noti(user_id):
     notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
     for notification in notifications:
         notification.read = True
@@ -109,13 +109,16 @@ def mark_as_read_noti(user_id):
 
 @views.route("/notification")
 def display_noti():
-    print('execute display_noti route')
+    comments = Comment.query.all()
+    post = Post.query.all()
     profile_pic= url_for('static', filename='default.jpg')
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
     user_id = current_user.id
-    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    return render_template('notification.html', notifications=notifications, profile_pic=profile_pic)
+    notifications = Notification.query.filter(
+        (Notification.user_id == user_id) &  
+        ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).all()
+    return render_template('notification.html', notifications=notifications, profile_pic=profile_pic, user_id=user_id, comments=comments, post=post)
 
 @views.route('/user_posts')
 def user_posts():
@@ -233,16 +236,23 @@ def create_comment(post_id):
 
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
+    #comment = Comment.query.get_or_404(post_id)
+
     if form.validate_on_submit():
         comment = Comment(text=form.text.data, author=current_user, post=post)
         db.session.add(comment)
         db.session.commit()
         flash('Comment added!','success')
         form.text.data = ""
+        notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
+        db.session.add(notification)
+        db.session.commit()
+
         return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
     else:
         flash('Failed to add comment','error')
-    return redirect(url_for('views.mainpage', post_id=post_id, profile_pic=profile_pic))
+  
+    return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic, comment=comment)
 
 @views.route('/delete-comment/<comment_id>')
 @login_required
@@ -253,7 +263,6 @@ def delete_comment(comment_id):
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     form = CommentForm()
-
     comment = Comment.query.filter_by(id=comment_id).first()
 
     if not comment:
@@ -283,6 +292,9 @@ def like(post_id):
     else:
         like = Like(author=current_user, post_id=post_id)
         db.session.add(like)
+        db.session.commit()
+        notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
+        db.session.add(notification)
         db.session.commit()
 
     return redirect(url_for('views.mainpage'))

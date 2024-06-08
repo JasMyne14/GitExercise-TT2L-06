@@ -37,15 +37,20 @@
     <br />
     <div class="noti-body">
         <h1>{{current_user.username}}'s Notifications</h1>
-        <h2>Unread Notifications</h2>
 
         <ul>
             {% for notification in notifications %}
-                <li>{{notification.notification_type}} on post {{notification.post_id}}</li>
-                <li>{{notification}}</li>
+                <li>{{notification.notification_type}} on  your post. {{date}} </li>
+                {% if notification.notification_type == 'like' %}
+                    <li>{{ notification.likes.author.username }} liked your post.</li>
+                {% elif notification.notification_type == 'comment' %}
+                    {% for comment in post.comments %}
+                        <li>{{  notification.comments.author.username }} commented {{ comment.text }} on your post.
+                            <a href="{{ url_for('post', post_id=comment.post.id) }}">View Post</a></li>
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
         </ul>
     </div>
-
 </body>
 </html>

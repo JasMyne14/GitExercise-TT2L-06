@@ -494,18 +494,6 @@ body .login-container {
 
 .login-container {
   background-image: url('loginbg.jpg');
-  /*background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-between;*/
   top: 0;
   left: 0;
   width: 100%;
@@ -945,4 +933,9 @@ input[type="submit"]:hover {
   color: #995a59;
   background-color: #f2dede;
   border-color: #b58c93;
+}
+
+/*Notification page*/
+.noti-body {
+  margin: 30px 30px;
 }
