@@ -978,6 +978,15 @@ input[type="submit"]:hover {
   margin-left: 20%;
   margin-top: 5%;
 }
+.otherscat {
+  margin-bottom: 5%;
+}
+.otherscatpfp {
+  margin: 5% 20%;
+}
+.displaycat {
+  margin-left: 30%;
+}
 /*dropdown menu*/
 /*Adopt Meow Page*/
 .no_cat_fadopt {

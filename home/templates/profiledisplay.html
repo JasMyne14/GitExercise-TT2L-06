@@ -38,7 +38,7 @@
       <h1 class="otherstitle">{{ user.username }}'s Profile </h1>
       <div class="othersprofile">
         <div class="media">
-        <img class="otherspfp" src="{{ profile_pic }}">
+        <img class="userpfp otherspfp" src="{{ profile_pic }}">
             <div class="othersform">
                 <strong>Full Name : </strong>{{ user.fullname }}</br></br>
                 <strong>Email : </strong>{{ user.email }}</br></br>
@@ -49,23 +49,23 @@
         </div> 
         <h1 class="otherstitle">{{ user.username}}'s Cat</h1>
         {% for cat in cats %}
-        <div class="ownercat">
-          <div class="catpfp">
-              <img src="{{ cat.cat_photo }}" alt="Cat Photo">
-          </div>
-        <div class="catinfo">
-              <h2>Cat's Name: {{ cat.cat_name }}</h2>
-              <p><strong>Age:</strong> {{ cat.cat_age }} years old</p>
-              <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
-              <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
-              <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }}</p>
-              <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
-              <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
-              <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
+      <div class="displaycat">
+        <div class="catpfp otherscatpfp">
+            <img src="{{ cat.cat_photo }}" alt="Cat Photo">
+        </div>
+        <div class="cat_info otherscat ">
+          <h2>Cat's Name: {{ cat.cat_name }}</h2>
+          <p><strong>Age:</strong> {{ cat.cat_age }} years old</p>
+          <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
+          <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
+          <p><strong>Neutered Status:</strong> {{ cat.cat_neutered }}</p>
+          <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
+          <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
+          <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
           </div>
         </div>
         {% endfor %}
-    </div>
+      </div>
     
     </div>
   </body>
