@@ -929,7 +929,7 @@ input[type="submit"]:hover {
 
 /*Notification page*/
 .notifications {
-  margin: 15px 30px;
+  margin: 35px 40px;
 }
 
 a.noti-post {
@@ -941,8 +941,9 @@ li.comment-noti .like-noti {
   border: 3px solid #dddddd;
 }
 
-.noti-content li{
-  margin: 10px;
+.noti-content p{
+  margin: 10px 40px;
+  margin-right: 200px;
   background-color: #ffcc5f;
   border-radius: 15px;
   padding: 10px;

@@ -34,20 +34,20 @@
 
 </head>
 <body>
-    <br />
     <div class="notifications">
         <h1>{{current_user.username}}'s Notifications</h1>
-        <h2>You have {{notification_count}} new notifications</h2>
+        <h2>You have {{ current_user.notification_count }} new notifications</h2>    <br />
+
         <article class="noti-body">
         <ul class="noti-content">
             {% for notification in notifications %}
                     {% if notification.notification_type == 'like' %}
-                        <li class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</li>
+                        <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                     {% elif notification.notification_type == 'comment' %}
                         {% for comment in comments %}
                             {% if comment.id == notification.comment_id %}
-                                <li class="comment-noti">{{  comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=comment.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}
-                                </li>
+                                <p class="comment-noti">{{  comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=comment.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}
+                                </p>
                             {% endif %}
                         {% endfor %}
                 {% endif %}
