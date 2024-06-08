@@ -88,9 +88,8 @@
             <div class="input-box">
                 <label class="details" for="select_field">State :</label>
                 <select id="select_field" name="selected_option">
-                    <option value="state">Select your state</option>
                     {% for state in form.selected_option.choices %}
-                        <option value="{{ state[0] }}" {% if user.selected_option == state[0] %}selected{% endif %}>{{ state[1] }}</option>
+                        <option value="{{ state[0] }}" {% if form.selected_option.data == state[0] or user.selected_option == state[0] %}selected{% endif %}>{{ state[1] }}</option>
                     {% endfor %}
                 </select>
                 {% if form.selected_option.errors %}
@@ -100,7 +99,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
+            </div>            
             <div class="input-box">
                 <label class="details" for="phonenumber">Phone Number :</label>
                 <input type="text" placeholder="Enter Phone Number" id="phonenumber" name="phonenumber" value="{{ user.phonenumber }}" required>

@@ -11,6 +11,7 @@ class SignUpForm(FlaskForm):
     password1 = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Password (Confirm)', validators=[DataRequired(), EqualTo('password1', message='Passwword must match')])
     selected_option = SelectField('Select your state', choices=[
+        ('', 'Select your state'),
         ('Selangor', 'Selangor'),
         ('Kelantan', 'Kelantan'),
         ('Terengganu', 'Terengganu'),
@@ -24,10 +25,33 @@ class SignUpForm(FlaskForm):
         ('Melaka', 'Melaka'),
         ('Wilayah Persekutuan Kuala Lumpur', 'Wilayah Persekutuan Kuala Lumpur'),
         ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya'),
-    ])
+    ])    
     phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
     profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg','png','jpeg','JPG'])])
     submit = SubmitField('Submit')
+
+class UpdateProfileForm(FlaskForm):
+    fullname = StringField('Full Name', validators=[DataRequired(), Length(min=2, max=50)])
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    selected_option = SelectField('Select your state', choices=[
+        ('Selangor', 'Selangor'),
+        ('Kelantan', 'Kelantan'),
+        ('Terengganu', 'Terengganu'),
+        ('Perlis', 'Perlis'),
+        ('Negeri Sembilan', 'Negeri Sembilan'),
+        ('Pulau Pinang', 'Pulau Pinang'),
+        ('Perak', 'Perak'),
+        ('Pahang', 'Pahang'),
+        ('Johor', 'Johor'),
+        ('Kedah', 'Kedah'),
+        ('Melaka', 'Melaka'),
+        ('Wilayah Persekutuan Kuala Lumpur', 'Wilayah Persekutuan Kuala Lumpur'),
+        ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya')
+    ])
+    phonenumber = StringField('Phone Number', validators=[DataRequired(), Length(min=2, max=20)])
+    profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg', 'png', 'jpeg', 'JPG'])])
+    submit = SubmitField('Update')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2,max=20)])

@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session, abort, logging
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .forms import PostForm, SignUpForm, LoginForm, CommentForm
+from .forms import PostForm, SignUpForm, LoginForm, CommentForm, UpdateProfileForm
 from .models import Post, User, Comment, Cat, Like, Notification, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -334,7 +334,7 @@ def userprofile():
 @views.route('/user_edit', methods=['GET', 'POST'])
 def user_edit():  
     user = User.query.get(current_user.id)
-    form = SignUpForm(obj=user)
+    form = UpdateProfileForm(obj=user)
     profile_pic= url_for('static', filename='default.jpg')
     
     if current_user.is_authenticated and current_user.profile_pic is not None:
