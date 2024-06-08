@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session, abort, logging
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exists
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm
 from .models import Post, User, Comment, Cat, Like, Notification, db
@@ -106,19 +107,6 @@ def logout():
         notification.read = True
     db.session.commit()
     return redirect(url_for('views.display_noti'))
-
-@views.route("/notification")
-def display_noti():
-    comments = Comment.query.all()
-    post = Post.query.all()
-    profile_pic= url_for('static', filename='default.jpg')
-    if current_user.is_authenticated and current_user.profile_pic is not None:
-        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-    user_id = current_user.id
-    notifications = Notification.query.filter(
-        (Notification.user_id == user_id) &  
-        ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).all()
-    return render_template('notification.html', notifications=notifications, profile_pic=profile_pic, user_id=user_id, comments=comments, post=post)
 
 @views.route('/user_posts')
 def user_posts():
@@ -244,10 +232,13 @@ def create_comment(post_id):
         db.session.commit()
         flash('Comment added!','success')
         form.text.data = ""
-        notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
-        db.session.add(notification)
-        db.session.commit()
 
+        if current_user != post.author:
+            notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
+            db.session.add(notification)
+            db.session.commit()
+        return redirect(url_for('views.post', post_id=post_id))    
+        
         return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
     else:
         flash('Failed to add comment','error')
@@ -293,11 +284,34 @@ def like(post_id):
         like = Like(author=current_user, post_id=post_id)
         db.session.add(like)
         db.session.commit()
-        notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
-        db.session.add(notification)
-        db.session.commit()
+
+        if current_user != post.author:
+            notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
+            db.session.add(notification)
+            db.session.commit()
+        return redirect(url_for('views.mainpage'))
 
     return redirect(url_for('views.mainpage'))
+
+@views.route("/notification")
+def display_noti():
+    user_id = current_user.id
+    notifications = Notification.query.filter(
+        (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
+        ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
+    
+    notification_count = len(notifications)
+
+    comments = Comment.query.all()
+    comment_ids = [n.comment_id for n in notifications if n.comment_id is not None]
+    comments = Comment.query.filter(Comment.id.in_(comment_ids)).all()
+
+    posts = Post.query.all()
+
+    profile_pic= url_for('static', filename='default.jpg')
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+    return render_template('notification.html', notifications=notifications, notification_count=notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts)
 
 @views.route('/donation')
 def donation():

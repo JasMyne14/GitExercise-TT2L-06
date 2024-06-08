@@ -928,6 +928,19 @@ input[type="submit"]:hover {
 }
 
 /*Notification page*/
-.noti-body {
-  margin: 30px 30px;
+.notifications {
+  margin: 15px 30px;
+}
+
+a.noti-post {
+  color: rgb(243, 55, 127);
+  text-decoration: none;
+}
+
+.comment-noti .like-noti {
+  border:  #dddddd;
+}
+
+.noti-content {
+  margin: 10px;
 }

@@ -85,7 +85,7 @@ class Notification(db.Model):
     like_id = db.Column(db.Integer, db.ForeignKey('like.id'))
     comments = db.relationship('Comment', backref='notification', lazy=True)
     likes = db.relationship('Like', backref='notification', lazy=True)
-
+    posts = db.relationship('Post', backref='notification', lazy=True)
 
     def __repr__(self):
         return f"<Notification {self.id}>"
