@@ -38,6 +38,7 @@ class Cat(db.Model):
     cat_about_me = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     available_for_adoption = db.Column(db.Boolean, default=False)
+    date_put_for_adoption = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return f"Cat('{self.cat_name}','{self.cat_photo}', '{self.cat_age}','{self.cat_breed}','{self.cat_gender}','{self.cat_neutered}','{self.cat_vaccine}','{self.cat_special_needs}','{self.cat_about_me}', '{self.available_for_adoption}'))"
