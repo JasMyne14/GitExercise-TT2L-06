@@ -73,6 +73,12 @@ def login():
 
 @views.route('/logout')
 def logout():
+    notifications = Notification.query.filter_by(user_id=current_user.id, read=False).all()
+    for notification in notifications:
+        notification.read = True
+    db.session.commit()
+    current_user.recent_notification_count = 0
+    db.session.commit()
     logout_user()
     session.clear()
     flash('Logged out successfully!', 'info')
