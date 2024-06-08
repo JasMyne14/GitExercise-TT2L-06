@@ -138,6 +138,7 @@ a.article-title:hover {
 .topnav a:hover, a.active {
   background-color: #dba76d;
   color: #62442f;
+  text-decoration: none;
   /*font-size: 17px;*/
 }
 
@@ -183,7 +184,9 @@ a.article-title:hover {
 }
 
 .dropdown-content a:hover {
+  color: rgb(255, 223, 109);
   background-color: #dba76d;
+  text-decoration: none;
 }
 
 .dropdown:hover .dropdown-content {
@@ -374,17 +377,6 @@ body .signup-container {
 
 .signup-container {
   background-image: url('signupbg.jpg');
-  /*background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-between;*/
   top: 0;
   left: 0;
   width: 100%;
