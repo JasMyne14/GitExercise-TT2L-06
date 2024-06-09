@@ -74,7 +74,7 @@ def login():
 def logout():
     logout_user()
     session.clear()
-    flash('Logged out successfully!', 'info')
+    flash('Logged out successfully!', 'success')
     return redirect(url_for('views.login'))
 
 @views.route('/like-noti/<int:post_id>')

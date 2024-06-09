@@ -10,6 +10,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/*Main Page*/
+.main-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
 .row {
   text-align: center;
   margin-right: 0px;
@@ -130,7 +141,7 @@ a.article-title:hover {
 .topnav a {
   color: #f6e5cb;
   text-align: center;
-  padding: 10px 130px; /* Adjust padding as needed */
+  padding: 10px 130px; 
   text-decoration: none;
   font-size: 20px;
 }
@@ -227,11 +238,28 @@ a.delete-comment:visited{
 }
 
 /*Donation page*/
+.donation-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
 .donate {
-  margin-left: 30px;
+  margin-left: 5%;
+  margin-bottom: 10%;
 }
 
-.image {
+.image-links-container {
+  margin-left: 2%;
+}
+.image-links-container, .donate-links {
+  display: flex;
+  justify-content: center;
+}
+.image-link , .donate-links {
   text-align: center;
 }
 
@@ -242,12 +270,20 @@ a.delete-comment:visited{
 .image img {
   width: 360px;
   height: 260px;
-  float: left;
-  margin: 70px;
+  margin: 65px;
   margin-bottom: 10px;
   margin-top: 30px;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 20%;
+} 
+
+.link1, .link2, .link3, a:visited{
+  color: #ffffff;
+}
+
+.link1, .link2, .link3, a:hover{
+  color: #fafdcb;
+  
 }
 
 .link1, .link2, .link3 {
@@ -258,19 +294,11 @@ a.delete-comment:visited{
   display: inline-block;
   border: solid 2px #62442f;
   border-radius: 30px;
-  margin-left: 125px;
+  margin-left: 5%;
   padding: 10px;
   background-color: #62442f;
-}
-.link1, .link2, .link3, a:visited{
-  color: #ffffff;
-}
 
-.link1, .link2, .link3, a:hover{
-  color: #fafdcb;
-  
 }
-
 .link1{
   padding: 24px;
 }
@@ -278,6 +306,7 @@ a.delete-comment:visited{
   width: 20%;
   margin-left: 230px;
   margin-top: 20px;
+  
 }
 
 .link3 {
@@ -334,8 +363,6 @@ body .firstpage-container {
 
 .signup, .login{
   padding: 20px;
-  /*margin-top: 99px;
-  margin-left: 50px;*/
   font-size: 25px;
   font-family: Helvetica;
   background-color: #705B33;
@@ -346,7 +373,6 @@ body .firstpage-container {
   margin-right: 0px;
   z-index: 1;
   text-align: center;
-  /*position: sticky;*/
   transition: background-color 0.3s; 
 }
 
@@ -370,7 +396,6 @@ body .firstpage-container {
 }
 .signuptitle {
   color: #FFEED6;
-  font-family: serif;
   text-align: center;
 }
 
@@ -387,6 +412,7 @@ body .firstpage-container {
   background-color: #FFEED6;
   margin-left: 25%;
   margin-top: 10px;
+  border-radius: 15px;
 }
 
 .user-details {
@@ -426,7 +452,7 @@ body .firstpage-container {
   border-radius: 50px;
   width: 115px; 
   transition: background-color 0.3s;
-  margin-left: 40%;
+  margin-left: 70%;
 }
 
 .submitbutton:hover {
@@ -441,7 +467,7 @@ a.have-account:visited {
 }
 
 a.have-account:hover {
-  color: #dba76d;
+  color: #705b33;
 }
 
 .invalid-feedback {
@@ -458,7 +484,6 @@ a.have-account:hover {
 
 .logintitle {
   color: #FFEED6;
-  font-family: serif;
   text-align: center;
   margin-bottom: 10%;
 }
