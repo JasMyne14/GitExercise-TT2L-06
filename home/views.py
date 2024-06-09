@@ -76,9 +76,9 @@ def logout():
     notifications = Notification.query.filter_by(user_id=current_user.id, read=False).all()
     for notification in notifications:
         notification.read = True
+    current_user.unread_notification_count = 0
     db.session.commit()
-    current_user.recent_notification_count = 0
-    db.session.commit()
+
     logout_user()
     session.clear()
     flash('Logged out successfully!', 'info')
@@ -242,10 +242,13 @@ def create_comment(post_id):
         if current_user != post.author:
             notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
             db.session.add(notification)
+
+            owner= User.query.get(post.author.id)
+            owner.unread_notification_count +=1
+
             db.session.commit()
-        return redirect(url_for('views.post', post_id=post_id))    
+            return redirect(url_for('views.post', post_id=post_id))    
         
-        return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
     else:
         flash('Failed to add comment','error')
   
@@ -289,35 +292,68 @@ def like(post_id):
     else:
         like = Like(author=current_user, post_id=post_id)
         db.session.add(like)
-        db.session.commit()
 
-        if current_user != post.author:
-            notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
-            db.session.add(notification)
-            db.session.commit()
-        return redirect(url_for('views.mainpage'))
+    if current_user != post.author:
+        notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
+        db.session.add(notification)
+
+    owner = User.query.get(post.author.id)
+    owner.unread_notification_count +=1
+
+    db.session.commit()
 
     return redirect(url_for('views.mainpage'))
 
+    return redirect(url_for('views.mainpage'))
+
+#def create_noti(user_id,notification_type):
+    notification = Notification(user_id=user_id, notification_type=notification_type)
+    db.session.add(notification)
+    db.session.commit()
+
+    user = User.query.get(user_id)
+    user.unread_notification_count += 1
+    db.session.commit()
+
+#def get_unread_noti(user_id):
+    user = User.query.get(user_id)
+    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
+    return unread_notifications
+
+def mark_read_notification(user_id):
+    user = User.query.get(user_id)
+    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
+    for notification in unread_notifications:
+        notification.read = True
+    user.unread_notification_count = 0
+    db.session.commit()
+
 @views.route("/notification")
+@login_required
 def display_noti():
     user_id = current_user.id
-    notifications = Notification.query.filter(
+    notifications = Notification.query.filter_by(user_id=user_id).filter(
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
         ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
-    
-    notification_count = len(notifications)
+    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
 
-    comments = Comment.query.all()
+    unread_notification_count = sum(1 for notification in notifications if not notification.read)
+
+    for notification in notifications:
+        if not notification.read:
+            notification.read=True
+    db.session.commit()
+
     comment_ids = [n.comment_id for n in notifications if n.comment_id is not None]
     comments = Comment.query.filter(Comment.id.in_(comment_ids)).all()
 
-    posts = Post.query.all()
+    post_ids = [n.post_id for n in notifications if n.post_id is not None]
+    posts = Post.query.filter(Post.id.in_(post_ids)).all()
 
     profile_pic= url_for('static', filename='default.jpg')
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-    return render_template('notification.html', notifications=notifications, notification_count=notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts)
+    return render_template('notification.html', notifications=notifications, unread_notifications=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts)
 
 @views.route('/donation')
 def donation():

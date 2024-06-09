@@ -36,13 +36,15 @@
 <body>
     <div class="notifications">
         <h1>{{current_user.username}}'s Notifications</h1>
-        <h2>You have {{ notification_count }} new notifications</h2>    <br />
+        <h2>You have {{ current_user.unread_notification_count }} new notifications</h2>    <br />
 
         <article class="noti-body">
         <ul class="noti-content">
             {% for notification in notifications %}
                     {% if notification.notification_type == 'like' %}
-                        <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                        {% if notification.likes %}
+                            <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                        {% endif %}
                     {% elif notification.notification_type == 'comment' %}
                         {% for comment in comments %}
                             {% if comment.id == notification.comment_id %}
@@ -50,7 +52,7 @@
                                 </p>
                             {% endif %}
                         {% endfor %}
-                {% endif %}
+                    {% endif %}
             {% endfor %}
         </ul>
         </article>
