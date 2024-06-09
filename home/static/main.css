@@ -586,13 +586,18 @@ body .login-container {
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
   height: 170vh; 
   margin: 0;
   padding-top: 30px; 
   color: #553b29; 
+  margin-top: 70px;
+}
+
+.catform_container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-top: 20px;
 }
 
 .container_catform {
