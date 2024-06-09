@@ -456,11 +456,17 @@ a.have-account:hover {
   background-size: cover;
 }
 
+.logintitle {
+  color: #FFEED6;
+  font-family: serif;
+  text-align: center;
+  margin-bottom: 10%;
+}
+
 .login-form {
   width: 42%;
-  margin-left: 45%; 
-  margin-top: 10%;
-  font-family: 'Canva sans';
+  margin-left: 46%; 
+  margin-top: 5%;
   padding-bottom: 50px;
   color: #FFEED6;
 }
@@ -474,7 +480,7 @@ a.have-account:hover {
 
 .login-box label {
   flex: 1;
-  font-size: 25px;
+  font-size: 22px;
   margin-bottom: 5px;
   color: #FFEED6;
   margin-left: 15%;
@@ -491,7 +497,6 @@ a.have-account:hover {
 .loginbutton {
   padding: 15px;
   font-size: 19px;
-  font-family: serif;
   background-color: #62442F;
   color: white;
   border: none;
@@ -507,16 +512,16 @@ a.have-account:hover {
   background-color: #8E7137;
 }
 
-.logintitle {
-  color: #FFEED6;
-  font-size: 30px;
-  font-family: serif;
-  text-align: center;
-  margin-bottom: 10%;
+.create-account{
+  margin-left: 33%;
 }
 
-.login-options{
-  margin-left: 28%;
+a.create-account:visited {
+  color: #62442F;
+}
+
+a.create-account:hover {
+  color: #705b33;
 }
 
 /*CatRegisterPage*/
