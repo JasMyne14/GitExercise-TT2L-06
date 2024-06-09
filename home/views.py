@@ -242,13 +242,15 @@ def create_comment(post_id):
         if current_user != post.author:
             notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
             db.session.add(notification)
+            db.session.commit()
 
-            owner= User.query.get(post.author.id)
+            owner = User.query.get(post.author.id)
             owner.unread_notification_count +=1
 
             db.session.commit()
             return redirect(url_for('views.post', post_id=post_id))    
-        
+        return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic, comment=comment)
+
     else:
         flash('Failed to add comment','error')
   
@@ -292,17 +294,19 @@ def like(post_id):
     else:
         like = Like(author=current_user, post_id=post_id)
         db.session.add(like)
+        db.session.commit()
 
-    if current_user != post.author:
-        notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
-        db.session.add(notification)
+        if current_user != post.author:
+            notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
+            db.session.add(notification)
+            db.session.commit()
+        
 
-    owner = User.query.get(post.author.id)
-    owner.unread_notification_count +=1
+            owner = User.query.get(post.author.id)
+            owner.unread_notification_count +=1
 
-    db.session.commit()
-
-    return redirect(url_for('views.mainpage'))
+            db.session.commit()
+        return redirect(url_for('views.mainpage'))
 
     return redirect(url_for('views.mainpage'))
 
@@ -335,8 +339,7 @@ def display_noti():
     notifications = Notification.query.filter_by(user_id=user_id).filter(
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
         ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
-    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-
+    
     unread_notification_count = sum(1 for notification in notifications if not notification.read)
 
     for notification in notifications:
