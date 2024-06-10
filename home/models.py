@@ -51,6 +51,7 @@ class Post(db.Model):
     date = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     file = db.Column(db.String(255), nullable=True)
+
     comments = db.relationship('Comment', backref='post', lazy=True)
     likes = db.relationship('Like', backref='post', lazy=True)
 
@@ -80,10 +81,12 @@ class Notification(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     notification_type = db.Column(db.String(20),nullable=False)
+    recent_notification_count = db.Column(db.Integer, default=0)
     time = db.Column(db.DateTime, default=func.now())
     read = db.Column(db.Boolean, default=False)
     comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
     like_id = db.Column(db.Integer, db.ForeignKey('like.id'))
+
     comments = db.relationship('Comment', backref='notification', lazy=True)
     likes = db.relationship('Like', backref='notification', lazy=True)
     posts = db.relationship('Post', backref='notification', lazy=True)

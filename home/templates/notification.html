@@ -42,7 +42,7 @@
         <ul class="noti-content">
             {% for notification in notifications %}
                 {% if notification.notification_type == 'like' %}
-                    {% if notification.likes %}
+                    {% if notification.likes%}
                         <li><p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p></li>
                     {% endif %}
                 {% elif notification.notification_type == 'comment' %}

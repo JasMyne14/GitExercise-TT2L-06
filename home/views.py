@@ -76,7 +76,7 @@ def logout():
     notifications = Notification.query.filter_by(user_id=current_user.id, read=False).all()
     for notification in notifications:
         notification.read = True
-    current_user.unread_notification_count = 0
+    current_user.recent_notification_count = 0
     db.session.commit()
 
     logout_user()
@@ -91,28 +91,6 @@ def logout():
     db.session.add(notification)
     db.session.commit()
     return redirect(url_for('views.mainpage'))
-
-#@views.route('/comment-noti/<int:post_id>')
-#def comment_noti(post_id):
-    post = Post.query.get_or_404(post_id)
-    notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment')
-    db.session.add(notification)
-    db.session.commit()
-    return redirect(url_for('views.mainpage'))
-
-
-#@views.route('/unread')
-#def unread_noti(user_id):
-    notification = Notification.query.filter_by(user_id=user_id, read=False).all()
-    return render_template('notification.html', notifications=notification)
-
-#@views.route('/read')
-#def mark_as_read_noti(user_id):
-    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    for notification in notifications:
-        notification.read = True
-    db.session.commit()
-    return redirect(url_for('views.display_noti'))
 
 @views.route('/user_posts')
 def user_posts():
@@ -249,7 +227,7 @@ def create_comment(post_id):
 
             db.session.commit()
             return redirect(url_for('views.post', post_id=post_id))    
-        return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic, comment=comment)
+        return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
 
     else:
         flash('Failed to add comment','error')
@@ -300,12 +278,11 @@ def like(post_id):
             notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
             db.session.add(notification)
             db.session.commit()
-        
 
-            owner = User.query.get(post.author.id)
-            owner.unread_notification_count +=1
+        owner = User.query.get(post.author.id)
+        owner.unread_notification_count +=1
 
-            db.session.commit()
+        db.session.commit()
         return redirect(url_for('views.mainpage'))
 
     return redirect(url_for('views.mainpage'))
@@ -324,7 +301,7 @@ def like(post_id):
     unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
     return unread_notifications
 
-def mark_read_notification(user_id):
+#def mark_read_notification(user_id):
     user = User.query.get(user_id)
     unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
     for notification in unread_notifications:
@@ -336,11 +313,13 @@ def mark_read_notification(user_id):
 @login_required
 def display_noti():
     user_id = current_user.id
-    notifications = Notification.query.filter_by(user_id=user_id).filter(
+    notifications = Notification.query.filter(
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
         ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
     
+    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
     unread_notification_count = sum(1 for notification in notifications if not notification.read)
+    #notification_count = len(notifications)
 
     for notification in notifications:
         if not notification.read:
@@ -352,11 +331,12 @@ def display_noti():
 
     post_ids = [n.post_id for n in notifications if n.post_id is not None]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
+    #posts = Post.query.all()
 
     profile_pic= url_for('static', filename='default.jpg')
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-    return render_template('notification.html', notifications=notifications, unread_notifications=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts)
+    return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts)
 
 @views.route('/donation')
 def donation():
@@ -445,8 +425,6 @@ def adoptmeow():
 
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).order_by(Cat.date_put_for_adoption.desc()).all()
     return render_template('adoptmeow.html', cats=cats, profile_pic=profile_pic)
-    cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
-    return render_template('adoptmeow.html', cats=cats)
 
 @views.route('/profiledisplay<username>')
 @login_required
