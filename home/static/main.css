@@ -35,6 +35,7 @@ body {
   margin-bottom: 0px;
 }
 
+/*Post Page*/
 .content-section {
   background: #fbcb98;
   padding: 10px 20px;
@@ -224,6 +225,15 @@ a.article-title:hover {
 }
 
 /*Post page*/
+.post-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
 a.delete-comment:hover{
   color: #62442f;
 }
@@ -237,6 +247,21 @@ a.delete-comment:visited{
   max-height: 300px;
 }
 
+.backbtn {
+  padding: 10px;
+  font-size: 19px;
+  background-color: #62442F;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 115px; 
+  transition: background-color 0.3s;
+  margin-left: 70%;
+}
+
+.backbtn:hover {
+  background-color: #dba76d;
+}
 /*Donation page*/
 .donation-page {
   background-image: url('photos/catformbg.png'); 
