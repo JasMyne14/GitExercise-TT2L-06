@@ -282,11 +282,11 @@ a.delete-comment:visited{
 .image-links-container {
   margin-left: 2%;
 }
-.image-links-container, .donate-links, .image-links-container2 {
+.image-links-container, .donate-links, .image-links-container2, .donate-links2 {
   display: flex;
   justify-content: center;
 }
-.image-link , .donate-links {
+.image-link , .donate-links, .donate-links2 {
   text-align: center;
 }
 
@@ -339,6 +339,10 @@ a.delete-comment:visited{
 .link3 {
   margin-left: 230px;
   padding: 24px;
+}
+
+.donate-links2 {
+  margin-right: 7%;
 }
 
 /* First Page */
