@@ -25,10 +25,10 @@ body {
 }
 
 .content-section {
-  background: #fbcb98;
+  background: #edd2ae;
   padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
+  border: 2px solid #c0a683;
+  border-radius: 20px;
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 20%;
@@ -60,7 +60,7 @@ a.article-title:visited {
 }
 
 a.article-title:hover {
-  color: #428bca;
+  color: #ad6833;
   text-decoration: none;
 }
 
@@ -81,12 +81,12 @@ a.article-title:hover {
 }
 
 .article-metadata a:visited {
-  color: #428bca;
+  color: #ad6833;
   text-decoration: none;
 }
 
 .article-metadata a:hover {
-  color: #333;
+  color: #552e29;
   text-decoration: none;
 }
 
@@ -948,6 +948,29 @@ input[type="submit"]:hover {
 
 .alert-danger {
   color: #995a59;
-  background-color: #f2dede;
+  background-color: #f9c6c6;
   border-color: #b58c93;
+}
+
+/*Main Page*/
+.rounded-circle {
+  border: #c0a683 solid 2px;
+}
+
+.post-image img {
+  border: #c0a683 solid 2px;
+  border-radius: 10px; 
+}
+
+.post-image {
+  display:flex;
+  align-items: center;
+}
+
+.article-metadata small {
+  float:right;
+}
+
+.text-body, .card-body a {
+  color:#47301a;
 }
