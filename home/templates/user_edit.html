@@ -10,10 +10,10 @@
     <body class="edituserpage">
         <div class="navigation">
             <div class="topnav">
-            <a class="" href="/mainpage">Main</a>
+            <a class="" href="/mainpage">Home</a>
             <a href="/createpost">Post</a>
-            <a href="/adoptmeow">Adopt meow</a>
-            <a href="/donation">About</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">Donation</a>
             </div>
             <div class="dropdown">
             <button class="dropbtn">
@@ -33,7 +33,7 @@
         
             <form method="POST" action="{{ url_for('views.user_edit', user_id=user.id) }}" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
-                <h1 class="editusertitle">Edit Profile</h1>
+                <h1 class="editusertitle"><u><b>Edit Profile</b></u></h1>
                 <div class="edituserform">
                     <div class="input-box">
                             {% if profile_pic %}

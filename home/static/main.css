@@ -4,8 +4,8 @@ body {
   padding: 0;
   overflow-x: hidden;
   background-color: #ffdc9c;
-  /*background-image: url('photos/catformbg.png'); 
-  background-size: 100%;*/ 
+  background-image: url('photos/catformbg.png'); 
+  background-size: 100%;
   margin-top: 100px;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -257,6 +257,7 @@ a.delete-comment:visited{
   width: 115px; 
   transition: background-color 0.3s;
   margin-left: 70%;
+  margin-bottom: 5%;
 }
 
 .backbtn:hover {
