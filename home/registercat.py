@@ -31,7 +31,7 @@ def register_cat_form():
 
             if catfile.filename =='':
                 flash('No selected file','danger')
-                return redirect(request.url)
+                return redirect(url_for('views.registercat'))
 
             if catfile and allowed_catfile(catfile.filename): #check if the file is allowed
                 filename = secure_filename(catfile.filename) #saving file
@@ -40,7 +40,7 @@ def register_cat_form():
                 cat_photo = url_for('static', filename=f'uploads/{filename}') #setting cat photo to saved file path
             else:
                 flash('Invalid file format. Please upload an image file.', 'danger')
-                return redirect(request.url)
+                return redirect(url_for('views.registercat'))
 
         else:
             cat_photo = None            
