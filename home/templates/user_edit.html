@@ -6,114 +6,103 @@
     <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
-<body class="userformpage">
 
-    <div class="navigation">
-        <div class="topnav">
-          <a class="" href="/mainpage">Main</a>
-          <a href="/createpost">Post</a>
-          <a href="/adoptmeow">Adopt meow</a>
-          <a href="/donation">About</a>
+    <body class="edituserpage">
+        <div class="navigation">
+            <div class="topnav">
+            <a class="" href="/mainpage">Main</a>
+            <a href="/createpost">Post</a>
+            <a href="/adoptmeow">Adopt meow</a>
+            <a href="/donation">About</a>
+            </div>
+            <div class="dropdown">
+            <button class="dropbtn">
+                <img src="{{ profile_pic }}" class="profilepic">
+                {{ current_user.username }}
+            </button>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="/userprofile">My Profile</a>
+                <a href="/notification">Notifications</a>
+                <a href="/user_posts">My Posts</a>
+                <a href="/catprofile">My Cats</a>
+                <a href="/registercat">Register Cat</a>
+                <a href="/logout">Log out</a>
+            </div>
+            </div>  
         </div>
-        <div class="dropdown">
-          <button class="dropbtn">
-            <img src="{{ profile_pic }}" class="profilepic">
-            {{ current_user.username }}
-          </button>
-          <div class="dropdown-content" id="dropdownContent">
-            <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
-            <a href="/user_posts">My Posts</a>
-            <a href="/catprofile">My Cats</a>
-            <a href="/registercat">Register Cat</a>
-            <a href="/logout">Log out</a>
-          </div>
-        </div>  
-    </div>
-    
-    <br />
-
-<div class="edituser-container">
-    <form method="POST" class="userform" action="{{ url_for('views.user_edit', user_id=user.id) }}" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <h1 class="editusertitle">Edit Profile</h1>
-        <div class="user-details">
-            <div class="input-box">
-                <label class="details" for="profile_pic">Profile Picture :</label>
-                <input type="file" id="profile_pic" name="profile_pic">
-                    {% if profile_pic %}
-                        <img src="{{ profile_pic }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
-                    {% endif %}
-                    {% if form.profile_pic.errors %}
-                        <div class="invalid-feedback">
-                            {% for error in form.profile_pic.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
+        
+            <form method="POST" action="{{ url_for('views.user_edit', user_id=user.id) }}" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <h1 class="editusertitle">Edit Profile</h1>
+                <div class="edituserform">
+                    <div class="input-box">
+                            {% if profile_pic %}
+                                <img src="{{ profile_pic }}" alt="Profile Picture" class="pfpedit" style="max-width: 200px; max-height: 200px;">
+                            {% endif %}
+                            {% if form.profile_pic.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.profile_pic.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                        <label class="editdetails" for="profile_pic">Profile Picture :</label>
+                        <input type="file" id="profile_pic" name="profile_pic">
+                            <label class="editdetails" for="fullname">Full Name :</label>
+                            <input type="text" placeholder="Enter Full Name" id="fullname" name="fullname" value="{{ user.fullname }}" required>
+                            {% if form.fullname.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.fullname.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        <label class="editdetails" for="email">Email :</label>
+                        <input type="text" placeholder="Enter Email" id="email" name="email" value="{{ user.email }}" required>
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}                    
+                        <label class="editdetails" for="username">Username :</label>
+                        <input type="text" placeholder="Enter Username" id="username" name="username" value="{{ user.username }}" required>
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <label class="editdetails" for="select_field">State :</label>
+                        <select id="select_field" name="selected_option">
+                            {% for state in form.selected_option.choices %}
+                                <option value="{{ state[0] }}" {% if form.selected_option.data == state[0] %}selected{% endif %}>{{ state[1] }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if form.selected_option.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.selected_option.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <label class="editdetails" for="phonenumber">Phone Number :</label>
+                        <input type="text" placeholder="Enter Phone Number" id="phonenumber" name="phonenumber" value="{{ user.phonenumber }}" required>
+                        {% if form.phonenumber.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.phonenumber.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    <button type="submit" class="updateuserbttn">Update</button>
+
                 </div>
-                <div class="input-box">
-                    <label class="details" for="fullname">Full Name :</label>
-                    <input type="text" placeholder="Enter Full Name" id="fullname" name="fullname" value="{{ user.fullname }}" required>
-                    {% if form.fullname.errors %}
-                        <div class="invalid-feedback">
-                            {% for error in form.fullname.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-            </div>
-            <div class="input-box">
-                <label class="details" for="email">Email :</label>
-                <input type="text" placeholder="Enter Email" id="email" name="email" value="{{ user.email }}" required>
-                {% if form.email.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            <div class="input-box">
-                <label class="details" for="username">Username :</label>
-                <input type="text" placeholder="Enter Username" id="username" name="username" value="{{ user.username }}" required>
-                {% if form.username.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            <div class="input-box">
-                <label class="details" for="select_field">State :</label>
-                <select id="select_field" name="selected_option">
-                    <option value="state">Select your state</option>
-                    {% for state in form.selected_option.choices %}
-                        <option value="{{ state[0] }}" {% if user.selected_option == state[0] %}selected{% endif %}>{{ state[1] }}</option>
-                    {% endfor %}
-                </select>
-                {% if form.selected_option.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.selected_option.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            <div class="input-box">
-                <label class="details" for="phonenumber">Phone Number :</label>
-                <input type="text" placeholder="Enter Phone Number" id="phonenumber" name="phonenumber" value="{{ user.phonenumber }}" required>
-                {% if form.phonenumber.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.phonenumber.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+            </form>    
         </div>
-        <button type="submit" class="edituserbttn">Update</button>
-    </form>    
-</div>
-</body>
+    </body>
+</html>
