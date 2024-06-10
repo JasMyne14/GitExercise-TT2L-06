@@ -35,7 +35,7 @@
   </div>
 
 </head>
-<body>
+<body class="post-page">
     <br />
 
     <title>Add Post</title>
@@ -48,7 +48,11 @@
     <div class="post-content">
         {% for post in posts %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='neko.jpg' )}}">
+          {% if post.author.profile_pic %}
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+ post.author.profile_pic) }}">
+          {% else %}
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='default.jpg') }}">
+          {% endif %}
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="#">{{ post.author.username }}</a>
@@ -56,17 +60,50 @@
             </div>
             <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
-            <div>
-              {{ post.likes|length }}
-              <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart"></i></a>    
-            </div>
             <div class="post-image">
               {% if post.file %}
                   <img src="{{ post.file }}" alt="uploaded image">
               {% endif %}
             </div>    
-  
-          </div>
+            <div class="icons-btn">
+              {{ post.likes|length }}
+              {% if current_user in post.likes|map(attribute="author")|list %}
+              <a href="/like-post/{{post.id}}"><i class="fa-solid fa-heart" style="color: #ff330f;"></i></a>    
+              {% else %}
+              <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
+              {% endif %}
+              <span />
+              {{ post.comments|length }}
+              <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #000000;"></i></a>    
+
+            </div>
+          
+            <div class="text-body">
+              <div class="card-text">{{post.text}}</div>
+              <div class="" id="comments-{{post.id}}">
+                  <div class="card-body" id="comments-expanded-{{post.id}}">
+                      {% for comment in post.comments[-5:]|reverse %}
+                      <div class="d-flex justify-content-between align-item-center">
+                          <div>
+                              <p>{{comment.author.username}} :           
+                              {{comment.text}}</p>
+                          </div>
+                          <div>
+                              <small class="text-muted">{{comment.date}}</small>
+                          </div>    
+                      </div>
+                      {% endfor %}
+                      {%if post.comments|length > 5 %}
+                      <div>
+                        <a class="view_comment" href="/{{post.id}}" role="button">
+                          <small>View all comments ({{ post.comments|length }})</small>
+                        </a>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>     
+            </div>       
+      </div>
         </article>
     {% endfor %}
     </div> 

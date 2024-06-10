@@ -10,6 +10,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/*Main Page*/
+.main-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
 .row {
   text-align: center;
   margin-right: 0px;
@@ -24,6 +35,7 @@ body {
   margin-bottom: 0px;
 }
 
+/*Post Page*/
 .content-section {
   background: #fbcb98;
   padding: 10px 20px;
@@ -130,7 +142,7 @@ a.article-title:hover {
 .topnav a {
   color: #f6e5cb;
   text-align: center;
-  padding: 10px 130px; /* Adjust padding as needed */
+  padding: 10px 130px; 
   text-decoration: none;
   font-size: 20px;
 }
@@ -216,6 +228,15 @@ a.article-title:hover {
 }
 
 /*Post page*/
+.post-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
 a.delete-comment:hover{
   color: #62442f;
 }
@@ -229,12 +250,44 @@ a.delete-comment:visited{
   max-height: 300px;
 }
 
-/*Donation page*/
-.donate {
-  margin-left: 30px;
+.backbtn {
+  padding: 10px;
+  font-size: 19px;
+  background-color: #62442F;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 115px; 
+  transition: background-color 0.3s;
+  margin-left: 70%;
 }
 
-.image {
+.backbtn:hover {
+  background-color: #dba76d;
+}
+/*Donation page*/
+.donation-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+.donate {
+  margin-left: 5%;
+  margin-bottom: 10%;
+}
+
+.image-links-container {
+  margin-left: 2%;
+}
+.image-links-container, .donate-links {
+  display: flex;
+  justify-content: center;
+}
+.image-link , .donate-links {
   text-align: center;
 }
 
@@ -245,12 +298,20 @@ a.delete-comment:visited{
 .image img {
   width: 360px;
   height: 260px;
-  float: left;
-  margin: 70px;
+  margin: 65px;
   margin-bottom: 10px;
   margin-top: 30px;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 20%;
+} 
+
+.link1, .link2, .link3, a:visited{
+  color: #ffffff;
+}
+
+.link1, .link2, .link3, a:hover{
+  color: #fafdcb;
+  
 }
 
 .link1, .link2, .link3 {
@@ -261,19 +322,11 @@ a.delete-comment:visited{
   display: inline-block;
   border: solid 2px #62442f;
   border-radius: 30px;
-  margin-left: 125px;
+  margin-left: 5%;
   padding: 10px;
   background-color: #62442f;
-}
-.link1, .link2, .link3, a:visited{
-  color: #ffffff;
-}
 
-.link1, .link2, .link3, a:hover{
-  color: #fafdcb;
-  
 }
-
 .link1{
   padding: 24px;
 }
@@ -281,6 +334,7 @@ a.delete-comment:visited{
   width: 20%;
   margin-left: 230px;
   margin-top: 20px;
+  
 }
 
 .link3 {
@@ -337,8 +391,6 @@ body .firstpage-container {
 
 .signup, .login{
   padding: 20px;
-  /*margin-top: 99px;
-  margin-left: 50px;*/
   font-size: 25px;
   font-family: Helvetica;
   background-color: #705B33;
@@ -349,7 +401,6 @@ body .firstpage-container {
   margin-right: 0px;
   z-index: 1;
   text-align: center;
-  /*position: sticky;*/
   transition: background-color 0.3s; 
 }
 
@@ -365,40 +416,37 @@ body .firstpage-container {
 }
 
 /* Sign Up Page */
-body .signup-container {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-size: cover;
-}
-
-.signup-container {
+.signup-page {
   background-image: url('signupbg.jpg');
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  position: absolute;
-  z-index: -1;
+}
+.signuptitle {
+  color: #FFEED6;
+  text-align: center;
 }
 
 .signup-form {
-  width: 42%;
-  margin-left: 37%; 
-  margin-top: 7%;
-  font-family: 'Canva sans';
+  width: 45%;
+  margin-left: 45%; 
+  margin-top: 12%;
   padding-bottom: 20px;
   color: #FFEED6;
 }
 
+.stateopt {
+  width: 40%;
+  background-color: #FFEED6;
+  margin-left: 25%;
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
 .user-details {
-  margin-top: 10%;
+  margin-top: 3%;
 }
 
 .input-box {
@@ -408,7 +456,7 @@ body .signup-container {
   margin-bottom: 5px;
 }
 
-.input-box label {
+.input-box label, .statelabel {
   flex: 1;
   font-size: 22px;
   margin-bottom: 5px;
@@ -425,49 +473,31 @@ body .signup-container {
   margin-right: 15%;
 }
 
-.input-box select {
-  width: calc(100% - 15%);
-}
-
 .submitbutton {
-  padding: 15px;
+  padding: 10px;
   font-size: 19px;
-  font-family: serif;
   background-color: #62442F;
   color: white;
   border: none;
   border-radius: 50px;
   width: 115px; 
   transition: background-color 0.3s;
-  margin-top: 5px;
-  margin-left: 40%;
-  margin-bottom: 0%;
+  margin-left: 70%;
 }
 
 .submitbutton:hover {
   background-color: #dba76d;
 }
 
-.signuptitle {
-  color: #FFEED6;
-  font-size: 30px;
-  font-family: serif;
-  text-align: center;
-  margin-right: 30%;
-  margin-top: 0%;
-  /*margin-left: 15%;*/
-}
-
-.signin-options{
+.have-account {
   margin-left: 70%;
 }
-
 a.have-account:visited {
-  color: #a9d4fa;
+  color: #62442F;
 }
 
 a.have-account:hover {
-  color: #62442F;
+  color: #705b33;
 }
 
 .invalid-feedback {
@@ -475,33 +505,23 @@ a.have-account:hover {
 }
 
 /* Log In page */
-body .login-container {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.login-container {
+.loginpage {
   background-image: url('loginbg.jpg');
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  position: absolute;
-  z-index: -1;
+}
+
+.logintitle {
+  color: #FFEED6;
+  text-align: center;
+  margin-bottom: 10%;
 }
 
 .login-form {
   width: 42%;
-  margin-left: 45%; 
-  margin-top: 10%;
-  font-family: 'Canva sans';
+  margin-left: 46%; 
+  margin-top: 5%;
   padding-bottom: 50px;
   color: #FFEED6;
 }
@@ -515,7 +535,7 @@ body .login-container {
 
 .login-box label {
   flex: 1;
-  font-size: 25px;
+  font-size: 22px;
   margin-bottom: 5px;
   color: #FFEED6;
   margin-left: 15%;
@@ -532,7 +552,6 @@ body .login-container {
 .loginbutton {
   padding: 15px;
   font-size: 19px;
-  font-family: serif;
   background-color: #62442F;
   color: white;
   border: none;
@@ -548,16 +567,16 @@ body .login-container {
   background-color: #8E7137;
 }
 
-.logintitle {
-  color: #FFEED6;
-  font-size: 30px;
-  font-family: serif;
-  text-align: center;
-  margin-bottom: 10%;
+.create-account{
+  margin-left: 33%;
 }
 
-.login-options{
-  margin-left: 28%;
+a.create-account:visited {
+  color: #62442F;
+}
+
+a.create-account:hover {
+  color: #705b33;
 }
 
 /*CatRegisterPage*/
@@ -781,14 +800,66 @@ input[type="submit"]:hover {
 }
 
 /*User Profile Page*/
-.userpage_container {
-  background-color: #dab185;
-}
-.userprofile {
-  margin-left: 10%;
+.userprofilepage {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
 }
 
-.catpfp, .userpfp{
+.userdetails {
+  background-color: #f6e5cb;
+  border-radius: 20px;
+  border: 2px solid #705b33;
+  padding: 20px;
+  flex: 1;
+  width: 600px;
+  height: 400px;
+  box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
+  margin: 0 20px;
+  text-align: left;
+  white-space: normal;
+  align-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.edituserbttn, .logoutbttn,.catnamebttn {
+  padding: 10px 30px;
+  font-size: 19px;
+  background-color: #62442F;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 30%; 
+  transition: background-color 0.3s;
+  margin-top: 30px;
+}
+
+.edituserbttn {
+  margin-right: 30%;
+}
+
+.logoutbttn {
+  margin-left: 9%;
+}
+.edituserbttn:hover, .logoutbttn:hover, .catnamebttn:hover {
+  background-color: #8E7137;
+}
+
+.usertitle {
+  margin-left: 10%;
+  margin-bottom: 0px;
+}
+
+.userprofile {
+  margin: 5% 15% 5%;
+}
+
+.catpfp, .userpfp {
   width: 250px;
   height: 250px;
   border-radius: 50%;
@@ -796,31 +867,39 @@ input[type="submit"]:hover {
   overflow: hidden;
   margin-right: 40px;
   flex: 0 0 250px;
-  display: inline-block;
   margin-bottom: 10%;
 }
 
-.ownercat {
-  display: flex;
+.userpfp {
+  margin-top: 10%;
 }
+
+.ownercat {
+  margin-top: 7%;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
 .catpfp img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: inline-block; 
   vertical-align: middle; 
 }
 
-.catinfo a {
-  color: #47301a;
-  text-align: center;
-  white-space: normal;
-  align-content: center;
-  overflow-y: auto;
-  overflow-x: hidden;
-  font-size: larger;
-  font-weight: bold;
+.catpfp {
+  max-width: 200px;
+  max-height: 200px;
+  margin-bottom: 15px;
 }
+
+.catnamebttn {
+  width: 100%;
+  margin: 5% 5% 15%;
+
+}
+
 /*Profile pic*/
 .profilepic {
   width: 30px;
@@ -829,6 +908,122 @@ input[type="submit"]:hover {
   margin-right: 8px;
 }
 
+/*Edit User Page*/
+.pfpedit {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: #705b33 solid 2px;
+  overflow: hidden;
+  margin-right: 40px;
+  flex: 0 0 250px;
+  margin-bottom: 10%;
+}
+
+.editusertitle {
+  margin-left: 10%;
+}
+
+.edituserform {
+  background-color: #f6e5cb;
+  border-radius: 20px;
+  border: 2px solid #705b33;
+  padding: 20px;
+  flex: 1;
+  width: 70%;
+  height: 40%;
+  box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
+  margin: 5% 15%;
+  text-align: left;
+  white-space: normal;
+  align-content: center;
+}
+.pfpedit {
+  margin: 5% 40%;
+}
+
+.edituserpage {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
+.editdetails {
+  color: #47301a;
+  font-weight: bold;
+  font-size: large;
+}
+
+.updateuserbttn {
+  padding: 10px 30px;
+  font-size: 19px;
+  background-color: #62442F;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 100%; 
+  transition: background-color 0.3s;
+  margin-top: 30px;
+}
+
+.updateuserbttn:hover {
+  background-color: #8E7137;
+}
+
+/*Profile Display Page*/
+.profiledisplaypage {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
+.othersform {
+  background-color: #f6e5cb;
+  border-radius: 20px;
+  border: 2px solid #705b33;
+  padding: 20px;
+  flex: 1;
+  width: 70%;
+  height: 40%;
+  box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
+  margin: 3% 7%;
+  text-align: left;
+  white-space: normal;
+  align-content: center;
+}
+
+.otherstitle {
+  margin-left: 10%;
+}
+
+.otherspfp {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: #705b33 solid 2px;
+  overflow: hidden;
+  flex: 0 0 250px;
+  margin-bottom: 5%;
+  margin-left: 20%;
+  margin-top: 5%;
+}
+.otherscat {
+  margin-bottom: 5%;
+}
+.otherscatpfp {
+  margin: 5% 20%;
+}
+.displaycat {
+  margin-left: 30%;
+}
 /*dropdown menu*/
 /*Adopt Meow Page*/
 .no_cat_fadopt {
