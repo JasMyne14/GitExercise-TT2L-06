@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session, abort, logging
 from flask_sqlalchemy import SQLAlchemy
 from home import create_app
-from .forms import PostForm, SignUpForm, LoginForm, CommentForm
+from .forms import PostForm, SignUpForm, LoginForm, CommentForm, UpdateProfileForm
 from .models import Post, User, Comment, Cat, Like, Notification, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -74,7 +74,7 @@ def login():
 def logout():
     logout_user()
     session.clear()
-    flash('Logged out successfully!', 'info')
+    flash('Logged out successfully!', 'success')
     return redirect(url_for('views.login'))
 
 @views.route('/like-noti/<int:post_id>')
@@ -334,8 +334,8 @@ def userprofile():
 @views.route('/user_edit', methods=['GET', 'POST'])
 def user_edit():  
     user = User.query.get(current_user.id)
-    form = SignUpForm(obj=user)
-    profile_pic= url_for('static', filename='default.jpg')
+    form = UpdateProfileForm(obj=user)
+    profile_pic = url_for('static', filename='default.jpg')
     
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
@@ -350,7 +350,7 @@ def user_edit():
         user.state = form.selected_option.data
         user.phonenumber = form.phonenumber.data
         db.session.commit()
-        flash('Your profile has been updated !', 'success')
+        flash('Your profile has been updated!', 'success')
         return redirect(url_for('views.userprofile'))
     
     return render_template('user_edit.html', user=user, form=form, profile_pic=profile_pic)
@@ -381,8 +381,7 @@ def adoptmeow():
 @login_required
 def profiledisplay(username):
     user = User.query.filter_by(username=username).first_or_404()
-    profile_pic = None
-
+        
     if user.profile_pic:
         profile_pic = url_for('static', filename='profile_pics/' + user.profile_pic)
 

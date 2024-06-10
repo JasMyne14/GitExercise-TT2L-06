@@ -3,70 +3,66 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Main</title>
+    <title>Donation</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
     <script src='main.js'></script>
-
-    <div class="navigation">
-        <div class="topnav">
-          <a href="/mainpage">Main</a>
-          <a href="/createpost">Post</a>
-          <a href="/adoptmeow">Adopt meow</a>
-          <a class="active" href="/donation">About</a>
-        </div>
-        <div class="dropdown">
-          <button class="dropbtn">
-            <img src="{{ profile_pic }}" class="profilepic">
-            {{ current_user.username }}
-          </button>
-          <div class="dropdown-content" id="dropdownContent">
-            <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
-            <a href="/user_posts">My Posts</a>
-            <a href="/catprofile">My Cats</a>
-            <a href="/registercat">Register Cat</a>
-            <a href="/logout">Log out</a>
-          </div>
-        </div>  
-    </div>
 </head>
-<body>
-    <br />
+    <body class="donation-page">
+        <div class="navigation">
+            <div class="topnav">
+            <a href="/mainpage">Main</a>
+            <a href="/createpost">Post</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a class="active" href="/donation">Donation</a>
+            </div>
+            <div class="dropdown">
+            <button class="dropbtn">
+                <img src="{{ profile_pic }}" class="profilepic">
+                {{ current_user.username }}
+            </button>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="/userprofile">My Profile</a>
+                <a href="/notification">Notifications</a>
+                <a href="/user_posts">My Posts</a>
+                <a href="/catprofile">My Cats</a>
+                <a href="/registercat">Register Cat</a>
+                <a href="/logout">Log out</a>
+            </div>
+            </div>  
+        </div>
+        <br />
 
-    <ul>
-        <li>Jasmyne Yap : Founder of Nekoyangi</li>
-        <li>Aleez Dayana : Manager of Nekoyangi </li>
-        <li>Aniqah : Assistant Manager of Nekoyangi</li>
-    </ul>
-    <div class="donate">
-        <h3>list of donation websites/links from trusted organisations</h3>
-    </div>
-    <div class="image-link">
-        <div class="image">
-            <a href ="https://www.paws.org.my/donate" target="_blank">
-            <img src="{{ url_for('static', filename='picture/paws.png') }}" alt="org. logo"></a>
+        <div class="donate">
+            <h3><u><b>Donation Links</b></u></h3>
         </div>
-    </div>
-    <div class="image-link">
-        <div class="image">
-            <a href="https://mnawf.org.my/donate/" target="_blank">
-            <img src="{{ url_for('static', filename='picture/MNAWF.png') }}" alt="org2. logo"></a>
+        <div class="image-links-container">
+            <div class="image-link">
+                <div class="image">
+                    <a href ="https://www.paws.org.my/donate" target="_blank">
+                    <img src="{{ url_for('static', filename='picture/paws.png') }}" alt="org. logo"></a>
+                </div>
+            </div>
+            <div class="image-link">
+                <div class="image">
+                    <a href="https://mnawf.org.my/donate/" target="_blank">
+                    <img src="{{ url_for('static', filename='picture/MNAWF.png') }}" alt="org2. logo"></a>
+                </div>
+            </div>
+            <div class="image-link">
+                <div class="image">
+                    <a href="https://catbeachpenang.com/donate/" target="_blank">
+                    <img src="{{ url_for('static', filename='picture/cat_beach.png') }}" alt="org3. logo"></a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="image-link">
-        <div class="image">
-            <a href="https://catbeachpenang.com/donate/" target="_blank">
-            <img src="{{ url_for('static', filename='picture/cat_beach.png') }}" alt="org3. logo"></a>
-        </div>
-    </div>
-    <br />
-    <div class="donate-links">
-        <a class="link1" href="https://www.paws.org.my/donate" target="_blank">Donate to PAWS Malaysia</a>
-        <a class="link2" href="https://mnawf.org.my/donate/" target="_blank">Donate to Malaysian National Animal Welfare Foundation (MNAWF)</a>
-        <a class="link3" href="https://catbeachpenang.com/donate/" target="_blank">Donate to Cat Beach Penang</a>    
-    </div>
-</body>
+            <div class="donate-links">
+                    <a class="link1" href="https://www.paws.org.my/donate" target="_blank">Donate to PAWS Malaysia</a>
+                    <a class="link2" href="https://mnawf.org.my/donate/" target="_blank">Donate to Malaysian National Animal Welfare Foundation (MNAWF)</a>
+                    <a class="link3" href="https://catbeachpenang.com/donate/" target="_blank">Donate to Cat Beach Penang</a>    
+            </div>
+        <br />
+    </body>
 </html>

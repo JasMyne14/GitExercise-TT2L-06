@@ -5,12 +5,10 @@
     <title>Sign Up</title>
     <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-
 </head>
-<body>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <br />
-    <div class="signup-container">
+    <body class="signup-page">
         <form method="POST" class="signup-form" action="">
             {{ form.hidden_tag() }}
             <h1 class="signuptitle">Sign Up</h1>
@@ -91,8 +89,8 @@
                     {% endif %}
                 </div
                 <div class="input-box">
-                    <label class="details" for="select_field">State :</label>
-                    <select id="select_field" name="selected_option">
+                    <label class="statelabel" for="select_field">State :</label>
+                    <select class="stateopt" id="select_field" name="selected_option">
                         <option value="state">Select your state</option>
                         <option value="Selangor">Selangor</option>
                         <option value="Kelantan">Kelantan</option>
@@ -137,6 +135,5 @@
         <div class="signin-options">
             <a href="/login" class="have-account">Already have an account?</a>
         </div>
-    </div>
-</body>
+    </body>
 </html>
