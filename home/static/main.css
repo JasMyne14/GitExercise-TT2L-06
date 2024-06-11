@@ -37,10 +37,10 @@ body {
 
 /*Post Page*/
 .content-section {
-  background: #fbcb98;
+  background: #edd2ae;
   padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
+  border: 2px solid #c0a683;
+  border-radius: 20px;
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 20%;
@@ -72,7 +72,7 @@ a.article-title:visited {
 }
 
 a.article-title:hover {
-  color: #428bca;
+  color: #ad6833;
   text-decoration: none;
 }
 
@@ -93,12 +93,12 @@ a.article-title:hover {
 }
 
 .article-metadata a:visited {
-  color: #428bca;
+  color: #ad6833;
   text-decoration: none;
 }
 
 .article-metadata a:hover {
-  color: #333;
+  color: #552e29;
   text-decoration: none;
 }
 
@@ -142,7 +142,7 @@ a.article-title:hover {
 .topnav a {
   color: #f6e5cb;
   text-align: center;
-  padding: 10px 130px; 
+  padding: 10px 120px; 
   text-decoration: none;
   font-size: 20px;
 }
@@ -585,13 +585,18 @@ a.create-account:hover {
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
   height: 170vh; 
   margin: 0;
   padding-top: 30px; 
   color: #553b29; 
+  margin-top: 70px;
+}
+
+.catform_container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-top: 20px;
 }
 
 .container_catform {
@@ -1118,28 +1123,29 @@ input[type="submit"]:hover {
 
 .alert-danger {
   color: #995a59;
-  background-color: #f2dede;
+  background-color: #f9c6c6;
   border-color: #b58c93;
 }
 
-/*Notification page*/
-.notifications {
-  margin: 35px 40px;
+/*Main Page*/
+.rounded-circle {
+  border: #c0a683 solid 2px;
 }
 
-a.noti-post {
-  color: rgb(243, 55, 127);
-  text-decoration: none;
+.post-image img {
+  border: #c0a683 solid 2px;
+  border-radius: 10px; 
 }
 
-li.comment-noti .like-noti {
-  border: 3px solid #dddddd;
+.post-image {
+  display:flex;
+  align-items: center;
 }
 
-.noti-content p{
-  margin: 10px 40px;
-  margin-right: 200px;
-  background-color: #fff8e8;
-  border-radius: 15px;
-  padding: 10px;
+.article-metadata small {
+  float:right;
+}
+
+.text-body, .card-body a {
+  color:#47301a;
 }
