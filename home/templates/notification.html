@@ -23,7 +23,7 @@
         </button>
         <div class="dropdown-content" id="dropdownContent">
             <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
+            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
             <a href="/user_posts">My Posts</a>
             <a href="/catprofile">My Cats</a>
             <a href="/registercat">Register Cat</a>
@@ -43,12 +43,12 @@
             {% for notification in notifications %}
                 {% if notification.notification_type == 'like' %}
                     {% if notification.likes%}
-                        <li><p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p></li>
+                        <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                     {% endif %}
                 {% elif notification.notification_type == 'comment' %}
                     {% for comment in comments %}
                         {% if comment.id == notification.comment_id %}
-                            <li><p class="comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p></li>
+                            <p class="comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                         {% endif %}
                     {% endfor %}
                 {% endif %}

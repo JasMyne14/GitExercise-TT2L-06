@@ -84,14 +84,6 @@ def logout():
     flash('Logged out successfully!', 'success')
     return redirect(url_for('views.login'))
 
-#@views.route('/like-noti/<int:post_id>')
-#def like_noti(post_id):
-    post = Post.query.get_or_404(post_id)
-    notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='like')
-    db.session.add(notification)
-    db.session.commit()
-    return redirect(url_for('views.mainpage'))
-
 @views.route('/user_posts')
 def user_posts():
     profile_pic= url_for('static', filename='default.jpg')
@@ -286,28 +278,6 @@ def like(post_id):
         return redirect(url_for('views.mainpage'))
 
     return redirect(url_for('views.mainpage'))
-
-#def create_noti(user_id,notification_type):
-    notification = Notification(user_id=user_id, notification_type=notification_type)
-    db.session.add(notification)
-    db.session.commit()
-
-    user = User.query.get(user_id)
-    user.unread_notification_count += 1
-    db.session.commit()
-
-#def get_unread_noti(user_id):
-    user = User.query.get(user_id)
-    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    return unread_notifications
-
-#def mark_read_notification(user_id):
-    user = User.query.get(user_id)
-    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    for notification in unread_notifications:
-        notification.read = True
-    user.unread_notification_count = 0
-    db.session.commit()
 
 @views.route("/notification")
 @login_required
