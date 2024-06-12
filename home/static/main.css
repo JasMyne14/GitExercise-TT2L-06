@@ -1149,3 +1149,25 @@ input[type="submit"]:hover {
 .text-body, .card-body a {
   color:#47301a;
 }
+
+/*Notification page*/
+.notifications {
+  margin: 35px 40px;
+}
+
+a.noti-post {
+  color: rgb(243, 55, 127);
+  text-decoration: none;
+}
+
+li.comment-noti .like-noti {
+  border: 3px solid #dddddd;
+}
+
+.noti-content p{
+  margin: 10px 40px;
+  margin-right: 200px;
+  background-color: #fff8e8;
+  border-radius: 15px;
+  padding: 10px;
+}
