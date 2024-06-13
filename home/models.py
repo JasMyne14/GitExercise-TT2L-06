@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='author', lazy=True)
     likes = db.relationship('Like', backref='author', lazy=True)
     cats = db.relationship('Cat', backref='owner', lazy=True)
+    adoption_notification = db.relationoship('AdoptNotification', backref='cat', lazy=True)
 
     def __repr__(self):
         return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"

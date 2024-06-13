@@ -51,6 +51,11 @@
                             <p class="{% if notification.unread %} unread-notification {% endif %} comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                         {% endif %}
                     {% endfor %}
+                {% elif notification..notification_type == 'adoption' %}
+                    <p class="{% if notification.unread %} unread-notification {% endif %} adoption-noti">
+                        {{ notification.adopter_id }} adopted your cat <a class="noti-post" href="{{ url_for('views.catprofile') }}">{{ cat.cat_name }}</a>
+                        {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}
+                    </p>
                 {% endif %}
             {% endfor %}
         </ul>
