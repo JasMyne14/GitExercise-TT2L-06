@@ -76,7 +76,7 @@ def logout():
     notifications = Notification.query.filter_by(user_id=current_user.id, read=False).all()
     for notification in notifications:
         notification.read = True
-    current_user.recent_notification_count = 0
+    current_user.unread_notification_count = 0
     db.session.commit()
 
     logout_user()

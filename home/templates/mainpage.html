@@ -81,7 +81,7 @@
                 <div class="icons-btn">
                   {{ post.likes|length }}
                   {% if current_user in post.likes|map(attribute="author")|list %}
-                  <a href="/like-post/{{post.id}}"><i class="fa-sharp fa-solid fa-paw" style="color: #e0709b;"></i></a>    
+                  <a id="likeButton" href="/like-post/{{post.id}}"><i class="fa-sharp fa-solid fa-paw" style="color: #e0709b;"></i></a>    
                   {% else %}
                   <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
                   {% endif %}

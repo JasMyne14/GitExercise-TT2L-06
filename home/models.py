@@ -93,3 +93,11 @@ class Notification(db.Model):
 
     def __repr__(self):
         return f"<Notification {self.id}>"
+    
+class AdoptionNotification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cat_id = db.Column(db.Integer, db.ForeignKey('cat.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    adopter_id = db.Column(db.Integer, nullable=False)
+    time = db.Column(db.DateTime, default=func.now())
+    read = db.Column(db.Boolean, default=False)
