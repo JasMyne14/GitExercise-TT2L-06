@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 from flask import current_app
 from home import db 
+import pytz
+from datetime import datetime
 from .forms import SignUpForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
     
@@ -49,7 +51,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(255), nullable =False)
     content = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now())
+    date = db.Column(db.DateTime(timezone=True), nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     file = db.Column(db.String(255), nullable=True)
 
@@ -62,7 +64,7 @@ class Post(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     text = db.Column(db.String(200), nullable=False)
-    date = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now())
+    date = db.Column(db.DateTime(timezone=True), nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     #user = db.relationship('User', backref='user_comments')
@@ -73,7 +75,7 @@ class Comment(db.Model):
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    date = db.Column(db.DateTime, nullable=False, default=func.now())
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     
@@ -83,7 +85,7 @@ class Notification(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     notification_type = db.Column(db.String(20),nullable=False)
     recent_notification_count = db.Column(db.Integer, default=0)
-    time = db.Column(db.DateTime, default=func.now())
+    date = db.Column(db.DateTime, default=datetime.utcnow)
     read = db.Column(db.Boolean, default=False)
     comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
     like_id = db.Column(db.Integer, db.ForeignKey('like.id'))
@@ -101,7 +103,7 @@ class AdoptionNotification(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     adopter_id = db.Column(db.Integer, nullable=False)
     notification_type = db.Column(db.String(20),nullable=False)
-    time = db.Column(db.DateTime, default=func.now())
+    date = db.Column(db.DateTime, default=datetime.utcnow)
     read = db.Column(db.Boolean, default=False)
     recent_notification_count = db.Column(db.Integer, default=0)
     adopted_cat = db.relationship('Cat', backref='adoption_notifications', lazy=True)

@@ -12,13 +12,16 @@ from werkzeug.utils import secure_filename
 import os
 from .adoptmeow import adoptmeow
 import secrets
+import pytz
+from pytz import timezone
+from datetime import datetime
 
 views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
 app.config['upload_folder'] = upload_folder
-
+app.config['TIMEZONE'] = 'Asia/Kuala_Lumpur'
 
 @views.route('/')
 def first():
@@ -33,6 +36,8 @@ def mainpage():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    for post in posts:
+        post.date = convert_timezone(post.date)
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
 
 @views.route('/signup', methods=['GET','POST'])
@@ -283,16 +288,22 @@ def like(post_id):
 @login_required
 def display_noti():
     user_id = current_user.id
-    notifications = Notification.query.filter(
+    notifications = []
+    like_comment_notifications = Notification.query.filter(
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
         ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
-    
+    notifications.extend(like_comment_notifications)
+
     adoption_notifications = AdoptionNotification.query.filter_by(user_id=user_id).all()
     notifications.extend(adoption_notifications)
-
-    unread_notification_count = sum(1 for notification in notifications if not notification.read)
+    notifications.sort(key=lambda x: x.time, reverse=True)
 
     for notification in notifications:
+        utc_timestamp = notification.date
+        local_timezone = pytz.timezone(app.config['TIMEZONE'])
+        local_timestamp = utc_timestamp.astimezone(local_timezone)
+        notification.date = local_timestamp
+
         if not notification.read:
             notification.read=True
     db.session.commit()
@@ -307,14 +318,22 @@ def display_noti():
     profile_pic= url_for('static', filename='default.jpg')
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-        
+    
+    unread_notification_count = sum(1 for notification in notifications if not notification.read)
+
     cats = {}
     for notification in adoption_notifications:
         cat = Cat.query.get(notification.cat_id)
         if cat:
             cats[notification.id] = cat
 
-    return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts, cats=cats)
+    adopter_names = {}
+    for notification in adoption_notifications:
+        adopter = User.query.get(notification.adopter_id)
+        if adopter:
+            adopter_names[notification.id] = adopter.fullname
+
+    return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts, cats=cats, adopter_names=adopter_names)
 
 @views.route('/donation')
 def donation():
@@ -416,3 +435,7 @@ def profiledisplay(username):
     cats = Cat.query.filter(Cat.owner.has(id=user.id)).all()
 
     return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats)
+
+def convert_timezone(utc_timestamp):
+    local_timezone = pytz.timezone(app.config['TIMMEZONE'])
+    return utc_timestamp.astimezone(local_timezone)

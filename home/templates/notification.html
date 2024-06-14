@@ -53,7 +53,7 @@
                     {% endfor %}
                 {% elif notification.notification_type == 'adoption' %}
                     <p class="adoption-noti">
-                        {{ notification.adopter_id }} adopted your cat, <a class="noti-post" href="{{ url_for('views.catprofile', cat_id=notification.cat_id) }}">{{ cats[notification.id].cat_name }}!</a>
+                        {{ adopter_names[notification.id] }} adopted your cat, <a class="noti-post" href="{{ url_for('views.catprofile', cat_id=notification.cat_id) }}">{{ cats[notification.id].cat_name }}!</a>
                         {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}
                     </p>
                 {% endif %}
