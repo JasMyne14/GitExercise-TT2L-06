@@ -7,37 +7,39 @@
    <title>User Profile</title>
    <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
 
-  <body class="profiledisplaypage">
       <div class="navigation">
         <div class="topnav">
-        <a class="" href="/mainpage">Main</a>
-        <a href="/createpost">Post</a>
-        <a href="/adoptmeow">Adopt meow</a>
-        <a href="/donation">About</a>
+          <a class="" href="/mainpage">Explore</a>
+          <a href="/createpost">Post</a>
+          <a href="/adoptmeow">Adopt Meow</a>
+          <a href="/donation">Donation</a>
         </div>
         <div class="dropdown">
-        <button class="dropbtn">
-            <img src="{{ profile_pic }}" class="profilepic">
+          <button class="dropbtn">
             {{ current_user.username }}
-        </button>
-        <div class="dropdown-content" id="dropdownContent">
+            <img src="{{ profile_pic }}" class="profilepic">
+          </button>
+          <div class="dropdown-content" id="dropdownContent">
             <a href="/userprofile">My Profile</a>
             <a href="/notification">Notifications</a>
             <a href="/user_posts">My Posts</a>
             <a href="/catprofile">My Cats</a>
             <a href="/registercat">Register Cat</a>
             <a href="/logout">Log out</a>
-        </div>
+          </div>
         </div>  
       </div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-   <br />
+</head>
 
-      <h1 class="otherstitle">{{ user.username }}'s Profile </h1>
+<body class="profiledisplaypage">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <br/>
+
+  <h2 class="otherstitle">{{ user.username }}'s Profile </h2>
       <div class="othersprofile">
-        <div class="media">
         <img class="userpfp otherspfp" src="{{ profile_pic }}">
             <div class="othersform">
                 <strong>Full Name : </strong>{{ user.fullname }}</br></br>
@@ -46,13 +48,15 @@
                 <strong>State : </strong>{{ user.state }}</br></br>
                 <strong>Phone Number : </strong>{{ user.phonenumber }}</br></br>
             </div>
-        </div> 
-        <h1 class="otherstitle">{{ user.username}}'s Cat</h1>
-        {% for cat in cats %}
+      </div> 
+
+      <h2 class="otherstitle">{{ user.username}}'s Cat</h2>
+      {% for cat in cats %}
       <div class="displaycat">
         <div class="catpfp otherscatpfp">
             <img src="{{ cat.cat_photo }}" alt="Cat Photo">
         </div>
+
         <div class="cat_info otherscat ">
           <h2>Cat's Name: {{ cat.cat_name }}</h2>
           <p><strong>Age:</strong> {{ cat.cat_age }} years old</p>
@@ -62,11 +66,10 @@
           <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
           <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
           <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
-          </div>
         </div>
-        {% endfor %}
+
       </div>
-    
-    </div>
-  </body>
+      {% endfor %}
+
+</body>
 </html>

@@ -12,16 +12,16 @@
 
         <div class="navigation">
             <div class="topnav">
-              <a class="" href="/mainpage">Main</a>
+              <a class="" href="/mainpage">Explore</a>
               <a href="/createpost">Post</a>
-              <a href="/adoptmeow">Adopt meow</a>
-              <a href="/donation">About</a>
+              <a href="/adoptmeow">Adopt Meow</a>
+              <a href="/donation">Donation</a>
             </div>
             <div class="dropdown">
-              <button class="dropbtn">
-                <img src="{{ profile_pic }}" class="active">
-                {{ current_user.username }}
-              </button>
+                <button class="dropbtn">
+                    {{ current_user.username }}
+                    <img src="{{ profile_pic }}" class="profilepic">
+                </button>
               <div class="dropdown-content" id="dropdownContent">
                 <a href="/userprofile">My Profile</a>
                 <a href="/notification">Notifications</a>
@@ -37,7 +37,7 @@
         <p class="profileheader"><b><u>Edit Cat Profile</u></b></p>
         
             <div class="container_catform">
-                <h1 class="register_cat_title">Register Your Cat Here!</h1>
+                <h1 class="register_cat_title">Edit Your Cat Profile Here!</h1>
                 <p class="register_cat_title">Please fill up this form to register an account for your cat.</p>
                 <hr>
 

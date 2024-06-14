@@ -12,16 +12,16 @@
 
    <div class="navigation">
     <div class="topnav">
-      <a href="/mainpage">Main</a>
+      <a href="/mainpage">Explore</a>
       <a class="active" href="/createpost">Post</a>
-      <a href="/adoptmeow">Adopt meow</a>
-      <a href="/donation">About</a>
+      <a href="/adoptmeow">Adopt Meow</a>
+      <a href="/donation">Donation</a>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">
-        <img src="{{ profile_pic }}" class="profilepic">
-        {{ current_user.username }}
-      </button>
+        <button class="dropbtn">
+            {{ current_user.username }}
+            <img src="{{ profile_pic }}" class="profilepic">
+        </button>
       <div class="dropdown-content" id="dropdownContent">
         <a href="/userprofile">My Profile</a>
         <a href="/notification">Notifications</a>
@@ -36,6 +36,7 @@
 </head>
 <body class="post-page">
     <br />
+    <p class="profileheader">Create a Post !</p>
     <div class="content-section">
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}

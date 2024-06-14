@@ -10,15 +10,15 @@
     <body class="edituserpage">
         <div class="navigation">
             <div class="topnav">
-            <a class="" href="/mainpage">Main</a>
+            <a class="" href="/mainpage">Explore</a>
             <a href="/createpost">Post</a>
-            <a href="/adoptmeow">Adopt meow</a>
-            <a href="/donation">About</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">Donation</a>
             </div>
             <div class="dropdown">
             <button class="dropbtn">
-                <img src="{{ profile_pic }}" class="profilepic">
-                {{ current_user.username }}
+                    {{ current_user.username }}
+                    <img src="{{ profile_pic }}" class="profilepic">
             </button>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="/userprofile">My Profile</a>

@@ -13,16 +13,16 @@
     <body class="donation-page">
         <div class="navigation">
             <div class="topnav">
-            <a href="/mainpage">Main</a>
+            <a href="/mainpage">Explore</a>
             <a href="/createpost">Post</a>
             <a href="/adoptmeow">Adopt Meow</a>
             <a class="active" href="/donation">Donation</a>
             </div>
             <div class="dropdown">
-            <button class="dropbtn">
-                <img src="{{ profile_pic }}" class="profilepic">
-                {{ current_user.username }}
-            </button>
+                <button class="dropbtn">
+                    {{ current_user.username }}
+                    <img src="{{ profile_pic }}" class="profilepic">
+                </button>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="/userprofile">My Profile</a>
                 <a href="/notification">Notifications</a>
@@ -36,7 +36,7 @@
         <br />
 
         <div class="donate">
-            <h3><u><b>Donation Links</b></u></h3>
+            <p class="profileheader">Donation Links</p>
         </div>
         <div class="image-links-container">
             <div class="image-link">
