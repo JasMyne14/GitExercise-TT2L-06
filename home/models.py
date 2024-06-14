@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='author', lazy=True)
     likes = db.relationship('Like', backref='author', lazy=True)
     cats = db.relationship('Cat', backref='owner', lazy=True)
-    adoption_notification = db.relationoship('AdoptNotification', backref='cat', lazy=True)
+    adoption_notification = db.relationship('AdoptionNotification', backref='cat', lazy=True)
 
     def __repr__(self):
         return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"
@@ -100,5 +100,11 @@ class AdoptionNotification(db.Model):
     cat_id = db.Column(db.Integer, db.ForeignKey('cat.id', ondelete='CASCADE'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     adopter_id = db.Column(db.Integer, nullable=False)
+    notification_type = db.Column(db.String(20),nullable=False)
     time = db.Column(db.DateTime, default=func.now())
     read = db.Column(db.Boolean, default=False)
+    recent_notification_count = db.Column(db.Integer, default=0)
+    adopted_cat = db.relationship('Cat', backref='adoption_notifications', lazy=True)
+
+    def __repr__(self):
+        return f"<AdoptionNotification {self.id}>"

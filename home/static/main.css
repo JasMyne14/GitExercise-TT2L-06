@@ -1160,12 +1160,6 @@ a.noti-post {
   text-decoration: none;
 }
 
-.unread-notification {
-  color: pink;
-  font-weight: bold;
-}
-
-
 .noti-content p{
   color: black;
   margin: 10px 40px;

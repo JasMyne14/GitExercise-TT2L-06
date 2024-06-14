@@ -43,17 +43,17 @@
             {% for notification in notifications %}
                 {% if notification.notification_type == 'like' %}
                     {% if notification.likes%}
-                        <p class="{% if notification.unread %} unread-notification {% endif %} like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                        <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                     {% endif %}
                 {% elif notification.notification_type == 'comment' %}
                     {% for comment in comments %}
                         {% if comment.id == notification.comment_id %}
-                            <p class="{% if notification.unread %} unread-notification {% endif %} comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                            <p class="comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                         {% endif %}
                     {% endfor %}
-                {% elif notification..notification_type == 'adoption' %}
-                    <p class="{% if notification.unread %} unread-notification {% endif %} adoption-noti">
-                        {{ notification.adopter_id }} adopted your cat <a class="noti-post" href="{{ url_for('views.catprofile') }}">{{ cat.cat_name }}</a>
+                {% elif notification.notification_type == 'adoption' %}
+                    <p class="adoption-noti">
+                        {{ notification.adopter_id }} adopted your cat, <a class="noti-post" href="{{ url_for('views.catprofile', cat_id=notification.cat_id) }}">{{ cats[notification.id].cat_name }}!</a>
                         {{ notification.time.strftime('%Y-%m-%d %H:%M:%S')}}
                     </p>
                 {% endif %}

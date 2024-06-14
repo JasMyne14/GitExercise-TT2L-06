@@ -3,14 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exists
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm, UpdateProfileForm
-from .models import Post, User, Comment, Cat, Like, Notification, db
+from .models import Post, User, Comment, Cat, Like, Notification, AdoptionNotification, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
 from .registercat import upload_folder, allowed_extensions
 from werkzeug.utils import secure_filename
 import os
-from . import db
+from .adoptmeow import adoptmeow
 import secrets
 
 views = Blueprint('views',__name__)
@@ -287,26 +287,34 @@ def display_noti():
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
         ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
     
-    unread_notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
+    adoption_notifications = AdoptionNotification.query.filter_by(user_id=user_id).all()
+    notifications.extend(adoption_notifications)
+
     unread_notification_count = sum(1 for notification in notifications if not notification.read)
-    #notification_count = len(notifications)
 
     for notification in notifications:
         if not notification.read:
             notification.read=True
     db.session.commit()
 
-    comment_ids = [n.comment_id for n in notifications if n.comment_id is not None]
+    comment_ids = [n.comment_id for n in notifications if hasattr(n, 'comment_id') and n.comment_id is not None]
     comments = Comment.query.filter(Comment.id.in_(comment_ids)).all()
 
-    post_ids = [n.post_id for n in notifications if n.post_id is not None]
+    post_ids = [n.post_id for n in notifications if hasattr(n, 'post_id') and n.post_id is not None]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
     #posts = Post.query.all()
 
     profile_pic= url_for('static', filename='default.jpg')
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-    return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts)
+        
+    cats = {}
+    for notification in adoption_notifications:
+        cat = Cat.query.get(notification.cat_id)
+        if cat:
+            cats[notification.id] = cat
+
+    return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts, cats=cats)
 
 @views.route('/donation')
 def donation():
@@ -384,7 +392,8 @@ def save_picture(form_picture):
     form_picture.save(picture_path)
 
     return picture_fn
-   
+
+views.register_blueprint(adoptmeow)   
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():
