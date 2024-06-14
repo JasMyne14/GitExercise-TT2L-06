@@ -36,17 +36,18 @@ def adopt_cat(cat_id):
     if not cat.available_for_adoption:
         flash('This cat is no longer available for adoption.', 'danger')
         return redirect(url_for('views.adoptmeow'))
-
-    cat.user_id = current_user.id # update cat ownership to current user
-    cat.available_for_adoption = False
-    cat.date_put_for_adoption = None
-
+    
     notification = AdoptionNotification(cat_id=cat_id, user_id=cat.user_id, adopter_id=current_user.id, notification_type='adoption')
     db.session.add(notification)
     db.session.commit()
 
     owner = User.query.get(cat.user_id)
     owner.unread_notification_count +=1
+
+    cat.user_id = current_user.id # update cat ownership to current user
+    cat.available_for_adoption = False
+    cat.date_put_for_adoption = None
+
     db.session.commit()
     flash(f'Congratulations! You have adopted {cat.cat_name}.', 'success')
     return redirect(url_for('views.catprofile'))

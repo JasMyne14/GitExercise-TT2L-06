@@ -291,12 +291,12 @@ def display_noti():
     notifications = []
     like_comment_notifications = Notification.query.filter(
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
-        ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.time.desc()).all()
+        ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.date.desc()).all()
     notifications.extend(like_comment_notifications)
 
     adoption_notifications = AdoptionNotification.query.filter_by(user_id=user_id).all()
     notifications.extend(adoption_notifications)
-    notifications.sort(key=lambda x: x.time, reverse=True)
+    notifications.sort(key=lambda x: x.date, reverse=True)
 
     for notification in notifications:
         utc_timestamp = notification.date
@@ -437,5 +437,5 @@ def profiledisplay(username):
     return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats)
 
 def convert_timezone(utc_timestamp):
-    local_timezone = pytz.timezone(app.config['TIMMEZONE'])
+    local_timezone = pytz.timezone(app.config['TIMEZONE'])
     return utc_timestamp.astimezone(local_timezone)
