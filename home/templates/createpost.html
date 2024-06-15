@@ -10,6 +10,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
    <script src='main.js'></script>
 
+   <!-- Navigation Bar -->
    <div class="navigation">
     <div class="topnav">
       <a href="/mainpage">Home</a>
@@ -36,11 +37,13 @@
 </head>
 <body class="post-page">
     <br />
+    <!--Create post-->
     <div class="content-section">
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
+                <!--insert title-->
                 <div class="form-group">
                     {{ form.title.label(class="form-control-label") }}
                     {% if form.title.errors %}
@@ -54,6 +57,7 @@
                         {{ form.title(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <!--insert content-->
                 <div class="form-group">
                     {{ form.content.label(class="form-control-label") }}
                     {% if form.content.errors %}
@@ -67,6 +71,7 @@
                         {{ form.content(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <!--insert image file-->
                 <div class="form-group">
                     {{ form.file.label(class="form-control-label") }}
                     {% if form.file.errors %}
@@ -81,11 +86,13 @@
                     {% endif %}
                 </div>
             </fieldset>
+            <!--submit button-->
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>
+    <!--back button-->
     <div >
         <button class="backbtn" onclick="location.href='/mainpage'">Back</button>
     </div>
