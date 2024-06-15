@@ -51,6 +51,22 @@ def signup():
 
     # To check if the form is submitted and validated
     if form.validate_on_submit():
+        # Check if email, username, or phone number already exists
+        existing_user_email = User.query.filter_by(email=form.email.data).first()
+        existing_user_username = User.query.filter_by(username=form.username.data).first()
+        existing_user_phone = User.query.filter_by(phonenumber=form.phonenumber.data).first()
+ 
+        if existing_user_email:
+            flash('Email address already exists. Please use a different email.', 'danger')
+            return render_template('signup.html', form=form)
+ 
+        elif existing_user_username:
+            flash('Username already exists. Please use a different username.', 'danger')
+            return render_template('signup.html', form=form)
+ 
+        elif existing_user_phone:
+            flash('Phone number already exists. Please use a different phone number.', 'danger')
+            return render_template('signup.html', form=form)
 
         # To generate a hashed password from the form data
         hashed_password = generate_password_hash(form.password1.data)
@@ -209,20 +225,28 @@ def update_post(post_id):
 @views.route('/<int:post_id>/delete',methods=['POST'])
 @login_required
 def delete_post(post_id):
-    profile_pic= url_for('static', filename='default.jpg')
+    profile_pic = url_for('static', filename='default.jpg')
 
-    if current_user.is_authenticated and current_user.profile_pic is not None:
+    if current_user.is_authenticated and current_user.profile_pic:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     post = Post.query.get_or_404(post_id)
-    comment = Comment.query.first()
 
     if post.author != current_user:
         abort(403)
+
+    # Delete related notifications
+    Notification.query.filter_by(post_id=post.id).delete()
+    
+    # Delete related likes
+    Like.query.filter_by(post_id=post.id).delete()
+
+    # Delete related comments
+    Comment.query.filter_by(post_id=post.id).delete()
+
     db.session.delete(post)
-    db.session.delete(comment)
     db.session.commit()
-    flash('Post has been deleted','success')
+    flash('Post has been deleted', 'success')
     return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
 @views.route('/create-comment/<int:post_id>', methods=['GET','POST'])
@@ -375,7 +399,7 @@ def donation():
 
     return render_template('donation.html', profile_pic=profile_pic)
 
-#Registration Cat Page
+# Registration Cat Page
 @views.route('/registercat')
 def registercat():
     profile_pic= url_for('static', filename='default.jpg')

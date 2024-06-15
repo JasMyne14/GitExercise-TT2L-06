@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Main</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
-    <script src='main.js'></script>
-
-    <div class="navigation">
-        <div class="topnav">
-            <a class="active" href="/mainpage">Home</a>
-            <a href="/createpost">Post</a>
-            <a href="/adoptmeow">Adopt Meow</a>
-            <a href="/donation">Donation</a>
-        </div>
-        <div class="dropdown">
-        <button class="dropbtn">
-            <img src="{{ profile_pic }}" class="profilepic">
-            {{ current_user.username }}
-        </button>
-        <div class="dropdown-content" id="dropdownContent">
-            <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
-            <a href="/user_posts">My Posts</a>
-            <a href="/catprofile">My Cats</a>
-            <a href="/registercat">Register Cat</a>
-            <a href="/logout">Log out</a>
-        </div>
-        </div>  
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Notification</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
+  
+  <div class="navigation">
+    <div class="topnav">
+      <a href="/mainpage">Explore</a>
+      <a href="/createpost">Create Post</a>
+      <a href="/adoptmeow">Adopt Meow</a>
+      <a href="/donation">Donation</a>
     </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        {{ current_user.username }}
+        <img src="{{ profile_pic }}" class="profilepic">
+      </button>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="/userprofile">My Profile</a>
+        <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/logout">Log out</a>
+      </div>
+    </div>  
+  </div>
 
 </head>
-<body>
+<body class="notipage">
     <div class="notifications">
-        <h1>{{current_user.username}}'s Notifications</h1>
-        <h2>You have {{ current_user.unread_notification_count }} new notifications</h2>    <br />
+        <p class="profileheader">{{current_user.username}}'s Notifications</p>
+        <p class="username">You have {{ current_user.unread_notification_count }} new notifications</p>    <br />
 
         <article class="noti-body">
         <ul class="noti-content">

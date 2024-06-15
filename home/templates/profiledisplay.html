@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="UTF-8">
-   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>User Profile</title>
-   <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-  <body class="profiledisplaypage">
-      <div class="navigation">
-        <div class="topnav">
-        <a href="/mainpage">Home</a>
-        <a href="/createpost">Post</a>
-        <a href="/adoptmeow">Adopt Meow</a>
-        <a href="/donation">Donation</a>
-        </div>
-        <div class="dropdown">
-        <button class="dropbtn">
-            <img src="{{ profile_pic }}" class="profilepic">
-            {{ current_user.username }}
-        </button>
-        <div class="dropdown-content" id="dropdownContent">
-            <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
-            <a href="/user_posts">My Posts</a>
-            <a href="/catprofile">My Cats</a>
-            <a href="/registercat">Register Cat</a>
-            <a href="/logout">Log out</a>
-        </div>
-        </div>  
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Other User Profile</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
+  
+  <div class="navigation">
+    <div class="topnav">
+      <a href="/mainpage">Explore</a>
+      <a href="/createpost">Create Post</a>
+      <a href="/adoptmeow">Adopt Meow</a>
+      <a href="/donation">Donation</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        {{ current_user.username }}
+        <img src="{{ profile_pic }}" class="profilepic">
+      </button>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="/userprofile">My Profile</a>
+        <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/logout">Log out</a>
       </div>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-   <br />
+    </div>  
+  </div>
 
-   <!-- Other User's Profile -->
-      <p class="profileheader" style="margin-top: 5%;"><b><u>{{ user.username }}'s Profile</u></b></p>
+</head>
+
+<body class="profiledisplaypage">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <br/>
+
+  <h2 class="otherstitle">{{ user.username }}'s Profile </h2>
       <div class="othersprofile">
-        <div class="media">
+
           {% if post.author.profile_pic %}
-          <img class="userpfp otherspfp" src="{{ url_for('static', filename='profile_pics/' + post.author.profile_pic) }}">
+            <img class="userpfp otherspfp" src="{{ url_for('static', filename='profile_pics/' + post.author.profile_pic) }}">
           {% else %}
-          <img class="userpfp otherspfp" src="{{ url_for('static', filename='default.jpg') }}">
+            <img class="userpfp otherspfp" src="{{ url_for('static', filename='default.jpg') }}">
           {% endif %}
-                  <div class="othersform">
+
+            <div class="othersform">
                 <strong>Full Name : </strong>{{ user.fullname }}</br></br>
                 <strong>Email : </strong>{{ user.email }}</br></br>
                 <strong>Username : </strong>{{ user.username }}</br></br>
                 <strong>State : </strong>{{ user.state }}</br></br>
                 <strong>Phone Number : </strong>{{ user.phonenumber }}</br></br>
-                <button class="userpostbttn" onclick="location.href='{{ url_for('views.otheruser_post', username=post.author.username) }}'">View {{ user.username }}'s Post</button>
-              </div>
-        </div> 
+                <button class="userpostbttn" onclick="location.href='{{ url_for('views.otheruser_post', username=post.author.username) }}'">View {{ user.username }}'s Post</button>              
+            </div>
+      </div> 
 
         <!-- Other User's Cat Profile-->
-        <p class="profileheader" style="margin-top: 45%; margin-bottom: 20%;"><b><u>{{ user.username }}'s Cats</u></b></p>
+        <h2 class="otherstitle">{{ user.username}}'s Cat</h2>
         {% for cat in cats %}
-      <div class="displaycat" style="margin-top: 20%;">
+      <div class="displaycat">
         <div class="catpfp otherscatpfp">
             <img src="{{ cat.cat_photo }}" alt="Cat Photo">
         </div>
+
         <div class="cat_info otherscat ">
-          <h2>Cat's Name: {{ cat.cat_name }}</h2>
+          <h4>Cat's Name: {{ cat.cat_name }}</h4>
           <p><strong>Age:</strong> {{ cat.cat_age }} years old</p>
           <p><strong>Breed:</strong> {{ cat.cat_breed }}</p>
           <p><strong>Gender:</strong> {{ cat.cat_gender }}</p>
@@ -69,11 +77,10 @@
           <p><strong>Vaccine Status:</strong> {{ cat.cat_vaccine }}</p>
           <p><strong>Special Needs:</strong> {{ cat.cat_special_needs }}</p>
           <p><strong>About Me:</strong> {{ cat.cat_about_me }}</p>
-          </div>
         </div>
-        {% endfor %}
+
       </div>
-    
-    </div>
-  </body>
+      {% endfor %}
+
+</body>
 </html>

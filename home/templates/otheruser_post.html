@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>{{ user.username }}'s Posts</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
-    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Home</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
+  
+  <div class="navigation">
+    <div class="topnav">
+      <a href="/mainpage">Explore</a>
+      <a href="/createpost">Create Post</a>
+      <a href="/adoptmeow">Adopt Meow</a>
+      <a href="/donation">Donation</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        {{ current_user.username }}
+        <img src="{{ profile_pic }}" class="profilepic">
+      </button>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="/userprofile">My Profile</a>
+        <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/logout">Log out</a>
+      </div>
+    </div>  
+  </div>
+
 </head>
 <body class="post-page">
-    <div class="navigation">
-        <div class="topnav">
-            <a href="/mainpage">Home</a>
-            <a href="/createpost">Post</a>
-            <a href="/adoptmeow">Adopt Meow</a>
-            <a href="/donation">Donation</a>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">
-                <img src="{{ profile_pic }}" class="profilepic">
-                {{ current_user.username }}
-            </button>
-            <div class="dropdown-content" id="dropdownContent">
-                <a href="/userprofile">My Profile</a>
-                <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
-                <a href="/user_posts">My Posts</a>
-                <a href="/catprofile">My Cats</a>
-                <a href="/registercat">Register Cat</a>
-                <a href="/logout">Log out</a>
-            </div>
-        </div>  
-    </div>
-
     <br />
     <div class="mypost-content">
-        <h1>{{ user.username }}'s Posts</h1>
+        <p class="profileheader">{{ user.username }}'s Posts</p>
     </div>
     <div class="post-content">
         {% for post in posts %}
@@ -61,13 +63,13 @@
                 <div class="icons-btn">
                     {{ post.likes|length }}
                     {% if current_user in post.likes|map(attribute="author")|list %}
-                    <a href="/like-post/{{ post.id }}"><i class="fas fa-heart" style="color: #ff330f;"></i></a>    
+                    <a id="likeButton" href="/like-post/{{post.id}}"><i class="fa-sharp fa-solid fa-paw" style="color: #e0709b;"></i></a>    
                     {% else %}
-                    <a href="/like-post/{{ post.id }}"><i class="far fa-heart" style="color: #000000;"></i></a>    
+                    <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
                     {% endif %}
-                    <span />
+                    <span>
                     {{ post.comments|length }}
-                    <a href="/{{ post.id }}"><i class="far fa-comment" style="color: #000000;"></i></a>    
+                    <a href="/{{ post.id }}"><i class="far fa-comment" style="color: #4f4139;"></i></a>    
                 </div>
               
                 <div class="text-body">

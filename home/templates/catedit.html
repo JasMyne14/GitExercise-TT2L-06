@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Cat Registration</title>
-        <link rel='stylesheet' type='text/css' href="{{url_for('static',filename='main.css')}}">
+    <head>   
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Cat Profile Edit</title>
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src='main.js'></script>    
-    </head>
+        <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+        <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
         
-    <body class="catformpage">
-
         <div class="navigation">
             <div class="topnav">
-              <a class="" href="/mainpage">Home</a>
-              <a href="/createpost">Post</a>
-              <a href="/adoptmeow">Adopt Meow</a>
-              <a href="/donation">Donation</a>
+            <a href="/mainpage">Explore</a>
+            <a href="/createpost">Create Post</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">Donation</a>
             </div>
             <div class="dropdown">
-              <button class="dropbtn">
-                <img src="{{ profile_pic }}" class="active">
+            <button class="dropbtn">
                 {{ current_user.username }}
-              </button>
-              <div class="dropdown-content" id="dropdownContent">
+                <img src="{{ profile_pic }}" class="profilepic">
+            </button>
+            <div class="dropdown-content" id="dropdownContent">
                 <a href="/userprofile">My Profile</a>
                 <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
                 <a href="/user_posts">My Posts</a>
                 <a href="/catprofile">My Cats</a>
                 <a href="/registercat">Register Cat</a>
                 <a href="/logout">Log out</a>
-                  </div>
+            </div>
             </div>  
-          </div>
+        </div>
+
+    </head>    
         
-        <br />
+    <body class="catformpage">    
         <p class="profileheader"><b><u>Edit Cat Profile</u></b></p>
         
             <div class="container_catform">
-                <h1 class="register_cat_title">Register Your Cat Here!</h1>
+                <h1 class="register_cat_title">Edit Your Cat Profile Here!</h1>
                 <p class="register_cat_title">Please fill up this form to register an account for your cat.</p>
                 <hr>
 
@@ -149,7 +152,7 @@
 
                 <section class="cat_about_me">
                     <label for="about_me" style="display:block;"><b>About Meow :3</b></label>
-                    <textarea placeholder="What is your baby like?" name="cat_about_me" id="about_me" rows="5" cols="121" style="border-radius: 8px;">{{ cat.cat_about_me }}</textarea>
+                    <textarea placeholder="What is your baby like?" name="cat_about_me" id="about_me" rows="5" cols="91%" style="border-radius: 8px;">{{ cat.cat_about_me }}</textarea>
                 </section>
                 <hr>
 

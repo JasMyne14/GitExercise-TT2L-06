@@ -69,6 +69,11 @@ def register_cat_form():
 def edit_cat(cat_id):
     cat = Cat.query.get_or_404(cat_id)
 
+    profile_pic= url_for('static', filename='default.jpg')
+
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+
     if cat.user_id != current_user.id: # ensure the current user is the owner of the cat
         flash('You do not have permission to edit this cat.', 'danger')
         return redirect(url_for('views.catprofile'))
@@ -95,7 +100,7 @@ def edit_cat(cat_id):
         flash(f'{cat.cat_name} updated successfully!', 'success')
         return redirect(url_for('views.catprofile'))
 
-    return render_template('catedit.html', cat=cat)    
+    return render_template('catedit.html', cat=cat, profile_pic=profile_pic)    
 
 @registercat.route('/deletecat/<int:cat_id>', methods=['POST'])
 @login_required
