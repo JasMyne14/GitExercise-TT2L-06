@@ -25,6 +25,7 @@ app.config['TIMEZONE'] = 'Asia/Kuala_Lumpur'
 
 @views.route('/')
 def first():
+    session.clear()
     return render_template('firstpage.html', name='firstpage')
 
 @views.route('/mainpage')
@@ -38,7 +39,7 @@ def mainpage():
 
     for post in posts:
         post.date = convert_timezone(post.date)
-    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
+    return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic, comments=comments)
 
 @views.route('/signup', methods=['GET','POST'])
 def signup():
