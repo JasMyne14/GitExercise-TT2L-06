@@ -13,10 +13,10 @@
 
     <div class="navigation">
         <div class="topnav">
-          <a class="active" href="/mainpage">Main</a>
+          <a class="active" href="/mainpage">Home</a>
           <a href="/createpost">Post</a>
-          <a href="/adoptmeow">Adopt meow</a>
-          <a href="/donation">About</a>
+          <a href="/adoptmeow">Adopt Meow</a>
+          <a href="/donation">Donation</a>
         </div>
         <div class="dropdown">
           <button class="dropbtn">
@@ -25,7 +25,7 @@
           </button>
           <div class="dropdown-content" id="dropdownContent">
             <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
+            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
             <a href="/user_posts">My Posts</a>
             <a href="/catprofile">My Cats</a>
             <a href="/registercat">Register Cat</a>
@@ -63,7 +63,7 @@
             {% endif %}
         <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <a class="mr-2" href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                     {% if post.author == current_user %}
                         <div class="btn-group">
@@ -85,13 +85,13 @@
                 <div>
                     {{ post.likes|length }}
                     {% if current_user in post.likes|map(attribute="author")|list %}
-                    <a href="/like-post/{{post.id}}"><i class="fa-solid fa-heart" style="color: #ff330f;"></i></a>    
-                    {% else %}
-                    <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
-                    {% endif %}
-                    <span />
-                    {{ post.comments|length }}
-                    <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #000000;"></i></a>    
+                    <a href="/like-post/{{post.id}}"><i class="fa-sharp fa-solid fa-paw" style="color: #e0709b;"></i></a>    
+                  {% else %}
+                  <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
+                  {% endif %}
+                  <span />
+                  {{ post.comments|length }}
+                  <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #4f4139;"></i></a>    
                 </div>
 
                 <div class="text-body">
