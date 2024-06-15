@@ -1,3 +1,7 @@
 __pycache__
 home/__pycache__
+<<<<<<< HEAD
 virt
+=======
+home/pytz
+>>>>>>> main

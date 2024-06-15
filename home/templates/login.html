@@ -11,6 +11,8 @@
 
     <br />
     <div class="login-row">
+
+        <!-- Flash Messages -->
         <div class="col-md-8">
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -25,6 +27,8 @@
     </div>
 
     <body class="loginpage">
+        
+        <!--Login Form -->
         <form method="POST" class="login-form">
             {{ form.hidden_tag() }}
             <h1 class="logintitle">Login</h1>

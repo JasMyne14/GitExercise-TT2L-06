@@ -36,11 +36,47 @@
 
 </head>
   <body class="userprofilepage">
+<<<<<<< HEAD
+=======
+
+        <!-- Navigation Bar -->
+        <div class="navigation">
+          <div class="topnav">
+            <a href="/mainpage">Home</a>
+            <a href="/createpost">Post</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">Donation</a>
+          </div>
+
+          <!-- User's Profile Dropdown Menu -->
+          <div class="dropdown">
+            <button class="dropbtn">
+              <img src="{{ profile_pic }}" class="profilepic">
+              {{ current_user.username }}
+            </button>
+            <div class="dropdown-content" id="dropdownContent">
+              <a href="/userprofile">My Profile</a>
+              <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
+              <a href="/user_posts">My Posts</a>
+              <a href="/catprofile">My Cats</a>
+              <a href="/registercat">Register Cat</a>
+              <a href="/logout">Log out</a>
+            </div>
+          </div>  
+        </div>
+          </div>  
+>>>>>>> main
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <h3 class="usertitle">Welcome to your profile, {{ current_user.username }} ! </h3>
 
+<<<<<<< HEAD
     <div class="row">
+=======
+      <!-- Flash message -->
+      <div class="row">
+        <div class="col-md-8" style="margin-left: 20%;">
+>>>>>>> main
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -50,8 +86,19 @@
               {% endfor %}
             {% endif %}
           {% endwith %}
+<<<<<<< HEAD
       </div>  
 
+=======
+        </div>
+
+        <br/>
+        
+        <!-- Profile Header-->
+        <p class="profileheader" style="margin-top: 5%;"><b><u>Welcome , {{ current_user.username }} !</u></b></p>
+
+      <!-- Current User's profile-->
+>>>>>>> main
       <div class="userprofile">
             <img class="userpfp" src="{{ profile_pic }}">
             <div class="userdetails">
@@ -60,7 +107,8 @@
                 <strong>Username : </strong>{{ current_user.username }}</br></br>
                 <strong>State : </strong>{{ current_user.state }}</br></br>
                 <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
-
+                
+                <!-- Edit Profile Button & Logout Button -->
                 <div class="userpage_bttn">
                   <button  class="edituserbttn" onclick="location.href='/user_edit'">Edit Profile</button>
                   <button type="logout" class="logoutbttn" onclick="location.href='/logout'">Logout</button>
@@ -69,7 +117,12 @@
             </div>
       </div>
 
+<<<<<<< HEAD
       <h3 class="usertitle">{{ current_user.username}}'s Cat</h3>
+=======
+      <!-- Current User's Cats -->
+      <p class="profileheader" style="margin-top: 45%;"><b><u>{{ current_user.username }}'s Cats</u></b></p>
+>>>>>>> main
       {% for cat in cats %}
       <div class="ownercat">
           <div class="catpfp">

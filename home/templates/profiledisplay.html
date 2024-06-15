@@ -35,6 +35,7 @@
   </div>
 
 </head>
+<<<<<<< HEAD
 
 <body class="profiledisplaypage">
 
@@ -45,17 +46,66 @@
       <div class="othersprofile">
         <img class="userpfp otherspfp" src="{{ profile_pic }}">
             <div class="othersform">
+=======
+  <body class="profiledisplaypage">
+      <div class="navigation">
+        <div class="topnav">
+        <a href="/mainpage">Home</a>
+        <a href="/createpost">Post</a>
+        <a href="/adoptmeow">Adopt Meow</a>
+        <a href="/donation">Donation</a>
+        </div>
+        <div class="dropdown">
+        <button class="dropbtn">
+            <img src="{{ profile_pic }}" class="profilepic">
+            {{ current_user.username }}
+        </button>
+        <div class="dropdown-content" id="dropdownContent">
+            <a href="/userprofile">My Profile</a>
+            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
+            <a href="/user_posts">My Posts</a>
+            <a href="/catprofile">My Cats</a>
+            <a href="/registercat">Register Cat</a>
+            <a href="/logout">Log out</a>
+        </div>
+        </div>  
+      </div>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <br />
+
+   <!-- Other User's Profile -->
+      <p class="profileheader" style="margin-top: 5%;"><b><u>{{ user.username }}'s Profile</u></b></p>
+      <div class="othersprofile">
+        <div class="media">
+          {% if post.author.profile_pic %}
+          <img class="userpfp otherspfp" src="{{ url_for('static', filename='profile_pics/' + post.author.profile_pic) }}">
+          {% else %}
+          <img class="userpfp otherspfp" src="{{ url_for('static', filename='default.jpg') }}">
+          {% endif %}
+                  <div class="othersform">
+>>>>>>> main
                 <strong>Full Name : </strong>{{ user.fullname }}</br></br>
                 <strong>Email : </strong>{{ user.email }}</br></br>
                 <strong>Username : </strong>{{ user.username }}</br></br>
                 <strong>State : </strong>{{ user.state }}</br></br>
                 <strong>Phone Number : </strong>{{ user.phonenumber }}</br></br>
+<<<<<<< HEAD
             </div>
       </div> 
 
       <h2 class="otherstitle">{{ user.username}}'s Cat</h2>
       {% for cat in cats %}
       <div class="displaycat">
+=======
+                <button class="userpostbttn" onclick="location.href='{{ url_for('views.otheruser_post', username=post.author.username) }}'">View {{ user.username }}'s Post</button>
+              </div>
+        </div> 
+
+        <!-- Other User's Cat Profile-->
+        <p class="profileheader" style="margin-top: 45%; margin-bottom: 20%;"><b><u>{{ user.username }}'s Cats</u></b></p>
+        {% for cat in cats %}
+      <div class="displaycat" style="margin-top: 20%;">
+>>>>>>> main
         <div class="catpfp otherscatpfp">
             <img src="{{ cat.cat_photo }}" alt="Cat Photo">
         </div>

@@ -13,10 +13,17 @@
         
         <div class="navigation">
             <div class="topnav">
+<<<<<<< HEAD
             <a href="/mainpage">Explore</a>
             <a href="/createpost">Create Post</a>
             <a href="/adoptmeow">Adopt Meow</a>
             <a href="/donation">Donation</a>
+=======
+              <a class="" href="/mainpage">Home</a>
+              <a href="/createpost">Post</a>
+              <a href="/adoptmeow">Adopt Meow</a>
+              <a href="/donation">Donation</a>
+>>>>>>> main
             </div>
             <div class="dropdown">
             <button class="dropbtn">
@@ -25,7 +32,7 @@
             </button>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="/userprofile">My Profile</a>
-                <a href="/notification">Notifications</a>
+                <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
                 <a href="/user_posts">My Posts</a>
                 <a href="/catprofile">My Cats</a>
                 <a href="/registercat">Register Cat</a>

@@ -4,10 +4,127 @@ body {
   padding: 0;
   overflow-x: hidden;
   background-color: #ffdc9c;
+<<<<<<< HEAD
   margin-top: 9%;
   font-family: 'Short Stack';
 }
 
+=======
+  background-image: url('photos/catformbg.png'); 
+  background-size: 100%;
+  margin-top: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Main Page*/
+.main-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
+.row {
+  text-align: center;
+  margin-right: 0px;
+  margin-left: 350px;
+}
+
+.login-row {
+  color: rgb(153, 11, 11);
+  text-align: center;
+  margin-left: 650px;
+  margin-right: 100px;
+  margin-bottom: 0px;
+}
+
+/*Post Page*/
+.content-section {
+  background: #edd2ae;
+  padding: 10px 20px;
+  border: 2px solid #c0a683;
+  border-radius: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.mypost-content h1,h5{
+  margin-left: 10px;
+}
+
+.backbtn{
+  margin-left: 75%;
+  padding: 10px;
+  font-size: large;
+  margin-bottom: 5%;
+}
+
+.addpostbtn{
+  background-color: #f3e7d1;
+  border-color: #dba76d;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:visited {
+  color: #47301a;
+  text-decoration: none;
+}
+
+a.article-title:hover {
+  color: #ad6833;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:visited {
+  color: #ad6833;
+  text-decoration: none;
+}
+
+.article-metadata a:hover {
+  color: #552e29;
+  text-decoration: none;
+}
+
+.post_add {
+  border: 3px solid black;
+  border-color: #ddc7ab;
+  text-align: center;
+  padding: 50px;
+  width: 150px;
+}
+
+.newpost a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #47301a;
+  display: block;
+}
+>>>>>>> main
 
 /* Nav Bar */
 .navigation {
@@ -39,10 +156,15 @@ body {
 .topnav a:hover, a.active {
   background-color: #dba76d;
   color: #62442f;
+<<<<<<< HEAD
 }
 
 .topnav a:visited {
   color: #f9e4c5;
+=======
+  text-decoration: none;
+  /*font-size: 17px;*/
+>>>>>>> main
 }
 
 .topnav::after {
@@ -91,7 +213,9 @@ body {
 }
 
 .dropdown-content a:hover {
+  color: rgb(255, 223, 109);
   background-color: #dba76d;
+  text-decoration: none;
 }
 
 .dropdown:hover .dropdown-content {
@@ -121,6 +245,128 @@ body {
   align-items: center;
 }
 
+<<<<<<< HEAD
+=======
+/*Post page*/
+.post-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+a.delete-comment:hover{
+  color: #62442f;
+}
+
+a.delete-comment:visited{
+  color: #333;
+}
+
+.post-image img {
+  max-width: 500px;
+  max-height: 300px;
+}
+
+.backbtn {
+  padding: 10px;
+  font-size: 19px;
+  background-color: #62442F;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 115px; 
+  transition: background-color 0.3s;
+  margin-left: 70%;
+  margin-bottom: 5%;
+}
+
+.backbtn:hover {
+  background-color: #dba76d;
+}
+/*Donation page*/
+.donation-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+.donate {
+  margin-left: 5%;
+  margin-bottom: 1%;
+}
+
+.image-links-container {
+  margin-left: 2%;
+}
+.image-links-container, .donate-links, .image-links-container2, .donate-links2 {
+  display: flex;
+  justify-content: center;
+}
+.image-link , .donate-links, .donate-links2 {
+  text-align: center;
+}
+
+.image img:hover {
+  border: 5px solid rgb(251, 182, 86);
+}
+
+.image img {
+  width: 360px;
+  height: 260px;
+  margin: 65px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 20%;
+} 
+
+.link1, .link2, .link3, a:visited{
+  color: #ffffff;
+}
+
+.link1, .link2, .link3, a:hover{
+  color: #fafdcb;
+  
+}
+
+.link1, .link2, .link3 {
+  overflow: hidden;
+  clear: both;
+  color: #ddc7ab;
+  text-align: center;
+  display: inline-block;
+  border: solid 2px #62442f;
+  border-radius: 30px;
+  margin-left: 5%;
+  padding: 10px;
+  background-color: #62442f;
+
+}
+.link1{
+  padding: 24px;
+}
+.link2{
+  width: 20%;
+  margin-left: 230px;
+  margin-top: 20px;
+  
+}
+
+.link3 {
+  margin-left: 230px;
+  padding: 24px;
+}
+>>>>>>> main
+
+.donate-links2 {
+  margin-right: 7%;
+}
 
 /* First Page */
 .firstpage-container {
@@ -199,6 +445,8 @@ body {
 /* Sign Up Page */
 .signup-page {
   background-image: url('signupbg.jpg');
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -896,6 +1144,7 @@ a.addcat_button:hover {
   background-color: #8E7137;
 }
 
+<<<<<<< HEAD
 .usertitle {
   font-weight: bold;
   margin-left: 1%;
@@ -904,6 +1153,8 @@ a.addcat_button:hover {
   border-radius: 15px;
 
 }
+=======
+>>>>>>> main
 
 .userprofile {
   margin: 2% 15% 3%;
@@ -1194,3 +1445,47 @@ a.addcat_button:hover {
   border-color: #b58c93;
 }
 
+<<<<<<< HEAD
+=======
+/*Main Page*/
+.rounded-circle {
+  border: #c0a683 solid 2px;
+}
+
+.post-image img {
+  border: #c0a683 solid 2px;
+  border-radius: 10px; 
+}
+
+.post-image {
+  display:flex;
+  align-items: center;
+}
+
+.article-metadata small {
+  float:right;
+}
+
+.text-body, .card-body a {
+  color:#47301a;
+}
+
+/*Notification page*/
+.notifications {
+  margin: 35px 40px;
+}
+
+a.noti-post {
+  color: rgb(243, 55, 127);
+  text-decoration: none;
+}
+
+.noti-content p{
+  color: black;
+  margin: 10px 40px;
+  margin-right: 200px;
+  background-color: #fff8e8;
+  border-radius: 15px;
+  padding: 10px;
+}
+>>>>>>> main
