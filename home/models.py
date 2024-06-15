@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 from flask import current_app
 from home import db 
+import pytz
+from datetime import datetime
 from .forms import SignUpForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
     
@@ -17,11 +19,13 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String(120), nullable=False)
     phonenumber = db.Column(db.String(20), unique=True, nullable=False)
     profile_pic = db.Column(db.String(255), nullable=True)
+    unread_notification_count = db.Column(db.Integer, default=0)
     posts = db.relationship('Post', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy=True)
     likes = db.relationship('Like', backref='author', lazy=True)
     cats = db.relationship('Cat', backref='owner', lazy=True)
-    
+    adoption_notification = db.relationship('AdoptionNotification', backref='cat', lazy=True)
+
     def __repr__(self):
         return f"User('{self.fullname}', '{self.email}', '{self.username}', '{self.state}', '{self.phonenumber}')"
     
@@ -47,9 +51,10 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(255), nullable =False)
     content = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now())
+    date = db.Column(db.DateTime(timezone=True), nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     file = db.Column(db.String(255), nullable=True)
+
     comments = db.relationship('Comment', backref='post', lazy=True)
     likes = db.relationship('Like', backref='post', lazy=True)
 
@@ -59,7 +64,7 @@ class Post(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     text = db.Column(db.String(200), nullable=False)
-    date = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now())
+    date = db.Column(db.DateTime(timezone=True), nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     #user = db.relationship('User', backref='user_comments')
@@ -70,7 +75,7 @@ class Comment(db.Model):
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    date = db.Column(db.DateTime, nullable=False, default=func.now())
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     
@@ -79,8 +84,29 @@ class Notification(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     notification_type = db.Column(db.String(20),nullable=False)
-    time = db.Column(db.DateTime, default=func.now())
+    recent_notification_count = db.Column(db.Integer, default=0)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
     read = db.Column(db.Boolean, default=False)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    like_id = db.Column(db.Integer, db.ForeignKey('like.id'))
+
+    comments = db.relationship('Comment', backref='notification', lazy=True)
+    likes = db.relationship('Like', backref='notification', lazy=True)
+    posts = db.relationship('Post', backref='notification', lazy=True)
 
     def __repr__(self):
         return f"<Notification {self.id}>"
+    
+class AdoptionNotification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cat_id = db.Column(db.Integer, db.ForeignKey('cat.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    adopter_id = db.Column(db.Integer, nullable=False)
+    notification_type = db.Column(db.String(20),nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    read = db.Column(db.Boolean, default=False)
+    recent_notification_count = db.Column(db.Integer, default=0)
+    adopted_cat = db.relationship('Cat', backref='adoption_notifications', lazy=True)
+
+    def __repr__(self):
+        return f"<AdoptionNotification {self.id}>"

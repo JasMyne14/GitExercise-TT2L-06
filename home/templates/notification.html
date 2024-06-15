@@ -23,7 +23,7 @@
         </button>
         <div class="dropdown-content" id="dropdownContent">
             <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
+            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
             <a href="/user_posts">My Posts</a>
             <a href="/catprofile">My Cats</a>
             <a href="/registercat">Register Cat</a>
@@ -34,18 +34,32 @@
 
 </head>
 <body>
-    <br />
-    <div class="noti-body">
+    <div class="notifications">
         <h1>{{current_user.username}}'s Notifications</h1>
-        <h2>Unread Notifications</h2>
+        <h2>You have {{ current_user.unread_notification_count }} new notifications</h2>    <br />
 
-        <ul>
+        <article class="noti-body">
+        <ul class="noti-content">
             {% for notification in notifications %}
-                <li>{{notification.notification_type}} on post {{notification.post_id}}</li>
-                <li>{{notification}}</li>
+                {% if notification.notification_type == 'like' %}
+                    {% if notification.likes%}
+                        <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.date.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                    {% endif %}
+                {% elif notification.notification_type == 'comment' %}
+                    {% for comment in comments %}
+                        {% if comment.id == notification.comment_id %}
+                            <p class="comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.date.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% elif notification.notification_type == 'adoption' %}
+                    <p class="adoption-noti">
+                        {{ adopter_names[notification.id] }} adopted your cat, <a class="noti-post" href="{{ url_for('views.catprofile', cat_id=notification.cat_id) }}">{{ cats[notification.id].cat_name }}!</a>
+                        {{ notification.date.strftime('%Y-%m-%d %H:%M:%S')}}
+                    </p>
+                {% endif %}
             {% endfor %}
         </ul>
+        </article>
     </div>
-
 </body>
 </html>

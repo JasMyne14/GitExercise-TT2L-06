@@ -1,26 +1,27 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session, abort, logging
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exists
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm, UpdateProfileForm
-from .models import Post, User, Comment, Cat, Like, Notification, db
+from .models import Post, User, Comment, Cat, Like, Notification, AdoptionNotification, db
 import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
 from .registercat import upload_folder, allowed_extensions
 from werkzeug.utils import secure_filename
 import os
-from . import db
+from .adoptmeow import adoptmeow
 import secrets
-from sqlalchemy.exc import IntegrityError
-
-
+import pytz
+from pytz import timezone
+from datetime import datetime
 
 views = Blueprint('views',__name__)
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = 'appviews'
 app.config['upload_folder'] = upload_folder
-
+app.config['TIMEZONE'] = 'Asia/Kuala_Lumpur'
 
 @views.route('/')
 def first():
@@ -35,6 +36,8 @@ def mainpage():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    for post in posts:
+        post.date = convert_timezone(post.date)
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
 
 @views.route('/signup', methods=['GET', 'POST'])
@@ -97,50 +100,16 @@ def login():
 
 @views.route('/logout')
 def logout():
+    notifications = Notification.query.filter_by(user_id=current_user.id, read=False).all()
+    for notification in notifications:
+        notification.read = True
+    current_user.unread_notification_count = 0
+    db.session.commit()
+
     logout_user()
     session.clear()
     flash('Logged out successfully!', 'success')
     return redirect(url_for('views.login'))
-
-@views.route('/like-noti/<int:post_id>')
-def like_noti(post_id):
-    post = Post.query.get_or_404(post_id)
-    notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='like')
-    db.session.add(notification)
-    db.session.commit()
-    return redirect(url_for('views.mainpage'))
-
-@views.route('/comment-noti/<int:post_id>')
-def comment_noti(post_id):
-    post = Post.query.get_or_404(post_id)
-    notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment')
-    db.session.add(notification)
-    db.session.commit()
-    return redirect(url_for('views.mainpage'))
-
-
-@views.route('/unread')
-def unread_noti(user_id):
-    notification = Notification.query.filter_by(user_id=user_id, read=False).all()
-    return render_template('notification.html', notifications=notification)
-
-@views.route('/read')
-def mark_as_read_noti(user_id):
-    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    for notification in notifications:
-        notification.read = True
-    db.session.commit()
-    return redirect(url_for('views.display_noti'))
-
-@views.route("/notification")
-def display_noti():
-    print('execute display_noti route')
-    profile_pic= url_for('static', filename='default.jpg')
-    if current_user.is_authenticated and current_user.profile_pic is not None:
-        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-    user_id = current_user.id
-    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    return render_template('notification.html', notifications=notifications, profile_pic=profile_pic)
 
 @views.route('/user_posts')
 def user_posts():
@@ -258,16 +227,31 @@ def create_comment(post_id):
 
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
+    #comment = Comment.query.get_or_404(post_id)
+
     if form.validate_on_submit():
         comment = Comment(text=form.text.data, author=current_user, post=post)
         db.session.add(comment)
         db.session.commit()
         flash('Comment added!','success')
         form.text.data = ""
+
+        if current_user != post.author:
+            notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
+            db.session.add(notification)
+            db.session.commit()
+
+            owner = User.query.get(post.author.id)
+            owner.unread_notification_count +=1
+
+            db.session.commit()
+            return redirect(url_for('views.post', post_id=post_id))    
         return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic)
+
     else:
         flash('Failed to add comment','error')
-    return redirect(url_for('views.mainpage', post_id=post_id, profile_pic=profile_pic))
+  
+    return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic, comment=comment)
 
 @views.route('/delete-comment/<comment_id>')
 @login_required
@@ -278,7 +262,6 @@ def delete_comment(comment_id):
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
     form = CommentForm()
-
     comment = Comment.query.filter_by(id=comment_id).first()
 
     if not comment:
@@ -310,7 +293,69 @@ def like(post_id):
         db.session.add(like)
         db.session.commit()
 
+        if current_user != post.author:
+            notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
+            db.session.add(notification)
+            db.session.commit()
+
+        owner = User.query.get(post.author.id)
+        owner.unread_notification_count +=1
+
+        db.session.commit()
+        return redirect(url_for('views.mainpage'))
+
     return redirect(url_for('views.mainpage'))
+
+@views.route("/notification")
+@login_required
+def display_noti():
+    user_id = current_user.id
+    notifications = []
+    like_comment_notifications = Notification.query.filter(
+        (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
+        ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.date.desc()).all()
+    notifications.extend(like_comment_notifications)
+
+    adoption_notifications = AdoptionNotification.query.filter_by(user_id=user_id).all()
+    notifications.extend(adoption_notifications)
+    notifications.sort(key=lambda x: x.date, reverse=True)
+
+    for notification in notifications:
+        utc_timestamp = notification.date
+        local_timezone = pytz.timezone(app.config['TIMEZONE'])
+        local_timestamp = utc_timestamp.astimezone(local_timezone)
+        notification.date = local_timestamp
+
+        if not notification.read:
+            notification.read=True
+    db.session.commit()
+
+    comment_ids = [n.comment_id for n in notifications if hasattr(n, 'comment_id') and n.comment_id is not None]
+    comments = Comment.query.filter(Comment.id.in_(comment_ids)).all()
+
+    post_ids = [n.post_id for n in notifications if hasattr(n, 'post_id') and n.post_id is not None]
+    posts = Post.query.filter(Post.id.in_(post_ids)).all()
+    #posts = Post.query.all()
+
+    profile_pic= url_for('static', filename='default.jpg')
+    if current_user.is_authenticated and current_user.profile_pic is not None:
+        profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+    
+    unread_notification_count = sum(1 for notification in notifications if not notification.read)
+
+    cats = {}
+    for notification in adoption_notifications:
+        cat = Cat.query.get(notification.cat_id)
+        if cat:
+            cats[notification.id] = cat
+
+    adopter_names = {}
+    for notification in adoption_notifications:
+        adopter = User.query.get(notification.adopter_id)
+        if adopter:
+            adopter_names[notification.id] = adopter.fullname
+
+    return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts, cats=cats, adopter_names=adopter_names)
 
 @views.route('/donation')
 def donation():
@@ -395,8 +440,9 @@ def save_picture(form_picture):
         picture_path = os.path.join(app.root_path, 'static/profile_pics', filename)
     
     form_picture.save(picture_path)
-    
-    return filename   
+
+    return filename
+
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():
@@ -407,8 +453,6 @@ def adoptmeow():
 
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).order_by(Cat.date_put_for_adoption.desc()).all()
     return render_template('adoptmeow.html', cats=cats, profile_pic=profile_pic)
-    cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).all()
-    return render_template('adoptmeow.html', cats=cats)
 
 @views.route('/profiledisplay/<username>')
 def profiledisplay(username):
@@ -426,15 +470,12 @@ def profiledisplay(username):
         user_profile_pic = profile_pic
 
     cats = Cat.query.filter(Cat.owner.has(id=user.id)).all()
-    form = CommentForm()
-    post = Post.query.filter_by(user_id=user.id).all()   
-    if post:
-        post = post[0]  
-    else:
-        post = None  
-    comments = Comment.query.all()
 
-    return render_template('profiledisplay.html', user=user, user_profile_pic=user_profile_pic, cats=cats, profile_pic=profile_pic, post=post, form=form, comments=comments)
+    return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats, user_profile_pic=user_profile_pic)
+
+def convert_timezone(utc_timestamp):
+    local_timezone = pytz.timezone(app.config['TIMEZONE'])
+    return utc_timestamp.astimezone(local_timezone)
 
 @views.route('/otheruser_post/<username>')
 def otheruser_post(username):
