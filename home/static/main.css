@@ -1208,10 +1208,8 @@ a.addcat_button:hover {
   border: 2px solid transparent;
   border-radius: 20px;
   text-align: center;
-  display: flex;
-  margin-left: 55%;
-  width: max-content;
-  align-items: center;
+  display: inline-block;
+  margin: 10px auto;
 }
 
 .alert-success {
