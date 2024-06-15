@@ -49,6 +49,7 @@ def create_app():
     from .adoptmeow import adoptmeow
     from .user_edit import user_edit
     from .profiledisplay import profiledisplay
+    from .otheruser_post import otheruser_post
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
@@ -64,6 +65,7 @@ def create_app():
     app.register_blueprint(adoptmeow, url_prefix='/adoptmeow')
     app.register_blueprint(user_edit, url_prefix='/user_edit')
     app.register_blueprint(profiledisplay, url_prefix='/profiledisplay')
+    app.register_blueprint(otheruser_post, url_prefix='/otheruser_post')
 
 
 

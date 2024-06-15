@@ -2,14 +2,13 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, SubmitField, BooleanField, TextAreaField, PasswordField, SelectField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flask_login import UserMixin, login_user,LoginManager, login_required, logout_user, current_user
 
 class SignUpForm(FlaskForm):
     fullname = StringField('Full Name',validators=[DataRequired(),Length(min=2,max=50)])
     email = StringField('Email Address', validators=[DataRequired(), Email()])
-    username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
+    username = StringField('Username',validators=[DataRequired(),Length(min=5,max=20)])
     password1 = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Password (Confirm)', validators=[DataRequired(), EqualTo('password1', message='Passwword must match')])
+    password2 = PasswordField('Password (Confirm)', validators=[DataRequired(), EqualTo('password1', message='Password must match')])
     selected_option = SelectField('Select your state', choices=[
         ('', 'Select your state'),
         ('Selangor', 'Selangor'),
@@ -26,9 +25,10 @@ class SignUpForm(FlaskForm):
         ('Wilayah Persekutuan Kuala Lumpur', 'Wilayah Persekutuan Kuala Lumpur'),
         ('Wilayah Persekutuan Putrajaya', 'Wilayah Persekutuan Putrajaya'),
     ])    
-    phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=2,max=20)])
+    phonenumber = StringField('Phone Number',validators=[DataRequired(),Length(min=10,max=12)])
     profile_pic = FileField("Profile Pic", validators=[FileAllowed(['jpg','png','jpeg','JPG'])])
     submit = SubmitField('Submit')
+
 
 class UpdateProfileForm(FlaskForm):
     fullname = StringField('Full Name', validators=[DataRequired(), Length(min=2, max=50)])

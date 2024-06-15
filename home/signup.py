@@ -1,6 +1,7 @@
-from flask import Flask,Blueprint
+from flask import Blueprint, render_template, redirect, url_for, flash
+from werkzeug.security import generate_password_hash
+from home import db
+from .models import User
+from .forms import SignUpForm
 
-signup = Blueprint('signup',__name__)
-
-app = Flask(__name__,static_url_path='/static')
-app.config['SECRET_KEY'] = 'hshshshsh'
+signup = Blueprint('signup', __name__)
