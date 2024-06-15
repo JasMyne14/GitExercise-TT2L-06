@@ -46,6 +46,7 @@
 
         <!-- Flash message -->
         <div class="row">
+            <div class="col-md-8">
               {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                   {% for category, message in messages %}
@@ -55,6 +56,7 @@
                   {% endfor %}
                 {% endif %}
               {% endwith %}
+            </div>
         </div>
 
         <!--display profile picture-->
@@ -67,7 +69,7 @@
         <!--display post-->
         <div class="media-body">
                 <div class="article-metadata">
-                    <a href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
+                    <a class="mr-2" href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                     <!--allow delete function-->
                     {% if post.author == current_user %}
@@ -95,7 +97,7 @@
                   {% else %}
                   <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
                   {% endif %}
-                  <span >
+                  <span />
                   <!--display comment icons  -->
                   {{ post.comments|length }}
                   <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #4f4139;"></i></a>    
