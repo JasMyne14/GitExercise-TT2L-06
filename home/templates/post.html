@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Main</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
-    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
-    <script src='main.js'></script>
-
-    <div class="navigation">
-        <div class="topnav">
-          <a class="active" href="/mainpage">Explore</a>
-          <a href="/createpost">Post</a>
-          <a href="/adoptmeow">Adopt Meow</a>
-          <a href="/donation">Donation</a>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">
-                {{ current_user.username }}
-                <img src="{{ profile_pic }}" class="profilepic">
-            </button>
-          <div class="dropdown-content" id="dropdownContent">
-            <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
-            <a href="/user_posts">My Posts</a>
-            <a href="/catprofile">My Cats</a>
-            <a href="/registercat">Register Cat</a>
-            <a href="/logout">Log out</a>
-          </div>
-        </div>  
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Post</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
+  
+  <div class="navigation">
+    <div class="topnav">
+      <a href="/mainpage">Explore</a>
+      <a href="/createpost">Create Post</a>
+      <a href="/adoptmeow">Adopt Meow</a>
+      <a href="/donation">Donation</a>
     </div>
-    
+    <div class="dropdown">
+      <button class="dropbtn">
+        {{ current_user.username }}
+        <img src="{{ profile_pic }}" class="profilepic">
+      </button>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="/userprofile">My Profile</a>
+        <a href="/notification">Notifications</a>
+        <a href="/user_posts">My Posts</a>
+        <a href="/catprofile">My Cats</a>
+        <a href="/registercat">Register Cat</a>
+        <a href="/logout">Log out</a>
+      </div>
+    </div>  
+  </div>
+
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -43,7 +43,6 @@
             <h3>{{ post.author.username }}'s Post</h3>
         </ul>
         <div class="row">
-            <div class="col-md-8">
               {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                   {% for category, message in messages %}
@@ -53,7 +52,6 @@
                   {% endfor %}
                 {% endif %}
               {% endwith %}
-            </div>
         </div>
         <article class="media content-section">
             {% if post.author.profile_pic %}
@@ -63,7 +61,7 @@
             {% endif %}
         <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <a href="{{ url_for('views.profiledisplay', username=post.author.username) }}">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
                     {% if post.author == current_user %}
                         <div class="btn-group">
@@ -86,10 +84,10 @@
                     {{ post.likes|length }}
                     {% if current_user in post.likes|map(attribute="author")|list %}
                     <a href="/like-post/{{post.id}}"><i class="fa-sharp fa-solid fa-paw" style="color: #e0709b;"></i></a>    
-                  {% else %}
-                  <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
-                  {% endif %}
-                  <span />
+                    {% else %}
+                    <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
+                    {% endif %}
+                  <span>
                   {{ post.comments|length }}
                   <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #4f4139;"></i></a>    
                 </div>

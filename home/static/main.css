@@ -4,119 +4,10 @@ body {
   padding: 0;
   overflow-x: hidden;
   background-color: #ffdc9c;
-  /*background-image: url('photos/catformbg.png'); 
-  background-size: 100%;*/ 
-  margin-top: 100px;
-  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 9%;
+  font-family: 'Short Stack';
 }
 
-/*Main Page*/
-.main-page {
-  background-image: url('photos/catformbg2.png'); 
-  background-size: cover; 
-  background-position: center; 
-  background-attachment: fixed;
-  margin: 0;
-  padding-top: 80px; 
-  color: #553b29;
-}
-
-.row {
-  text-align: center;
-  margin-right: 0px;
-  margin-left: 350px;
-}
-
-.login-row {
-  color: rgb(153, 11, 11);
-  text-align: center;
-  margin-left: 650px;
-  margin-right: 100px;
-  margin-bottom: 0px;
-}
-
-/*Post Page*/
-.content-section {
-  background: #ffe7c9;
-  padding: 10px 20px;
-  border: 2px solid #c0a683;
-  border-radius: 20px;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  margin-left: 20%;
-  margin-right: 20%;
-}
-
-.mypost-content h1,h5{
-  margin-left: 10px;
-}
-
-.backbtn{
-  margin-left: 75%;
-  padding: 10px;
-  font-size: large;
-}
-
-.addpostbtn{
-  background-color: #ebd2a4;
-  border-color: #dba76d;
-}
-
-.article-title {
-  color: #444444;
-}
-
-a.article-title:visited {
-  color: #47301a;
-  text-decoration: none;
-}
-
-a.article-title:hover {
-  color: #ad6833;
-  text-decoration: none;
-}
-
-.article-content {
-  white-space: pre-line;
-}
-
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
-
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-.article-metadata a:visited {
-  color: #ad6833;
-  text-decoration: none;
-}
-
-.article-metadata a:hover {
-  color: #552e29;
-  text-decoration: none;
-}
-
-.post_add {
-  border: 3px solid black;
-  border-color: #ddc7ab;
-  text-align: center;
-  padding: 50px;
-  width: 150px;
-}
-
-.newpost a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #47301a;
-  display: block;
-}
 
 /* Nav Bar */
 .navigation {
@@ -135,12 +26,12 @@ a.article-title:hover {
 .topnav {
   background-color: #705b33;
   flex-grow: 1;
+  color: #f9e4c5;
 }
   
 .topnav a {
-  color: #f6e5cb;
   text-align: center;
-  padding: 10px 120px; 
+  padding: 10px 7.4%; 
   text-decoration: none;
   font-size: 20px;
 }
@@ -148,7 +39,10 @@ a.article-title:hover {
 .topnav a:hover, a.active {
   background-color: #dba76d;
   color: #62442f;
-  /*font-size: 17px;*/
+}
+
+.topnav a:visited {
+  color: #f9e4c5;
 }
 
 .topnav::after {
@@ -167,26 +61,30 @@ a.article-title:hover {
   display: flex;
   align-items: center;
   background-color: #705b33;
-  color: pink;
-  padding: 10px 30px;
+  color: rgb(255, 209, 216);
+  padding: 2.1% 80px;
   font-size: 20px;
   border: none;
   cursor: pointer;
   text-decoration: none;
 }
 
+.dropbtn:hover {
+  color:#854747;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
   top: calc(100% + 0px);
-  right: 0;
+  right: 40px;
   background-color: #705B33;
-  min-width: 160px;
+  min-width: 200px;
   z-index: 1;
 }
 
 .dropdown-content a {
-  color: black;
+  color: #f9e4c5;
   padding: 14px 16px;
   text-decoration: none;
   display: block;
@@ -203,6 +101,7 @@ a.article-title:hover {
 .dropdown:hover .dropbtn {
   background-color: #dba76d;
 }
+
 @media screen and (max-width: 768px) {
   .topnav {
     width: 80%;
@@ -222,121 +121,6 @@ a.article-title:hover {
   align-items: center;
 }
 
-/*Post page*/
-.post-page {
-  background-image: url('photos/catformbg.png'); 
-  background-size: cover; 
-  background-position: center; 
-  background-attachment: fixed;
-  margin: 0;
-  padding-top: 80px; 
-  color: #553b29;
-  
-}
-a.delete-comment:hover{
-  color: #62442f;
-}
-
-a.delete-comment:visited{
-  color: #333;
-}
-
-.post-image img {
-  max-width: 500px;
-  max-height: 300px;
-}
-
-.backbtn {
-  padding: 10px;
-  font-size: 19px;
-  background-color: #62442F;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  width: 115px; 
-  transition: background-color 0.3s;
-  margin-left: 70%;
-}
-
-.backbtn:hover {
-  background-color: #dba76d;
-}
-/*Donation page*/
-.donation-page {
-  background-image: url('photos/catformbg.png'); 
-  background-size: cover; 
-  background-position: center; 
-  background-attachment: fixed;
-  margin: 0;
-  padding-top: 80px; 
-  color: #553b29;
-}
-.donate {
-  margin-left: 5%;
-  margin-bottom: 10%;
-}
-
-.image-links-container {
-  margin-left: 2%;
-}
-.image-links-container, .donate-links {
-  display: flex;
-  justify-content: center;
-}
-.image-link , .donate-links {
-  text-align: center;
-}
-
-.image img:hover {
-  border: 5px solid rgb(251, 182, 86);
-}
-
-.image img {
-  width: 360px;
-  height: 260px;
-  margin: 65px;
-  margin-bottom: 10px;
-  margin-top: 30px;
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 20%;
-} 
-
-.link1, .link2, .link3, a:visited{
-  color: #ffffff;
-}
-
-.link1, .link2, .link3, a:hover{
-  color: #fafdcb;
-  
-}
-
-.link1, .link2, .link3 {
-  overflow: hidden;
-  clear: both;
-  color: #ddc7ab;
-  text-align: center;
-  display: inline-block;
-  border: solid 2px #62442f;
-  border-radius: 30px;
-  margin-left: 5%;
-  padding: 10px;
-  background-color: #62442f;
-
-}
-.link1{
-  padding: 24px;
-}
-.link2{
-  width: 20%;
-  margin-left: 230px;
-  margin-top: 20px;
-  
-}
-
-.link3 {
-  margin-left: 230px;
-  padding: 24px;
-}
 
 /* First Page */
 .firstpage-container {
@@ -354,7 +138,7 @@ a.delete-comment:visited{
   height: 100vh;
 }
 
-body .firstpage-container {
+.firstpage-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -411,6 +195,7 @@ body .firstpage-container {
   background-color: #dba76d; 
 }
 
+
 /* Sign Up Page */
 .signup-page {
   background-image: url('signupbg.jpg');
@@ -434,7 +219,7 @@ body .firstpage-container {
 .stateopt {
   width: 40%;
   background-color: #FFEED6;
-  margin-left: 25%;
+  margin-left: 23%;
   margin-top: 10px;
   border-radius: 15px;
 }
@@ -476,7 +261,7 @@ body .firstpage-container {
   border-radius: 50px;
   width: 115px; 
   transition: background-color 0.3s;
-  margin-left: 70%;
+  margin-left: 40%;
 }
 
 .submitbutton:hover {
@@ -484,7 +269,8 @@ body .firstpage-container {
 }
 
 .have-account {
-  margin-left: 70%;
+  margin-left: 60%;
+  margin-bottom: 2%;
 }
 a.have-account:visited {
   color: #62442F;
@@ -496,6 +282,10 @@ a.have-account:hover {
 
 .invalid-feedback {
   color: red;
+}
+
+.signin-options {
+  margin-bottom: 3%;
 }
 
 /* Log In page */
@@ -573,6 +363,264 @@ a.create-account:hover {
   color: #705b33;
 }
 
+
+/*Explore Page*/
+.profileheader {
+  color: #62442f;
+  font-size: 30px;
+  padding: 1px 15px;
+  position: absolute;
+  z-index: 0;
+  top: 7%; 
+  left: 2%; 
+  font-weight: bold;
+  background-color: #f7e5b9;
+  border-radius: 8px;
+}
+
+.username {
+  padding-left: 2%;
+  font-size: 25px;
+  top: 15%;
+  position: absolute;
+}
+
+.main-page {
+  background-image: url('photos/mainpagebg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+
+.row {
+  text-align: center;
+  margin-left: 1%;
+}
+
+.login-row {
+  color: rgb(153, 11, 11);
+  text-align: center;
+  margin-left: 30%;
+}
+
+/*Posted Container*/
+.content-section {
+  background: #ffe7c9;
+  padding: 10px 20px;
+  border: 2px solid #c0a683;
+  border-radius: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.mypost-content h1,h5{
+  margin-left: 10px;
+}
+
+.article-title {
+  color: #553b29;
+}
+
+a.article-title:hover {
+  color: #ad6833;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  color:#82443c;
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px dotted #6c5a47
+}
+
+.article-metadata a:hover {
+  color: #995a59;
+  text-decoration: none;
+}
+
+.article-metadata a:visited {
+  color: #552e29;
+  text-decoration: none;
+}
+
+.rounded-circle {
+  border: #c0a683 solid 2px;
+}
+
+.post-image img {
+  border: #c0a683 solid 2px;
+  border-radius: 10px; 
+}
+
+.post-image {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.article-metadata small {
+  float:right;
+  color:#47301a;
+}
+
+.text-body, .card-body a {
+  color:#47301a;
+}
+
+a.mr-2 a:visited {
+  color:#552e29;
+  text-decoration: none;
+}
+
+/* Click into Post page*/
+.post-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+  
+}
+a.delete-comment:hover{
+  color: #62442f;
+}
+
+.post-image img {
+  max-width: 500px;
+  max-height: 300px;
+}
+
+/*Create Post Page*/
+.backbtn {
+  background-color: #62442F;
+  color: #edddc0;
+  border: 2px solid #513c29;
+  border-radius: 50px;
+  max-width: fit-content;
+  margin-left: 50%;
+  margin-bottom: 2%;
+  padding: 10px 20px;
+  font-size: large;
+} 
+
+.backbtn:hover {
+  background-color: #89653c;
+}
+
+.addpostbtn{
+  background-color: #f0a2a2;
+  border-color: #e17e8e;
+  border-radius: 15px;
+  margin: auto;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: #fee7e7;
+  display: flex;
+  cursor: pointer;
+  margin-top: 7%;
+}
+
+a.addpostbtn:visited, a.addpostbtn:hover {
+  text-decoration: none;
+  color:#fee7e7;
+}
+
+/*Donation page*/
+.donation-page {
+  background-image: url('photos/catformbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 80px; 
+  color: #553b29;
+}
+.donate {
+  margin-left: 5%;
+  margin-bottom: 10%;
+}
+
+.image-links-container {
+  margin-left: 2%;
+}
+.image-links-container, .donate-links {
+  display: flex;
+  justify-content: center;
+}
+.image-link , .donate-links {
+  text-align: center;
+}
+
+.image img:hover {
+  border: 5px solid rgb(251, 182, 86);
+}
+
+.image img {
+  width: 360px;
+  height: 260px;
+  margin: 65px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 20%;
+} 
+
+.link1, .link2, .link3 {
+  color: #ffffff;
+}
+
+.link1 a:hover , .link2 a:hover, .link3 a:hover{
+  color: #fafdcb;
+  
+}
+
+.link1, .link2, .link3 {
+  overflow: hidden;
+  clear: both;
+  color: #ddc7ab;
+  text-align: center;
+  display: inline-block;
+  border: solid 2px #62442f;
+  border-radius: 30px;
+  margin-left: 5%;
+  padding: 10px;
+  background-color: #62442f;
+
+}
+.link1{
+  padding: 24px;
+}
+.link2{
+  width: 20%;
+  margin-left: 230px;
+  margin-top: 20px;
+  
+}
+
+.link3 {
+  margin-left: 230px;
+  padding: 24px;
+}
+
+
 /*CatRegisterPage*/
 .catformpage {
   background-image: url('photos/catformbg.png'); 
@@ -643,8 +691,8 @@ input[type="submit"]:hover {
   background-color: #e086bc; 
 }
 
-/*CatProfilePage*/
 
+/*CatProfilePage*/
 .catprofilepage {
   background-image: url('photos/catprofilebg.png'); 
   background-size: cover; 
@@ -653,23 +701,6 @@ input[type="submit"]:hover {
   margin: 0;
   padding-top: 80px; 
   color: #553b29;
-}
-
-.profileheader {
-  color: #62442f;
-  font-size: 30px;
-  padding: 10px 15px;
-  position: absolute;
-  z-index: 0;
-  top: 5%; 
-  left: 2%; 
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-.username {
-  padding-left: 1%;
-  font-size: 25px;
 }
 
 .catprofile_container {
@@ -715,7 +746,7 @@ input[type="submit"]:hover {
   padding: 20px;
   flex: 1;
   width: 600px;
-  height: 280px;
+  max-height: fit-content;
   margin: 0 20px;
   text-align: left;
   white-space: normal;
@@ -724,7 +755,8 @@ input[type="submit"]:hover {
   overflow-x: hidden;
 }
 
-.cat_info h2 {
+.cat_info h4, .adopt_cat_info h4{
+  font-weight: bold;
   margin-top: 0;
   text-align: left;
 }
@@ -744,6 +776,11 @@ input[type="submit"]:hover {
   float: right;
   text-decoration: none;
   border: #44693b solid 2px;
+}
+
+a.editcatprofile:hover, a.editcatprofile:visited {
+  text-decoration: none;
+  color: #e8e8e8;
 }
 
 .put_adopt_button {
@@ -790,12 +827,11 @@ input[type="submit"]:hover {
   border: #e17e8e solid 2px;
   display: block;
   margin-top: 20px; 
-  width: 70px;
-  box-shadow: 0 0 20px rgba(60, 9, 23, 0.1);
+  max-width: fit-content;
   justify-items: center;
 }
 
-.addcat_button:hover {
+a.addcat_button:hover {
   background-color: #e17e8e;
   color: #ecdddf;
 }
@@ -842,6 +878,7 @@ input[type="submit"]:hover {
 
 .edituserbttn {
   margin-right: 30%;
+  background-color:#ba946c;
 }
 
 .logoutbttn {
@@ -852,32 +889,31 @@ input[type="submit"]:hover {
 }
 
 .usertitle {
-  margin-left: 10%;
-  margin-bottom: 0px;
+  font-weight: bold;
+  margin-left: 1%;
 }
 
 .userprofile {
-  margin: 5% 15% 5%;
+  margin: 2% 15% 3%;
+  display: flex;
+  align-items: center;
 }
 
-.catpfp, .userpfp {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  border: #705b33 solid 2px;
-  overflow: hidden;
-  margin-right: 40px;
-  flex: 0 0 250px;
-  margin-bottom: 10%;
+.catname {
+  display:flex;
 }
 
 .userpfp {
-  margin-top: 10%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: #705b33 solid 2px;
+  margin-right: 40px;
 }
 
 .ownercat {
-  margin-top: 7%;
-  display: flex; 
+  margin: 2%;
+  display: inline-flex; 
   flex-direction: column;
   align-items: center;
 }
@@ -887,18 +923,20 @@ input[type="submit"]:hover {
   height: 100%;
   object-fit: cover;
   vertical-align: middle; 
+  border-radius: 50%;
+  border: #705b33 solid 2px;
 }
 
 .catpfp {
-  max-width: 200px;
-  max-height: 200px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 15px;
 }
 
 .catnamebttn {
   width: 100%;
-  margin: 5% 5% 15%;
-
+  margin-top: 1%;
+  margin-bottom: 1%;  
 }
 
 /*Profile pic*/
@@ -923,7 +961,7 @@ input[type="submit"]:hover {
 }
 
 .editusertitle {
-  margin-left: 10%;
+  margin-left: 2%;
 }
 
 .edituserform {
@@ -1041,7 +1079,7 @@ input[type="submit"]:hover {
   margin: 0 auto;
 }
 
-/*dropdown menu*/
+
 /*Adopt Meow Page*/
 .no_cat_fadopt {
   background-color: #f0a2a2;
@@ -1065,7 +1103,7 @@ input[type="submit"]:hover {
   padding: 20px;
   flex: 1;
   width: 600px;
-  height: 400px;
+  max-height: fit-content;
   box-shadow: 0 0 20px rgba(59, 31, 11,0.1);
   margin: 0 20px;
   text-align: left;
@@ -1112,6 +1150,8 @@ input[type="submit"]:hover {
   cursor: pointer;
 }
 
+
+/*Flash Messages*/
 .flash-messages {
   display: flex;
   align-items: center;
@@ -1139,25 +1179,3 @@ input[type="submit"]:hover {
   border-color: #b58c93;
 }
 
-/*Main Page*/
-.rounded-circle {
-  border: #c0a683 solid 2px;
-}
-
-.post-image img {
-  border: #c0a683 solid 2px;
-  border-radius: 10px; 
-}
-
-.post-image {
-  display:flex;
-  align-items: center;
-}
-
-.article-metadata small {
-  float:right;
-}
-
-.text-body, .card-body a {
-  color:#47301a;
-}

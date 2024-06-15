@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Posts</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
-    <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
-   <script src='main.js'></script>
-
-   <div class="navigation">
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>My Posts</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta name='viewport' content='width=device-width, initial-scale=1,shrink-to-fit=no'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1ab5572857.js" crossorigin="anonymous"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='main.css')}}">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
+  
+  <div class="navigation">
     <div class="topnav">
-      <a class="" href="/mainpage">Explore</a>
-      <a href="/createpost">Post</a>
+      <a href="/mainpage">Explore</a>
+      <a href="/createpost">Create Post</a>
       <a href="/adoptmeow">Adopt Meow</a>
       <a href="/donation">Donation</a>
     </div>
@@ -30,20 +30,18 @@
         <a href="/catprofile">My Cats</a>
         <a href="/registercat">Register Cat</a>
         <a href="/logout">Log out</a>
-  </div>
+      </div>
     </div>  
   </div>
 
 </head>
-<body class="post-page">
-    <br />
 
-    <title>Add Post</title>
+<body class="post-page">
+
     <div class="mypost-content">
-        <h1>{{current_user.username}}'s Post</h1>
-        <div class="newpost">
-            <a href="/createpost"><button class="addpostbtn">Add new post</button></a>
-        </div>  
+        <p class="profileheader">--My Post--</p>
+        <p class="username">{{current_user.username}}'s Post</p>
+        <a href="/createpost"><button class="addpostbtn">Add new post</button></a>
     </div>
     <div class="post-content">
         {% for post in posts %}
@@ -55,7 +53,7 @@
           {% endif %}
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <a class="mr-2">{{ post.author.username }}</a>
               <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
             </div>
             <h2><a class="article-title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h2>
@@ -68,13 +66,13 @@
             <div class="icons-btn">
               {{ post.likes|length }}
               {% if current_user in post.likes|map(attribute="author")|list %}
-              <a href="/like-post/{{post.id}}"><i class="fa-solid fa-heart" style="color: #ff330f;"></i></a>    
+              <a href="/like-post/{{post.id}}"><i class="fa-sharp fa-solid fa-paw" style="color: #e0709b;"></i></a>    
               {% else %}
-              <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #000000;"></i></a>    
+              <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
               {% endif %}
-              <span />
+              <span>
               {{ post.comments|length }}
-              <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #000000;"></i></a>    
+              <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #4f4139;"></i></a>    
 
             </div>
           

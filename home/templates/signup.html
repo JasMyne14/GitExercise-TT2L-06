@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" type='text/css' media="screen"  href="{{ url_for('static',filename='main.css')}}">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Short+Stack" />
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
@@ -14,7 +15,7 @@
             <h1 class="signuptitle">Sign Up</h1>
             <div class="user-details">
                 <div class="input-box">
-                    <label class="details" for="fullname">Full Name :</label>
+                    <label class="details" for="fullname">Full Name: </label>
                     <input 
                         type="text" 
                         placeholder="Enter Full Name" 
@@ -29,7 +30,7 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="email">Email :</label>
+                    <label class="details" for="email">Email: </label>
                     <input 
                         type="text" 
                         placeholder="Enter Email" 
@@ -44,7 +45,7 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="username">Username :</label>
+                    <label class="details" for="username">Username: </label>
                     <input 
                         type="text" 
                         placeholder="Enter Username" 
@@ -59,7 +60,7 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="password1">Password :</label>
+                    <label class="details" for="password1">Password: </label>
                     <input 
                         type="password" 
                         placeholder="Enter Password" 
@@ -74,7 +75,7 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="password2">Password (Confirm) :</label>
+                    <label class="details" for="password2">Password (Confirm): </label>
                     <input 
                         type="password" 
                         placeholder="Confirm Password" 
@@ -89,7 +90,7 @@
                     {% endif %}
                 </div
                 <div class="input-box">
-                    <label class="statelabel" for="select_field">State :</label>
+                    <label class="statelabel" for="select_field">State: </label>
                     <select class="stateopt" id="select_field" name="selected_option">
                         <option value="state">Select your state</option>
                         <option value="Selangor">Selangor</option>
@@ -115,7 +116,7 @@
                     {% endif %}
                 </div>
                 <div class="input-box">
-                    <label class="details" for="phonenumber">Phone Number :</label>
+                    <label class="details" for="phonenumber">Phone Number: </label>
                     <input 
                         type="text" 
                         placeholder="Enter Phone Number" 
