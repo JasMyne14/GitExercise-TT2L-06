@@ -18,12 +18,12 @@
         </div>
         <div class="dropdown">
         <button class="dropbtn">
-            <img src="{{profile_pic }}" class="profilepic">
+            <img src="{{ profile_pic }}" class="profilepic">
             {{ current_user.username }}
         </button>
         <div class="dropdown-content" id="dropdownContent">
             <a href="/userprofile">My Profile</a>
-            <a href="/notification">Notifications</a>
+            <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
             <a href="/user_posts">My Posts</a>
             <a href="/catprofile">My Cats</a>
             <a href="/registercat">Register Cat</a>
@@ -37,8 +37,12 @@
       <p class="profileheader" style="margin-top: 5%;"><b><u>{{ user.username }}'s Profile</u></b></p>
       <div class="othersprofile">
         <div class="media">
-        <img class="userpfp otherspfp" src="{{ user_profile_pic }}">
-            <div class="othersform">
+          {% if post.author.profile_pic %}
+          <img class="userpfp otherspfp" src="{{ url_for('static', filename='profile_pics/' + post.author.profile_pic) }}">
+          {% else %}
+          <img class="userpfp otherspfp" src="{{ url_for('static', filename='default.jpg') }}">
+          {% endif %}
+                  <div class="othersform">
                 <strong>Full Name : </strong>{{ user.fullname }}</br></br>
                 <strong>Email : </strong>{{ user.email }}</br></br>
                 <strong>Username : </strong>{{ user.username }}</br></br>
