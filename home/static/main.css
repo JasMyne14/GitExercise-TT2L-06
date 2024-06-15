@@ -489,7 +489,7 @@ a.mr-2 a:visited {
 
 /* Click into Post page*/
 .post-page {
-  background-image: url('photos/catformbg.png'); 
+  background-image: url('photos/catbg6.png'); 
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
@@ -514,7 +514,7 @@ a.delete-comment:hover{
   border: 2px solid #513c29;
   border-radius: 50px;
   max-width: fit-content;
-  margin-left: 50%;
+  margin-left: 48%;
   margin-bottom: 2%;
   padding: 10px 20px;
   font-size: large;
@@ -543,9 +543,17 @@ a.addpostbtn:visited, a.addpostbtn:hover {
   color:#fee7e7;
 }
 
+.indvpost {
+  background-image: url(photos/mainpagebg.png);
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  margin-top: 3%;
+}
+
 /*Donation page*/
 .donation-page {
-  background-image: url('photos/catformbg.png'); 
+  background-image: url('photos/catbg7.png'); 
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
@@ -623,7 +631,7 @@ a.addpostbtn:visited, a.addpostbtn:hover {
 
 /*CatRegisterPage*/
 .catformpage {
-  background-image: url('photos/catformbg.png'); 
+  background-image: url('photos/catbg4.png'); 
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
@@ -694,7 +702,7 @@ input[type="submit"]:hover {
 
 /*CatProfilePage*/
 .catprofilepage {
-  background-image: url('photos/catprofilebg.png'); 
+  background-image: url('photos/catbg4.png'); 
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
@@ -838,7 +846,7 @@ a.addcat_button:hover {
 
 /*User Profile Page*/
 .userprofilepage {
-  background-image: url('photos/catformbg.png'); 
+  background-image: url('photos/catbg5.png'); 
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
@@ -891,6 +899,10 @@ a.addcat_button:hover {
 .usertitle {
   font-weight: bold;
   margin-left: 1%;
+  background-color: beige;
+  width:max-content;
+  border-radius: 15px;
+
 }
 
 .userprofile {
@@ -962,6 +974,9 @@ a.addcat_button:hover {
 
 .editusertitle {
   margin-left: 2%;
+  background-color: beige;
+  width: max-content;
+  border-radius: 15px;
 }
 
 .edituserform {
@@ -983,7 +998,7 @@ a.addcat_button:hover {
 }
 
 .edituserpage {
-  background-image: url('photos/catformbg.png'); 
+  background-image: url('photos/catbg5.png'); 
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
