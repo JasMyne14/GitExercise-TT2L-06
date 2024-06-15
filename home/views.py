@@ -40,46 +40,24 @@ def mainpage():
         post.date = convert_timezone(post.date)
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic)
 
-@views.route('/signup', methods=['GET', 'POST'])
+@views.route('/signup', methods=['GET','POST'])
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        # Check if email, username, or phone number already exists
-        existing_user_email = User.query.filter_by(email=form.email.data).first()
-        existing_user_username = User.query.filter_by(username=form.username.data).first()
-        existing_user_phone = User.query.filter_by(phonenumber=form.phonenumber.data).first()
-
-        if existing_user_email:
-            flash('Email address already exists. Please use a different email.', 'danger')
-            return render_template('signup.html', form=form)
-
-        elif existing_user_username:
-            flash('Username already exists. Please use a different username.', 'danger')
-            return render_template('signup.html', form=form)
-
-        elif existing_user_phone:
-            flash('Phone number already exists. Please use a different phone number.', 'danger')
-            return render_template('signup.html', form=form)
-
         hashed_password = generate_password_hash(form.password1.data)
-
-        user = User(
-            fullname=form.fullname.data,
-            email=form.email.data,
-            username=form.username.data,
-            password1=hashed_password,
-            password2=hashed_password,            
-            state=form.selected_option.data,
-            phonenumber=form.phonenumber.data
-        )
-
+        user = User(fullname=form.fullname.data,
+                    email=form.email.data,
+                    username=form.username.data,
+                    password1=hashed_password,
+                    password2=hashed_password,
+                    state=form.selected_option.data,
+                    phonenumber=form.phonenumber.data)
         db.session.add(user)
         db.session.commit()
-
-        flash(f'Account created for {form.username.data}!', 'success')
+        selected_option = form.selected_option.data
+        flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.login'))
     return render_template('signup.html', form=form)
-
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
@@ -402,7 +380,6 @@ def userprofile():
     return render_template("userprofile.html", profile_pic=profile_pic, cats=cats)
 
 @views.route('/user_edit', methods=['GET', 'POST'])
-@login_required
 def user_edit():  
     user = User.query.get(current_user.id)
     form = UpdateProfileForm(obj=user)
@@ -427,22 +404,15 @@ def user_edit():
     return render_template('user_edit.html', user=user, form=form, profile_pic=profile_pic)
 
 def save_picture(form_picture):
-    filename = secure_filename(form_picture.filename)
-    
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', filename)
-    
-    if not os.path.exists(os.path.dirname(picture_path)):
-        os.makedirs(os.path.dirname(picture_path))
-    
-    while os.path.exists(picture_path):
-        random_hex = secrets.token_hex(4)
-        filename = f"{os.path.splitext(filename)[0]}_{random_hex}{os.path.splitext(filename)[1]}"
-        picture_path = os.path.join(app.root_path, 'static/profile_pics', filename)
-    
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
     form_picture.save(picture_path)
 
-    return filename
+    return picture_fn
 
+views.register_blueprint(adoptmeow)   
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():
@@ -454,24 +424,22 @@ def adoptmeow():
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).order_by(Cat.date_put_for_adoption.desc()).all()
     return render_template('adoptmeow.html', cats=cats, profile_pic=profile_pic)
 
-@views.route('/profiledisplay/<username>')
+@views.route('/profiledisplay<username>')
+@login_required
 def profiledisplay(username):
+    user = User.query.filter_by(username=username).first_or_404()
     profile_pic= url_for('static', filename='default.jpg')
 
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
-    user = User.query.filter_by(username=username).first_or_404()
-
     if user.profile_pic:
-        user_profile_pic = url_for('static', filename='profile_pics/' + user.profile_pic)
-
-    else:
-        user_profile_pic = profile_pic
+        profile_pic = url_for('static', filename='profile_pics/' + user.profile_pic)
 
     cats = Cat.query.filter(Cat.owner.has(id=user.id)).all()
-
-    return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats, user_profile_pic=user_profile_pic)
+    post = Post.query.filter_by(author=user).first()    
+    
+    return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats, post=post)
 
 def convert_timezone(utc_timestamp):
     local_timezone = pytz.timezone(app.config['TIMEZONE'])
@@ -490,4 +458,3 @@ def otheruser_post(username):
     comments = Comment.query.all()
 
     return render_template('otheruser_post.html', posts=posts, form=form, comments=comments, profile_pic=profile_pic, user=user)
-
