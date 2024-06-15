@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, redirect,url_for, flash, send_from_directory, session, abort, logging
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import exists
+from sqlalchemy import exists, desc
 from home import create_app
 from .forms import PostForm, SignUpForm, LoginForm, CommentForm, UpdateProfileForm
 from .models import Post, User, Comment, Cat, Like, Notification, AdoptionNotification, db
@@ -516,7 +516,7 @@ def otheruser_post(username):
     # Create a comment form
     form = CommentForm()
     # Get all the posts that authored by user
-    posts = Post.query.filter_by(author=user).all()  
+    posts = Post.query.filter_by(author=user).order_by(desc(Post.date)).all()  
     # Get all the comment from the database  
     comments = Comment.query.all()
 
