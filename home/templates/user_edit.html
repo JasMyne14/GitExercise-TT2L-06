@@ -38,6 +38,7 @@
             <form method="POST" action="{{ url_for('views.user_edit', user_id=user.id) }}" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <h1 class="editusertitle"><u><b>Edit Profile</b></u></h1>
+                <!-- Update User Form -->
                 <div class="edituserform">
                     <div class="input-box">
                             {% if profile_pic %}

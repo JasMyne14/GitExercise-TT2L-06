@@ -34,6 +34,7 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    <br />
 
+   <!-- Other User's Profile -->
       <p class="profileheader" style="margin-top: 5%;"><b><u>{{ user.username }}'s Profile</u></b></p>
       <div class="othersprofile">
         <div class="media">
@@ -51,6 +52,8 @@
                 <button class="userpostbttn" onclick="location.href='{{ url_for('views.otheruser_post', username=post.author.username) }}'">View {{ user.username }}'s Post</button>
               </div>
         </div> 
+
+        <!-- Other User's Cat Profile-->
         <p class="profileheader" style="margin-top: 45%; margin-bottom: 20%;"><b><u>{{ user.username }}'s Cats</u></b></p>
         {% for cat in cats %}
       <div class="displaycat" style="margin-top: 20%;">
