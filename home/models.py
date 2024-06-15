@@ -55,8 +55,8 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     file = db.Column(db.String(255), nullable=True)
 
-    comments = db.relationship('Comment', backref='post', lazy=True)
-    likes = db.relationship('Like', backref='post', lazy=True)
+    comments = db.relationship('Comment', backref='post', lazy=True, cascade="all, delete-orphan")
+    likes = db.relationship('Like', backref='post', lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date}')"

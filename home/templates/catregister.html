@@ -25,7 +25,7 @@
       </button>
       <div class="dropdown-content" id="dropdownContent">
         <a href="/userprofile">My Profile</a>
-        <a href="/notification">Notifications</a>
+        <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
         <a href="/user_posts">My Posts</a>
         <a href="/catprofile">My Cats</a>
         <a href="/registercat">Register Cat</a>
@@ -37,46 +37,6 @@
 </head>
 
     <body class="catformpage">
-<<<<<<< HEAD
-=======
-
-        <div class="navigation">
-            <div class="topnav">
-              <a href="/mainpage">Home</a>
-              <a href="/createpost">Post</a>
-              <a href="/adoptmeow">Adopt Meow</a>
-              <a href="/donation">Donation</a>
-            </div>
-            <div class="dropdown">
-              <button class="dropbtn">
-                <img src="{{ profile_pic }}" class="profilepic">
-                {{ current_user.username }}
-              </button>
-              <div class="dropdown-content" id="dropdownContent">
-                <a href="/userprofile">My Profile</a>
-                <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
-                <a href="/user_posts">My Posts</a>
-                <a href="/catprofile">My Cats</a>
-                <a href="/registercat">Register Cat</a>
-                <a href="/logout">Log out</a>
-                  </div>
-            </div>  
-        </div>
-        
-        <div class="flash-messages">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-
-        <br />
->>>>>>> main
         <p class="profileheader"><b><u>Cat Register</u></b></p>
 
         <div class="catform_container">
