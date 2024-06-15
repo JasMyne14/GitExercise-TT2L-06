@@ -55,6 +55,7 @@ body {
   margin-left: 75%;
   padding: 10px;
   font-size: large;
+  margin-bottom: 5%;
 }
 
 .addpostbtn{
@@ -260,6 +261,7 @@ a.delete-comment:visited{
   width: 115px; 
   transition: background-color 0.3s;
   margin-left: 70%;
+  margin-bottom: 5%;
 }
 
 .backbtn:hover {
@@ -277,17 +279,17 @@ a.delete-comment:visited{
 }
 .donate {
   margin-left: 5%;
-  margin-bottom: 10%;
+  margin-bottom: 1%;
 }
 
 .image-links-container {
   margin-left: 2%;
 }
-.image-links-container, .donate-links {
+.image-links-container, .donate-links, .image-links-container2, .donate-links2 {
   display: flex;
   justify-content: center;
 }
-.image-link , .donate-links {
+.image-link , .donate-links, .donate-links2 {
   text-align: center;
 }
 
@@ -340,6 +342,10 @@ a.delete-comment:visited{
 .link3 {
   margin-left: 230px;
   padding: 24px;
+}
+
+.donate-links2 {
+  margin-right: 7%;
 }
 
 /* First Page */
@@ -855,10 +861,6 @@ input[type="submit"]:hover {
   background-color: #8E7137;
 }
 
-.usertitle {
-  margin-left: 10%;
-  margin-bottom: 0px;
-}
 
 .userprofile {
   margin: 5% 15% 5%;

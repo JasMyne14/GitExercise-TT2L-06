@@ -8,32 +8,36 @@
 </head>
 
     <body class="edituserpage">
+        <!-- Navigation Bar -->
         <div class="navigation">
             <div class="topnav">
-            <a class="" href="/mainpage">Main</a>
-            <a href="/createpost">Post</a>
-            <a href="/adoptmeow">Adopt meow</a>
-            <a href="/donation">About</a>
+              <a href="/mainpage">Home</a>
+              <a href="/createpost">Post</a>
+              <a href="/adoptmeow">Adopt Meow</a>
+              <a href="/donation">Donation</a>
             </div>
+  
+            <!-- User's Profile Dropdown Menu -->
             <div class="dropdown">
-            <button class="dropbtn">
+              <button class="dropbtn">
                 <img src="{{ profile_pic }}" class="profilepic">
                 {{ current_user.username }}
-            </button>
-            <div class="dropdown-content" id="dropdownContent">
+              </button>
+              <div class="dropdown-content" id="dropdownContent">
                 <a href="/userprofile">My Profile</a>
                 <a href="/notification">Notifications ({{ current_user.unread_notification_count }})</a>
                 <a href="/user_posts">My Posts</a>
                 <a href="/catprofile">My Cats</a>
                 <a href="/registercat">Register Cat</a>
                 <a href="/logout">Log out</a>
-            </div>
+              </div>
             </div>  
-        </div>
+  
+          </div>
         
             <form method="POST" action="{{ url_for('views.user_edit', user_id=user.id) }}" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
-                <h1 class="editusertitle">Edit Profile</h1>
+                <h1 class="editusertitle"><u><b>Edit Profile</b></u></h1>
                 <div class="edituserform">
                     <div class="input-box">
                             {% if profile_pic %}

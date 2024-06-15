@@ -10,13 +10,17 @@
    <script src='main.js'></script>
 
   <body class="userprofilepage">
+
+        <!-- Navigation Bar -->
         <div class="navigation">
           <div class="topnav">
             <a href="/mainpage">Home</a>
             <a href="/createpost">Post</a>
-            <a href="/adoptmeow">Adopt meow</a>
-            <a href="/donation">About</a>
+            <a href="/adoptmeow">Adopt Meow</a>
+            <a href="/donation">Donation</a>
           </div>
+
+          <!-- User's Profile Dropdown Menu -->
           <div class="dropdown">
             <button class="dropbtn">
               <img src="{{ profile_pic }}" class="profilepic">
@@ -39,8 +43,9 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <br />
 
+      <!-- Flash message -->
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8" style="margin-left: 20%;">
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -51,8 +56,13 @@
             {% endif %}
           {% endwith %}
         </div>
-    <h1 class="usertitle">Welcome, {{ current_user.username }} ! </h1>
-    
+
+        <br/>
+        
+        <!-- Profile Header-->
+        <p class="profileheader" style="margin-top: 5%;"><b><u>Welcome , {{ current_user.username }} !</u></b></p>
+
+      <!-- Current User's profile-->
       <div class="userprofile">
         <div class="media">
             <img class="userpfp" src="{{ profile_pic }}" style="max-width: 200px; max-height: 200px;">
@@ -62,7 +72,8 @@
                 <strong>Username : </strong>{{ current_user.username }}</br></br>
                 <strong>State : </strong>{{ current_user.state }}</br></br>
                 <strong>Phone Number : </strong>{{ current_user.phonenumber }}</br></br>
-
+                
+                <!-- Edit Profile Button & Logout Button -->
                 <div class="userpage_bttn">
                   <button  class="edituserbttn" onclick="location.href='/user_edit'">Edit Profile</button>
                   <button type="logout" class="logoutbttn" onclick="location.href='/logout'">Logout</button>
@@ -72,7 +83,8 @@
         </div>
       </div>
 
-      <h1 class="usertitle">{{ current_user.username}}'s Cat</h1>
+      <!-- Current User's Cats -->
+      <p class="profileheader" style="margin-top: 45%;"><b><u>{{ current_user.username }}'s Cats</u></b></p>
       {% for cat in cats %}
       <div class="ownercat">
           <div class="catpfp">
