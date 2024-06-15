@@ -521,7 +521,7 @@ def save_picture(form_picture):
     
     return filename   
 
-views.register_blueprint(adoptmeow)   
+#Route for displaying cat av for adoption
 @views.route('/adoptmeow')
 @login_required
 def adoptmeow():

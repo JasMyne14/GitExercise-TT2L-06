@@ -14,6 +14,7 @@ def allowed_catfile(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
+#Define route to register new cat
 @registercat.route('/register', methods=['GET', 'POST'])
 def register_cat_form():
     if request.method == 'POST':
@@ -45,6 +46,7 @@ def register_cat_form():
         else:
             cat_photo = None            
 
+        #create new cat obj with form data
         formcat = Cat(cat_name=cat_name,
                         cat_photo=cat_photo, 
                         cat_breed=cat_breed, 
@@ -55,7 +57,8 @@ def register_cat_form():
                         cat_special_needs=cat_special_needs, 
                         cat_about_me=cat_about_me,
                         user_id = current_user.id)
-
+        
+        #add new cat into db
         db.session.add(formcat)
         db.session.commit()
 
@@ -64,6 +67,7 @@ def register_cat_form():
 
     return render_template('catregister.html')
 
+#Define route for edit catprofile
 @registercat.route('/edit/<int:cat_id>', methods=['GET', 'POST'])
 @login_required
 def edit_cat(cat_id):
@@ -102,6 +106,7 @@ def edit_cat(cat_id):
 
     return render_template('catedit.html', cat=cat, profile_pic=profile_pic)    
 
+#Define route for deleting cat profile
 @registercat.route('/deletecat/<int:cat_id>', methods=['POST'])
 @login_required
 def delete_cat(cat_id):

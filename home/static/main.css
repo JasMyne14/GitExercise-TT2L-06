@@ -34,9 +34,10 @@ body {
   padding: 10px 7.4%; 
   text-decoration: none;
   font-size: 20px;
+  color:#ddc7ab;
 }
   
-.topnav a:hover, a.active {
+.topnav a:hover, .topnav a.active {
   background-color: #dba76d;
   color: #62442f;
 }
