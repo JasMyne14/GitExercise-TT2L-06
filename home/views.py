@@ -138,12 +138,15 @@ def logout():
 def user_posts():
     profile_pic= url_for('static', filename='default.jpg')
 
+    # display profile picture
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    # display user's post
     user_posts = Post.query.filter_by(author=current_user).all()
     return render_template('user_posts.html', posts=user_posts, profile_pic=profile_pic)
 
+# allow image to be displayed on each page
 @views.route('/display/<filename>')
 def display_image(filename):
     return '.' in filename and \
@@ -162,22 +165,25 @@ def createpost():
     if form.validate_on_submit():
         file = form.file.data
 
+        #save image at upload folder
         if file and display_image(file.filename):
             filename = secure_filename(file.filename)
             file_path = os.path.join(upload_folder, filename)
             file.save(file_path)
             file = url_for('static', filename=f'uploads/{filename}')
             flash('Your post has been created!','success')
-        else:
+        else: #post without image
             file = None
             flash('your post has been created (no file selected)','success')
 
+        #insert to database
         post = Post(title=form.title.data, content=form.content.data, author=current_user, file=file)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.mainpage'))
     return render_template('createpost.html', title='New Post', form=form, legend='New Post', profile_pic=profile_pic)
 
+#display specific post based on post id
 @views.route('/<int:post_id>')
 def post(post_id):
     profile_pic= url_for('static', filename='default.jpg')
@@ -191,6 +197,7 @@ def post(post_id):
 
     return render_template('post.html', title=post.title, post=post, form=form, comments=comments, profile_pic=profile_pic)
 
+# update post function
 @views.route('/<int:post_id>/update',methods=['GET','POST'])
 @login_required
 def update_post(post_id):
@@ -211,17 +218,21 @@ def update_post(post_id):
             file.save(file_path)
             file = url_for('static', filename=f'uploads/{filename}')
 
+        # add new edited post to database
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
         flash('Post has been updated','success')
         return redirect(url_for('views.post', post_id=post.id))
+    
+    #get previous data from database
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
         form.file.data = post.file
     return render_template('createpost.html', title='Update Post', form=form, legend='Update Post', profile_pic=profile_pic)
 
+# delete post function
 @views.route('/<int:post_id>/delete',methods=['POST'])
 @login_required
 def delete_post(post_id):
@@ -249,6 +260,7 @@ def delete_post(post_id):
     flash('Post has been deleted', 'success')
     return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
+#create comment function for each specific post
 @views.route('/create-comment/<int:post_id>', methods=['GET','POST'])
 @login_required
 def create_comment(post_id):
@@ -268,11 +280,13 @@ def create_comment(post_id):
         flash('Comment added!','success')
         form.text.data = ""
 
+        #add comment notifications to database
         if current_user != post.author:
             notification = Notification(user_id=current_user.id, post_id=post_id, notification_type='comment', comment_id=comment.id, like_id=None)
             db.session.add(notification)
             db.session.commit()
 
+            #count unread notifications
             owner = User.query.get(post.author.id)
             owner.unread_notification_count +=1
 
@@ -285,6 +299,7 @@ def create_comment(post_id):
   
     return render_template('post.html', post=post, form=form, post_id=post_id, profile_pic=profile_pic, comment=comment)
 
+# delete comment function
 @views.route('/delete-comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
@@ -296,9 +311,11 @@ def delete_comment(comment_id):
     form = CommentForm()
     comment = Comment.query.filter_by(id=comment_id).first()
 
+    #if comment noneexisted
     if not comment:
         flash('Comment does not exists','error')
 
+    #if current user is not the author or the post's owner
     elif current_user != comment.author and current_user != comment.post.author:
         flash('Permission denied','error')
 
@@ -309,6 +326,7 @@ def delete_comment(comment_id):
 
     return redirect(url_for('views.mainpage', profile_pic=profile_pic))
 
+# like-post function
 @views.route('/like-post/<int:post_id>',methods=['GET','POST'])
 @login_required
 def like(post_id):
@@ -325,6 +343,7 @@ def like(post_id):
         db.session.add(like)
         db.session.commit()
 
+        # add and count unread notifications
         if current_user != post.author:
             notification = Notification(user_id=post.author.id, post_id=post_id, notification_type='like', comment_id=None, like_id=like.id)
             db.session.add(notification)
@@ -338,33 +357,41 @@ def like(post_id):
 
     return redirect(url_for('views.mainpage'))
 
+# notification settings
 @views.route("/notification")
 @login_required
 def display_noti():
     user_id = current_user.id
-    notifications = []
+    notifications = [] #gather notifications as a list
+    # get notifications from database for specific user
     like_comment_notifications = Notification.query.filter(
         (exists().where((Post.id == Notification.post_id) & (Post.user_id == user_id))) &  
         ((Notification.notification_type == 'like') | (Notification.notification_type == 'comment'))).order_by(Notification.date.desc()).all()
     notifications.extend(like_comment_notifications)
 
+    # get adoption notification from database
     adoption_notifications = AdoptionNotification.query.filter_by(user_id=user_id).all()
     notifications.extend(adoption_notifications)
+    #display notification according to date (newest)
     notifications.sort(key=lambda x: x.date, reverse=True)
 
+    # convert date to localtime zone
     for notification in notifications:
         utc_timestamp = notification.date
         local_timezone = pytz.timezone(app.config['TIMEZONE'])
         local_timestamp = utc_timestamp.astimezone(local_timezone)
         notification.date = local_timestamp
 
+        # mark unread noti as read
         if not notification.read:
             notification.read=True
     db.session.commit()
 
+    # get comment notification for user
     comment_ids = [n.comment_id for n in notifications if hasattr(n, 'comment_id') and n.comment_id is not None]
     comments = Comment.query.filter(Comment.id.in_(comment_ids)).all()
 
+    #get post associated with the notifications
     post_ids = [n.post_id for n in notifications if hasattr(n, 'post_id') and n.post_id is not None]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
     #posts = Post.query.all()
@@ -373,14 +400,17 @@ def display_noti():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
     
+    # count total unread notifications
     unread_notification_count = sum(1 for notification in notifications if not notification.read)
 
+    # get cat data from database
     cats = {}
     for notification in adoption_notifications:
         cat = Cat.query.get(notification.cat_id)
         if cat:
             cats[notification.id] = cat
 
+    #get adopter data from database
     adopter_names = {}
     for notification in adoption_notifications:
         adopter = User.query.get(notification.adopter_id)

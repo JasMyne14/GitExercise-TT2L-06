@@ -43,16 +43,19 @@
         <article class="noti-body">
         <ul class="noti-content">
             {% for notification in notifications %}
+                <!--display like notifications-->
                 {% if notification.notification_type == 'like' %}
                     {% if notification.likes%}
                         <p class="like-noti">{{ notification.likes.author.username }} liked your post. {{ notification.date.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                     {% endif %}
+                <!--display comment notifications-->
                 {% elif notification.notification_type == 'comment' %}
                     {% for comment in comments %}
                         {% if comment.id == notification.comment_id %}
                             <p class="comment-noti">{{ comment.author.username }} commented "{{ comment.text }}" on <a class="noti-post" href="{{ url_for('views.post', post_id=notification.post_id) }}">your post</a>. {{ notification.date.strftime('%Y-%m-%d %H:%M:%S')}}</p>
                         {% endif %}
                     {% endfor %}
+                <!--display adoption notification-->
                 {% elif notification.notification_type == 'adoption' %}
                     <p class="adoption-noti">
                         {{ adopter_names[notification.id] }} adopted your cat, <a class="noti-post" href="{{ url_for('views.catprofile', cat_id=notification.cat_id) }}">{{ cats[notification.id].cat_name }}!</a>

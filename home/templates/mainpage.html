@@ -80,6 +80,7 @@
                       <img src="{{ post.file }}" alt="uploaded image">
                   {% endif %}
                 </div>
+                <!--likes count-->
                 <div class="icons-btn">
                   {{ post.likes|length }}
                   {% if current_user in post.likes|map(attribute="author")|list %}
@@ -88,11 +89,12 @@
                   <a href="/like-post/{{post.id}}"><i class="fa-regular fa-heart" style="color: #4f4139;"></i></a>    
                   {% endif %}
                   <span>
+                  <!--comment icon-->
                   {{ post.comments|length }}
                   <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #4f4139;"></i></a>    
 
                 </div>
-              
+                <!--display top 5 comments-->
                 <div class="text-body">
                   <div class="card-text">{{post.text}}</div>
                   <div class="" id="comments-{{post.id}}">

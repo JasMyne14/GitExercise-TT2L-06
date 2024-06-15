@@ -51,6 +51,7 @@ def create_app():
     from .profiledisplay import profiledisplay
     from .otheruser_post import otheruser_post
 
+    #register blueprint
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(notification, url_prefix='/notification')
     app.register_blueprint(donation, url_prefix='/donation')
@@ -66,7 +67,5 @@ def create_app():
     app.register_blueprint(user_edit, url_prefix='/user_edit')
     app.register_blueprint(profiledisplay, url_prefix='/profiledisplay')
     app.register_blueprint(otheruser_post, url_prefix='/otheruser_post')
-
-
 
     return app

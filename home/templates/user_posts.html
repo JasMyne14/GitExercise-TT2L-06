@@ -35,14 +35,16 @@
   </div>
 
 </head>
-
 <body class="post-page">
-
+    <br />
+    <!--add new post button-->
+    <title>Add Post</title>
     <div class="mypost-content">
         <p class="profileheader">--My Post--</p>
         <p class="username">{{current_user.username}}'s Post</p>
         <a href="/createpost"><button class="addpostbtn">Add new post</button></a>
     </div>
+    <!--display current user's posts-->
     <div class="post-content">
         {% for post in posts %}
         <article class="media content-section">
@@ -63,6 +65,7 @@
                   <img src="{{ post.file }}" alt="uploaded image">
               {% endif %}
             </div>    
+            <!--display likes and comments-->
             <div class="icons-btn">
               {{ post.likes|length }}
               {% if current_user in post.likes|map(attribute="author")|list %}
@@ -75,7 +78,7 @@
               <a href="/{{post.id}}"><i class="fa-regular fa-comment" style="color: #4f4139;"></i></a>    
 
             </div>
-          
+            <!--allow displaying comment-->
             <div class="text-body">
               <div class="card-text">{{post.text}}</div>
               <div class="" id="comments-{{post.id}}">
@@ -91,8 +94,10 @@
                           </div>    
                       </div>
                       {% endfor %}
+                      <!--display at most 5 comments-->
                       {%if post.comments|length > 5 %}
                       <div>
+                        <!--add link to display all comments-->
                         <a class="view_comment" href="/{{post.id}}" role="button">
                           <small>View all comments ({{ post.comments|length }})</small>
                         </a>
