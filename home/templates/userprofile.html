@@ -40,7 +40,7 @@
       <br />
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8" style="margin-left: 20%;">
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -51,7 +51,10 @@
             {% endif %}
           {% endwith %}
         </div>
-    <h1 class="usertitle">Welcome, {{ current_user.username }} ! </h1>
+
+        <br/>
+
+        <p class="profileheader"><b><u>Welcome , {{ current_user.username }} !</u></b></p>
     
       <div class="userprofile">
         <div class="media">

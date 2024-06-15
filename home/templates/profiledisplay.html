@@ -18,7 +18,7 @@
         </div>
         <div class="dropdown">
         <button class="dropbtn">
-            <img src="{{ profile_pic }}" class="profilepic">
+            <img src="{{profile_pic }}" class="profilepic">
             {{ current_user.username }}
         </button>
         <div class="dropdown-content" id="dropdownContent">
@@ -37,14 +37,15 @@
       <h1 class="otherstitle">{{ user.username }}'s Profile </h1>
       <div class="othersprofile">
         <div class="media">
-        <img class="userpfp otherspfp" src="{{ profile_pic }}">
+        <img class="userpfp otherspfp" src="{{ user_profile_pic }}">
             <div class="othersform">
                 <strong>Full Name : </strong>{{ user.fullname }}</br></br>
                 <strong>Email : </strong>{{ user.email }}</br></br>
                 <strong>Username : </strong>{{ user.username }}</br></br>
                 <strong>State : </strong>{{ user.state }}</br></br>
                 <strong>Phone Number : </strong>{{ user.phonenumber }}</br></br>
-            </div>
+                <button class="userpostbttn" onclick="location.href='{{ url_for('views.otheruser_post', username=post.author.username) }}'">View {{ user.username }}'s Post</button>
+              </div>
         </div> 
         <h1 class="otherstitle">{{ user.username}}'s Cat</h1>
         {% for cat in cats %}
