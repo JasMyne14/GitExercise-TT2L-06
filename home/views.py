@@ -23,11 +23,13 @@ app.config['SECRET_KEY'] = 'appviews'
 app.config['upload_folder'] = upload_folder
 app.config['TIMEZONE'] = 'Asia/Kuala_Lumpur'
 
+# First Page
 @views.route('/')
 def first():
     session.clear()
     return render_template('firstpage.html', name='firstpage')
 
+# Mainpage
 @views.route('/mainpage')
 def mainpage():
     posts = Post.query.order_by(Post.date.desc()).all()
@@ -37,15 +39,23 @@ def mainpage():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    # To convert the timezone for each post's date
     for post in posts:
         post.date = convert_timezone(post.date)
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic, comments=comments)
 
+#Sign Up Page
 @views.route('/signup', methods=['GET','POST'])
 def signup():
     form = SignUpForm()
+
+    # To check if the form is submitted and validated
     if form.validate_on_submit():
+
+        # To generate a hashed password from the form data
         hashed_password = generate_password_hash(form.password1.data)
+
+        # To create new User with the form data
         user = User(fullname=form.fullname.data,
                     email=form.email.data,
                     username=form.username.data,
@@ -53,21 +63,30 @@ def signup():
                     password2=hashed_password,
                     state=form.selected_option.data,
                     phonenumber=form.phonenumber.data)
+        
+        # To add the new user to the database session
         db.session.add(user)
+
+        # To commit the session to save the new user to the database
         db.session.commit()
-        selected_option = form.selected_option.data
+
         flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('views.login'))
     return render_template('signup.html', form=form)
 
+#Login Page
 @views.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('views.mainpage'))
     
     form = LoginForm()
+
+    # To check if the form is submitted and validated
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+
+        # To verify the user's password
         if user and check_password_hash(user.password1, form.password1.data):
             login_user(user)
             flash('You have been logged in!', 'success')
@@ -77,19 +96,28 @@ def login():
             return redirect(url_for('views.login'))
     return render_template('login.html', form=form)
 
+# Log Out Page
 @views.route('/logout')
 def logout():
+
     notifications = Notification.query.filter_by(user_id=current_user.id, read=False).all()
     for notification in notifications:
         notification.read = True
     current_user.unread_notification_count = 0
+
+    # To commit changes to the database
     db.session.commit()
 
+    #Log the user out
     logout_user()
+
+    # To clear the session data
     session.clear()
     flash('Logged out successfully!', 'success')
+
     return redirect(url_for('views.login'))
 
+# User Post 
 @views.route('/user_posts')
 def user_posts():
     profile_pic= url_for('static', filename='default.jpg')
@@ -105,6 +133,7 @@ def display_image(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
+# Create Post Page
 @views.route('/createpost', methods=['GET','POST'])
 @login_required
 def createpost():
@@ -336,6 +365,7 @@ def display_noti():
 
     return render_template('notification.html', notifications=notifications, unread_notification_count=unread_notification_count, profile_pic=profile_pic, user_id=user_id, comments=comments, posts=posts, cats=cats, adopter_names=adopter_names)
 
+# Donation Page 
 @views.route('/donation')
 def donation():
     profile_pic= url_for('static', filename='default.jpg')
@@ -343,12 +373,9 @@ def donation():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
-    links= [{'url':"https://www.paws.org.my/donate", "text":"donate1"},
-            {'url':"https://mnawf.org.my/donate/", "text":"donate2"},
-            {'url':"https://catbeachpenang.com/donate/", "text":"donate3"}
-    ]
-    return render_template('donation.html', donation='donation', links=links, profile_pic=profile_pic)
+    return render_template('donation.html', profile_pic=profile_pic)
 
+#Registration Cat Page
 @views.route('/registercat')
 def registercat():
     profile_pic= url_for('static', filename='default.jpg')
@@ -358,6 +385,7 @@ def registercat():
 
     return render_template('catregister.html', profile_pic=profile_pic) 
 
+# Cat Profile Page
 @views.route('/catprofile')
 def catprofile():
     profile_pic= url_for('static', filename='default.jpg')
@@ -368,6 +396,7 @@ def catprofile():
     formcat = Cat.query.all()
     return render_template('catprofile.html', formcat=formcat, profile_pic=profile_pic)
 
+# User Profile Page
 @views.route('/userprofile', methods=['GET'])
 @login_required
 def userprofile():
@@ -377,9 +406,11 @@ def userprofile():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    # Queries the database for all cats owned by the current_user
     cats = Cat.query.filter(Cat.owner.has(id=current_user.id)).all()
     return render_template("userprofile.html", profile_pic=profile_pic, cats=cats)
 
+# Update User Page
 @views.route('/user_edit', methods=['GET', 'POST'])
 def user_edit():  
     user = User.query.get(current_user.id)
@@ -389,29 +420,52 @@ def user_edit():
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    #To handle form submission from the update user page
     if form.validate_on_submit():
+
+        # If a new profile picture is uploaded, save it and updated it
         if form.profile_pic.data:
             picture_file = save_picture(form.profile_pic.data)
             user.profile_pic = picture_file
+        
+        # To update the user's details with the form data
         user.fullname = form.fullname.data
         user.email = form.email.data
         user.username = form.username.data
         user.state = form.selected_option.data
         user.phonenumber = form.phonenumber.data
+
+        # To commit the changes to the database
         db.session.commit()
+
         flash('Your profile has been updated!', 'success')
         return redirect(url_for('views.userprofile'))
     
     return render_template('user_edit.html', user=user, form=form, profile_pic=profile_pic)
 
 def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-    form_picture.save(picture_path)
 
-    return picture_fn
+    # To secure the filename provided by user
+    filename = secure_filename(form_picture.filename)
+
+    #To construct the full path where the picture will be saved
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', filename)
+
+    # To check if the directory where the picture will be saved exists
+    if not os.path.exists(os.path.dirname(picture_path)):
+        os.makedirs(os.path.dirname(picture_path))
+
+    # To ensure the filename is unique by adding a random hex if the file already exists
+    while os.path.exists(picture_path):
+
+        random_hex = secrets.token_hex(4)
+        filename = f"{os.path.splitext(filename)[0]}_{random_hex}{os.path.splitext(filename)[1]}"
+        picture_path = os.path.join(app.root_path, 'static/profile_pics', filename)
+    
+    # Save the picture to the defined path
+    form_picture.save(picture_path)
+    
+    return filename   
 
 views.register_blueprint(adoptmeow)   
 @views.route('/adoptmeow')
@@ -425,16 +479,22 @@ def adoptmeow():
     cats = db.session.query(Cat, User.state, User.email, User.phonenumber).join(User, Cat.user_id == User.id).filter(Cat.available_for_adoption == True).order_by(Cat.date_put_for_adoption.desc()).all()
     return render_template('adoptmeow.html', cats=cats, profile_pic=profile_pic)
 
+# Profile Display Page
 @views.route('/profiledisplay/<username>')
 @login_required
 def profiledisplay(username):
+
+    # To find the the user by username from the User table
     user = User.query.filter_by(username=username).first_or_404()
     profile_pic = url_for('static', filename='default.jpg')
 
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-        
+    
+    # Queries the database for all cats owned by the user
     cats = Cat.query.filter(Cat.owner.has(id=user.id)).all()
+
+    # Queries the database for the first post authored by the user
     post = Post.query.filter_by(author=user).first()
 
     return render_template('profiledisplay.html', user=user, profile_pic=profile_pic, cats=cats, post=post)
@@ -443,6 +503,7 @@ def convert_timezone(utc_timestamp):
     local_timezone = pytz.timezone(app.config['TIMEZONE'])
     return utc_timestamp.astimezone(local_timezone)
 
+# Other's User Post
 @views.route('/otheruser_post/<username>')
 def otheruser_post(username):
     profile_pic= url_for('static', filename='default.jpg')
@@ -450,9 +511,13 @@ def otheruser_post(username):
     if current_user.is_authenticated and current_user.profile_pic is not None:
         profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 
+    # To find the the user by username from the User table
     user = User.query.filter_by(username=username).first_or_404()
+    # Create a comment form
     form = CommentForm()
-    posts = Post.query.filter_by(author=user).all()    
+    # Get all the posts that authored by user
+    posts = Post.query.filter_by(author=user).all()  
+    # Get all the comment from the database  
     comments = Comment.query.all()
 
     return render_template('otheruser_post.html', posts=posts, form=form, comments=comments, profile_pic=profile_pic, user=user)
