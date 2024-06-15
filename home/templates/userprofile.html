@@ -54,7 +54,7 @@
 
         <br/>
 
-        <p class="profileheader"><b><u>Welcome , {{ current_user.username }} !</u></b></p>
+        <p class="profileheader" style="margin-top: 5%;"><b><u>Welcome , {{ current_user.username }} !</u></b></p>
     
       <div class="userprofile">
         <div class="media">
@@ -75,7 +75,7 @@
         </div>
       </div>
 
-      <h1 class="usertitle">{{ current_user.username}}'s Cat</h1>
+      <p class="profileheader" style="margin-top: 45%;"><b><u>{{ current_user.username }}'s Cats</u></b></p>
       {% for cat in cats %}
       <div class="ownercat">
           <div class="catpfp">
