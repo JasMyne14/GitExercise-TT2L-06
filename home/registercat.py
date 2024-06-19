@@ -3,6 +3,7 @@ from .models import db, Cat
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 import os
+from .views import AdoptionNotification
 
 registercat = Blueprint('registercat', __name__)
 
@@ -114,6 +115,8 @@ def delete_cat(cat_id):
 
     if cat.user_id != current_user.id:
         return redirect(url_for('views.catprofile'))
+
+    AdoptionNotification.query.filter_by(cat_id=cat.id).delete()    
 
     db.session.delete(cat)
     db.session.commit()
