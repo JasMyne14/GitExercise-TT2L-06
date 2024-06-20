@@ -45,7 +45,7 @@ def mainpage():
     return render_template('mainpage.html', mainpage='mainpage', user=current_user, posts=posts, profile_pic=profile_pic, comments=comments)
 
 #Sign Up Page
-@views.route('/signup', methods=['GET','POST'])
+@views.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()
 
@@ -55,21 +55,21 @@ def signup():
         existing_user_email = User.query.filter_by(email=form.email.data).first()
         existing_user_username = User.query.filter_by(username=form.username.data).first()
         existing_user_phone = User.query.filter_by(phonenumber=form.phonenumber.data).first()
- 
+
         if existing_user_email:
             flash('Email address already exists. Please use a different email.', 'danger')
             return render_template('signup.html', form=form)
- 
+
         elif existing_user_username:
             flash('Username already exists. Please use a different username.', 'danger')
             return render_template('signup.html', form=form)
- 
+
         elif existing_user_phone:
             flash('Phone number already exists. Please use a different phone number.', 'danger')
             return render_template('signup.html', form=form)
 
-        # To generate a hashed password from the form data
-        hashed_password = generate_password_hash(form.password1.data)
+        # To generate a hashed password from the form data with a specific method
+        hashed_password = generate_password_hash(form.password1.data, method='pbkdf2:sha256')
 
         # To create new User with the form data
         user = User(fullname=form.fullname.data,
@@ -79,14 +79,14 @@ def signup():
                     password2=hashed_password,
                     state=form.selected_option.data,
                     phonenumber=form.phonenumber.data)
-        
+
         # To add the new user to the database session
         db.session.add(user)
 
         # To commit the session to save the new user to the database
         db.session.commit()
 
-        flash(f'Account created for {form.username.data}!','success')
+        flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('views.login'))
     return render_template('signup.html', form=form)
 
@@ -95,7 +95,7 @@ def signup():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('views.mainpage'))
-    
+
     form = LoginForm()
 
     # To check if the form is submitted and validated
@@ -132,6 +132,19 @@ def logout():
     flash('Logged out successfully!', 'success')
 
     return redirect(url_for('views.login'))
+
+#Generate new hash pass
+def update_password_hashes():
+    users = User.query.all()  # Fetch all users
+    for user in users:
+        try:
+            # Re-hash the existing password with a supported method
+            new_hash = generate_password_hash(user.password1, method='pbkdf2:sha256')
+            user.password1 = new_hash
+            db.session.commit()
+            print(f"Updated password for user {user.username}")
+        except Exception as e:
+            print(f"Failed to update password for user {user.username}: {e}")    
 
 # User Post 
 @views.route('/user_posts')
