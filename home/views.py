@@ -144,7 +144,21 @@ def update_password_hashes():
             db.session.commit()
             print(f"Updated password for user {user.username}")
         except Exception as e:
-            print(f"Failed to update password for user {user.username}: {e}")    
+            print(f"Failed to update password for user {user.username}: {e}")  
+
+def migrate_passwords():
+    users = User.query.all()
+    for user in users:
+        try:
+            # Check if password is using scrypt:32768:8:1 (replace with actual check based on your implementation)
+            if user.password.startswith('scrypt:32768:8:1'):
+                # Re-hash the existing password with pbkdf2:sha256
+                new_hash = generate_password_hash(user.password, method='pbkdf2:sha256')
+                user.password = new_hash
+                db.session.commit()
+                print(f"Updated password for user {user.username}")
+        except Exception as e:
+            print(f"Failed to update password for user {user.username}: {e}")              
 
 # User Post 
 @views.route('/user_posts')
