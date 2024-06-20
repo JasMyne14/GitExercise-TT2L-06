@@ -5,7 +5,6 @@ from flask_bcrypt import Bcrypt
 from sqlalchemy.sql import func
 from .forms import PostForm,SignUpForm,LoginForm
 from flask_login import LoginManager
-from flask_migrate import Migrate
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 db = SQLAlchemy()
@@ -21,7 +20,6 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] =\
         'sqlite:///' + os.path.join(basedir, 'database.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    migrate = Migrate(app,db)
 
     db.init_app(app)
     bcrypt.init_app(app)
